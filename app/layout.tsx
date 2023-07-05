@@ -10,9 +10,12 @@ import AuthProvider from '../contexts/AuthContext'
 const inter = Inter({ subsets: ['latin'] })
 const lato = Lato({subsets:["latin"],weight:["100","300","400","700","900"]})
 export const metadata = {
-  title: 'sideBlog',
+  title: {
+    default:"sideBlog",
+    template:" %s | "
+  },
   description: 'A blog app',
-  keywords:[],
+  keywords:["blog"],
 }
 
 export default function RootLayout({ children }) {

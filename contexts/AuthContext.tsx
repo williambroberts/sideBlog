@@ -69,8 +69,7 @@ const AuthProvider = ({children}:ChildrenProp) => {
         console.log(error)
         return
        }else {
-        const userData = {}
-        setDoc(doc(firestore, '', result.user.uid), userData);
+       
        }
        return {result,error}
     }
