@@ -2,6 +2,8 @@
 
 
 import React from 'react'
+import HeaderHorizontal from '../../components/header/header'
+import FooterHorizontal from '../../components/footer/footer'
 
 export const metadata = {
     title: 'sign Up'
@@ -10,7 +12,11 @@ export const metadata = {
 
 const SignUpLayout = ({children}) => {
   return (
-    <div className='layout__div'>{children}</div>
+    <div className='layout__div'>
+      <HeaderHorizontal/>
+      {children}
+      <FooterHorizontal/>
+      </div>
   )
 }
 

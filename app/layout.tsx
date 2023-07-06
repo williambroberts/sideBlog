@@ -7,6 +7,7 @@ import '../styles/footer.css'
 import { Inter } from 'next/font/google'
 import { Lato } from 'next/font/google'
 import AuthProvider from '../contexts/AuthContext'
+import NotificationProvider from '../contexts/NotificationContext'
 const inter = Inter({ subsets: ['latin'] })
 const lato = Lato({subsets:["latin"],weight:["100","300","400","700","900"]})
 export const metadata = {
@@ -21,10 +22,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={lato.className}>
         <AuthProvider>
+          <NotificationProvider>
+
+          
           {children}
           <div id="portal"></div>
+          </NotificationProvider>
         </AuthProvider>
         
         </body>

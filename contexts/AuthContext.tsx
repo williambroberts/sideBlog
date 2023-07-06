@@ -12,6 +12,7 @@ type AuthContextValues = {
     user?:any;
     signIn:Function;
     signUp:Function;
+    signOut:Function;
     googleSignIn:Function;
     resetPassword:Function;
 }

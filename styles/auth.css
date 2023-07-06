@@ -1,11 +1,12 @@
 .auth__banner {
     color: var(--t-1);
     font-size: var(--font-size-36);
-    @apply font-normal 
+    @apply font-normal my-2
 }
 input.input__reusable {
     background-color: var(--bg-1);
     padding: 14px 15px;
+    height: 50px;
     font-size: var(--font-size-14);
     @apply font-normal
 }
@@ -14,13 +15,13 @@ input.input__reusable {
     color: var(--t-3);
     border: 1px solid var(--t-3);
     border-radius: 50%;
-    
+    margin: 1rem 0rem;
     @apply font-normal p-2 flex flex-col 
     items-center 
     justify-center
 }
 main.signUp {
-    background-color: var(--bg-3);
+    background-color: var(--bg-2);
     @apply flex flex-col items-center
     justify-center;
 }
@@ -32,5 +33,29 @@ main.signUp {
 }
 
 .auth__button{
-    
+    color: var(--bg-2);
+    font-size: var(--font-size-14);
+    font-weight: 400;
+    border-radius: 8px;
+    @apply flex flex-row items-center justify-center
+    ;
+    height: 50px;
+    width: 100%;
+    background-color: var(--t-2);
+    transition: var(--transition-1);
+}
+
+.auth__button:hover {
+ background-color: var(--t-3);
+}
+
+.link__to__other {
+    font-size: var(--font-size-14);
+    color: var(--t-3);
+    font-weight: 300;
+}
+.link__to__other>a {
+    margin-left: 4px;
+    color: var(--t-1);
+    text-decoration: underline;
 }

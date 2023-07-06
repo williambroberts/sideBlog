@@ -5,7 +5,7 @@
 :root { 
   --invert:0;
     --bg-1:#FFFFFF; 
-    --bg-2:#fdfdfc;
+    --bg-2:rgb(253, 253, 252);
    --bg-3: #f5f5f5;
     --bg-4:#90909040;
     

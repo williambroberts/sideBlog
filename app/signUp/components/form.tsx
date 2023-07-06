@@ -1,7 +1,12 @@
 "use client"
 import React, { useState } from 'react'
-import InputPassword from './inputPassword'
 import InputReusable from './inputReusable';
+import { AuthButton } from './AuthButton';
+import { setDoc,doc } from 'firebase/firestore';
+import { useNotifications } from '../../../contexts/NotificationContext';
+import { useAuth } from '../../../contexts/AuthContext';
+import { firestore } from '../../../firebase/firebaseConfig';
+import LinkToOther from './linkToOther';
 type dataProps = {
     username:string;
     password:string;
@@ -10,21 +15,65 @@ type dataProps = {
     confirmEmail:string;
 }
 const SignUpForm = () => {
+    
     const [data,setData]=useState<dataProps>({username:"",password:"",
     email:"",confirmPassword:"",confirmEmail:""})
-    const handleSubmit = (e)=>{
+    const {notification,setNotification,setOpenNotification,
+    notificationTime}=useNotifications()
+    const  {signUp} = useAuth()
+    const handleSubmit = async (e)=>{
         e.preventDefault()
-        
+        if (data.email!==data.confirmEmail){
+            setNotification((prev)=>"Emails do not match")
+            setOpenNotification((prev)=>true)
+            return
+        }else if (data.password!==data.confirmPassword){
+            setNotification((prev)=>"Passwords do not match")
+            setOpenNotification((prev)=>true)
+            return
+        }else {            
+         const {result,error}=await signUp(data.email,data.password)
+            if (error){
+                console.log(error)
+                setNotification((prev)=>error.code)
+                return
+            }else {
+                try {
+                    const docData = {
+                        savedBlogs:[],
+                        uid:result.user.uid,
+                        email:result.user.email,
+                        username:data.username,
+                        blogs:[],
+                        comments:[],
+                        github:"",
+                        codepen:"",
+                        linkedin:"",
+                        twitter:"",
+                        leetcode:"",
+
+                    }
+                    const docRef  = doc(firestore,"users",result.user.uid)
+                    await setDoc(docRef,docData)
+                }catch(err) {
+                    console.log(err,"error")
+                }
+                 //navigate to homepage
+                window.location.assign("/")
+            }
+        }
+
+       
     }
     const handleInputChange = (type:string,e:React.ChangeEvent<HTMLInputElement>)=>{
         if (type==="username"){
  setData((prev)=>
         ({...prev,username:e.target.value}))
-        console.log(e.target.value)
+        //console.log(e.target.value)
         }else if (type==="email"){
             setData((prev)=>
             ({...prev,email:e.target.value}))
-            console.log(e.target.value)
+           // console.log(e.target.value)
         }else if (type==="password"){
             setData((prev)=>
             ({...prev,password:e.target.value}))
@@ -48,7 +97,7 @@ const SignUpForm = () => {
         type='email' name='input-email' value={data.email} placeholder='Email Address'
         />
         <InputReusable required={true} handleChange={(e)=>handleInputChange("confirmEmail",e)}
-        type="password" name="input-password" value={data.confirmEmail}
+        type="email" name="input-confirmEmail" value={data.confirmEmail}
         placeholder='Confirm email'
         />
         <InputReusable required={true} handleChange={(e)=>handleInputChange("password",e)}
@@ -59,8 +108,11 @@ const SignUpForm = () => {
         type="password" name="input-confirmPassword" value={data.confirmPassword}
         placeholder='Confirm password'
         />
-        
-        
+        <AuthButton type={"submit"}
+       text={"Sign up"}
+       disabled={false}/>
+        <LinkToOther text='Already have an account?' href='/signIn'
+        textLink='Sign in'/>
     </form>
   )
 }
