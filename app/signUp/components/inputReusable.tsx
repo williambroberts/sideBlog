@@ -10,7 +10,9 @@ type inputReusableProps = {
 }
 const InputReusable = ({type,value,name,handleChange,required,placeholder}:inputReusableProps) => {
   return (
-   <input type={type} value={value} 
+   <input
+   className="input__reusable"
+   type={type} value={value} 
    placeholder={placeholder}
    required={required}
    onChange={handleChange}/>

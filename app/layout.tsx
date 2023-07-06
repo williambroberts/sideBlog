@@ -24,6 +24,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <AuthProvider>
           {children}
+          <div id="portal"></div>
         </AuthProvider>
         
         </body>

@@ -8,10 +8,10 @@ export const metadata = {
 }
 
 
-const AboutLayout = ({children}) => {
+const SignUpLayout = ({children}) => {
   return (
-    <div>{children}</div>
+    <div className='layout__div'>{children}</div>
   )
 }
 
-export default AboutLayout
+export default SignUpLayout

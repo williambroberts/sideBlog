@@ -1,0 +1,36 @@
+.auth__banner {
+    color: var(--t-1);
+    font-size: var(--font-size-36);
+    @apply font-normal 
+}
+input.input__reusable {
+    background-color: var(--bg-1);
+    padding: 14px 15px;
+    font-size: var(--font-size-14);
+    @apply font-normal
+}
+.auth__icon {
+    font-size: var(--font-size-76);
+    color: var(--t-3);
+    border: 1px solid var(--t-3);
+    border-radius: 50%;
+    
+    @apply font-normal p-2 flex flex-col 
+    items-center 
+    justify-center
+}
+main.signUp {
+    background-color: var(--bg-3);
+    @apply flex flex-col items-center
+    justify-center;
+}
+
+.sign__up__form {
+    @apply flex flex-col 
+    items-center justify-start
+    gap-2
+}
+
+.auth__button{
+    
+}

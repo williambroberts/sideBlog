@@ -6,10 +6,10 @@ import IconPadlock from '../../icons/auth/padlock'
 
 const signUpPage = () => {
   return (
-    <main>
-        sign up
+    <main className='signUp'>
+        
         <AuthIcon icon={<IconPadlock/>}/>
-        <AuthBanner/>
+        <AuthBanner text='Welcome to sideBlog'/>
         <SignUpForm/>
     </main>
   )

@@ -212,3 +212,7 @@
     
     
   }
+
+  .layout__div {
+    @apply flex flex-col flex-auto
+  }
