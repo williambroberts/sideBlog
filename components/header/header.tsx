@@ -3,22 +3,25 @@ import ThemeButton from '../theme/themeButton'
 import IconPlantFill from '../../icons/plant'
 import HeaderLink from './headerLink'
 import HeaderAuthLinkWrapper from './headerAuthLinkWrapper'
-
+import AuthLinks from './AuthLinks'
+import Link from 'next/link'
 const HeaderHorizontal = () => {
   return (
-    <header>
+    <header className='header__h'>
         <nav>
-          <div className='header__h__logo'><IconPlantFill/></div>
-          <div className='header__h_middle'>
+          <Link className='header__h__logo'
+          href={"/"}
+          ><IconPlantFill/></Link>
+          <div className='header__h__middle'>
             <HeaderLink href={"/"} text='Home'/>
             <HeaderLink href={"/about"} text='About'/>
             <HeaderLink href={"/contact"} text="Contact"/>
 
     <HeaderAuthLinkWrapper>
-      <HeaderLink href={"/createEdit"} text="Editor"/>
+      <HeaderLink href={"/write"} text="Write"/>
       <HeaderLink href={"/profile"} text='Profile'/>
     </HeaderAuthLinkWrapper>
-
+    <AuthLinks/>
           </div>
           <div className='header__h__right'>
             <ThemeButton/>

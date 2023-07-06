@@ -2,4 +2,32 @@
     color: var(--t-3);
     font-size: var(--font-size-14);
     font-weight: 400;
+    padding: 0rem 1rem;
+}
+
+.header__h {
+    height: 60px;
+    width: 100vw;
+    position: fixed;
+    display: flex;
+    background-color: var(--bg-2);
+    
+}
+.header__h>nav {
+    transform: translate(-50%);
+    left: 50%;
+    position: relative;
+    height: 100%;
+    width: 700px;
+    @apply flex flex-row items-center justify-between
+}
+
+.header__h__middle {
+    font-size: var(--font-size-14);
+    color: var(--t-3);
+    @apply flex flex-row items-center
+}
+.header__h__logo {
+    color: var(--t-1);
+    font-size: var(--font-size-16);
 }

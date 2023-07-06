@@ -31,7 +31,7 @@ const ThemeButton = () => {
     },10)
   }
   return (
-    <button className={`theme-button ${theme==="light"? "light":"dark"}`} onClick={()=>themeChange()}>
+    <button className={`theme__button ${theme==="light"? "light":"dark"}`} onClick={()=>themeChange()}>
       {theme==="dark"?   <IconSun/>: <IconMoon/>}
       </button>
       

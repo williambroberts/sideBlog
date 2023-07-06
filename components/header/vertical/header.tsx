@@ -2,8 +2,10 @@ import React from 'react'
 
 const HeaderVertical = () => {
   return (
-    <header>
-        
+    <header className='header__vertical'>
+        <nav>
+          
+        </nav>
     </header>
   )
 }

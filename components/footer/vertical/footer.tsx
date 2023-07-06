@@ -2,8 +2,10 @@ import React from 'react'
 
 const FooterVertical = () => {
   return (
-    <footer>
-        
+    <footer className='footer__v'>
+        <nav>
+          
+        </nav>
     </footer>
   )
 }

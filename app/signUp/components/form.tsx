@@ -51,6 +51,7 @@ const SignUpForm = () => {
                         linkedin:"",
                         twitter:"",
                         leetcode:"",
+                        admin:false,
 
                     }
                     const docRef  = doc(firestore,"users",result.user.uid)
@@ -88,7 +89,7 @@ const SignUpForm = () => {
     }
   return (
     <form onSubmit={(e)=>handleSubmit(e)}
-    className='sign__up__form'
+    className='auth__form'
     >
         <InputReusable required={true} handleChange={(e)=>handleInputChange("username",e)}
         type='text' name='input-username' value={data.username} placeholder='Username'

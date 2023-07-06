@@ -7,8 +7,15 @@ input.input__reusable {
     background-color: var(--bg-1);
     padding: 14px 15px;
     height: 50px;
+    box-sizing: border-box;
     font-size: var(--font-size-14);
     @apply font-normal
+}
+
+.input__reusable:focus {
+    border: 2px solid transparent;
+    outline: 1px solid var(--t-2);
+
 }
 .auth__icon {
     font-size: var(--font-size-76);
@@ -21,12 +28,13 @@ input.input__reusable {
     justify-center
 }
 main.signUp {
+    margin-top: 60px;
     background-color: var(--bg-2);
     @apply flex flex-col items-center
     justify-center;
 }
 
-.sign__up__form {
+.auth__form {
     @apply flex flex-col 
     items-center justify-start
     gap-2
@@ -39,6 +47,8 @@ main.signUp {
     border-radius: 8px;
     @apply flex flex-row items-center justify-center
     ;
+    cursor: pointer;
+
     height: 50px;
     width: 100%;
     background-color: var(--t-2);
@@ -58,4 +68,8 @@ main.signUp {
     margin-left: 4px;
     color: var(--t-1);
     text-decoration: underline;
+}
+.logout__button {
+    font-size: inherit;
+    color: inherit;
 }
