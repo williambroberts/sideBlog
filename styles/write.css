@@ -1,3 +1,20 @@
 .write__main {
     margin-top: 60px;
 }
+.display__codeblock {
+    width: 100%;
+    height: min-content;
+    position: relative;
+}
+.code__icons {
+    position: absolute;
+    z-index: 1;
+    top: 0px;
+    left: 0px;
+    background-color: transparent;
+    color: var(--t-1);
+    width: 100%;
+    @apply
+    ml-auto
+    flex flex-row flex-nowrap;
+}

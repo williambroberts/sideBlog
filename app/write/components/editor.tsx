@@ -31,7 +31,9 @@ const Editor = () => {
   const handleWriting = (e) =>{
     let newLocalBlog = {...localBlog}
     newLocalBlog.content = e.target.value
+    //❤️DEBOUNCE THE change
     setLocalBlog((prev)=>newLocalBlog)
+    
   }
   const handleNewImage = (type,id,e)=>{
     if (type==="body"){
