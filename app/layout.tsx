@@ -15,7 +15,7 @@ const lato = Lato({subsets:["latin"],weight:["100","300","400","700","900"]})
 export const metadata = {
   title: {
     default:"sideBlog",
-    template:" %s | "
+    template:" %s | SB"
   },
   description: 'A blog app',
   keywords:["blog"],

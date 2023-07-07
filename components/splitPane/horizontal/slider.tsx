@@ -3,43 +3,55 @@ import React,{useCallback, useRef, useState,useEffect} from 'react'
 type theProps  = {
     position?:number;
 }
-type LeftProps = {
-    initial:number|null;
-    current:number|null;
-}
+
 const SplitPaneHslider = ({position}:theProps) => {
-    const [Left,setLeft]=useState<LeftProps>({initial:null,current:null})
+    const [startX,setStartX]=useState<number|undefined>(undefined)
     const  [isDragging,setIsDragging]=useState<Boolean>(false)
-    
-    const handleMouseUp =(e)=>{
-        setIsDragging((prev)=>false)  
-    }
-    const handleMouseDown = (e)=>{
-        setIsDragging((prev)=>true)
-    }
+    const [loaded,setLoaded]=useState(false)
+    let div = null
     useEffect(()=>{
-        const handleMouseMove = (e)=>{
-            if (isDragging){
-                //debounce
-    
-                const newValue = e.clientX
-                console.log(newValue)
-            }
+        setLoaded(true)
+    },[])
+   
+   
+    useEffect(()=>{
+        const start = (e)=>{
+            console.log("start")
+            setIsDragging(true)
         }
-        document.addEventListener("mousemove",handleMouseMove)
-        return ()=>{
-            document.removeEventListener("mousemove",handleMouseMove)
+        const end = (e)=>{
+            console.log("end")
+            setIsDragging(false)
         }
-    },[isDragging])
-    
+        const move = (e)=>{
+            console.log("end")
+            if (!isDragging) return;
+            console.log(e.clientX)
+        }
+        if(loaded){
+        let div = document.querySelector(".splitPane__slider__h")
         
+        document.addEventListener("mousemove",move)
+        div.addEventListener("mousedown",start)
+        document.addEventListener("mouseup",end)
+        }
+        return ()=>{
+            document.removeEventListener("mousemove",move)
+            document.removeEventListener("mouseup",end)
+            div.removeEventListener("mousedown",start)
+        }
+
+    },[isDragging,loaded])
+   
     
     
-    
+    if (!loaded){
+        return
+    }
    
   return (
     <div 
-    onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}
+   
     className='splitPane__slider__h'>
 
     </div>

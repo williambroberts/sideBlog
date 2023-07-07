@@ -1,6 +1,7 @@
 import React from 'react'
 import HeaderHorizontal from '../../components/header/header';
 import FooterHorizontal from '../../components/footer/footer';
+import WriteProvider from '../../contexts/writeContext';
 type ChildrenProps = {
     children:React.ReactNode;
 }
@@ -13,8 +14,11 @@ const WriteLayout = ({children}:ChildrenProps) => {
     <div
     className='layout__div'
     >
+      
       <HeaderHorizontal/>
-        {children}
+       <WriteProvider>
+       {children}
+      </WriteProvider>
         <FooterHorizontal/>
     </div>
   )
