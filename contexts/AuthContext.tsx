@@ -7,7 +7,7 @@ import { createUserWithEmailAndPassword,
     signInWithEmailAndPassword, 
     GoogleAuthProvider,
     signInWithPopup} from 'firebase/auth'
-import { setDoc,doc } from 'firebase/firestore'
+import { setDoc,doc,getDoc } from 'firebase/firestore'
 type AuthContextValues = {
     user?:any;
     signIn:Function;
@@ -15,14 +15,16 @@ type AuthContextValues = {
     signOut:Function;
     googleSignIn:Function;
     resetPassword:Function;
+    userDocData?:any;
+    setUserDocData?:Function;
 }
 type ChildrenProp = {
     children:React.ReactNode
 }
 const AuthContext = createContext<AuthContextValues | undefined>(undefined)
 const AuthProvider = ({children}:ChildrenProp) => {
-    const [user,setUser]=useState<object|null|undefined>({})
-
+    const [user,setUser]=useState<any|null|undefined>({})
+    const [userDocData,setUserDocData]=useState<object|null|undefined>(null)
     const AuthValue= {
         user:user,
         signIn:signIn,
@@ -30,6 +32,7 @@ const AuthProvider = ({children}:ChildrenProp) => {
         signUp:signUp,
         resetPassword:resetPassword,
         googleSignIn:googleSignIn,
+        userDocData:userDocData,setUserDocData:setUserDocData,
     }
 
     useEffect(()=>{
@@ -40,6 +43,19 @@ const AuthProvider = ({children}:ChildrenProp) => {
             unsubscribe();
           };
     },[])
+    const getUserDoc =async ()=>{
+        if (user===null)return;
+        let docRef = doc(firestore,"users",user.uid)
+        const snapShot = await getDoc(docRef)
+        if (snapShot.exists()){
+          console.log(snapShot.data())
+          setUserDocData({...snapShot.data()})
+        }
+      }
+      useEffect(()=>{
+        
+        user && getUserDoc()
+      },[user])
     async function resetPassword(email:string):Promise<{ result: any, error: any }>{
         let result=null, error=null
        try{

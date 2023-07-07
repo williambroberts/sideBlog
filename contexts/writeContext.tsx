@@ -19,10 +19,7 @@ type ChildProps = {
 const WriteContext = createContext<WriteContextValues|undefined>(undefined)
 const WriteProvider = ({children}:ChildProps) => {
   const initialBlogData = {
-    content:[
-      
-
-    ],
+    content:"",
     uploadedImages:[],
     title:"",
     coverImage:"",
@@ -33,7 +30,7 @@ const WriteProvider = ({children}:ChildProps) => {
     category:"",
     dateCreation:"",
     id:"",
-    lastUpdate:"",
+    latestUpdateTime:"",
   }
     const [blogId,setBlogId]=useState<string|null|undefined>(null)
     const [fireBLog,setFireBlog]=useState(undefined)

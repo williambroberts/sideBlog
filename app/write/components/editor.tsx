@@ -14,7 +14,7 @@ const Editor = () => {
   const router = useRouter()
   const pathname= usePathname()
   const searchParams = useSearchParams()
-  const {user}=useAuth()
+  const {user,setUserDocData,userDocData}=useAuth()
   const [hasChanged,setHasChanged]=useState<boolean>(false)
   const {localBlog,setBlogId,blogId,setLocalBlog,
     setFireBlog,fireBLog,imgFile,setImgFile,
@@ -107,9 +107,14 @@ useEffect(()=>{
   setBlogId(newBlogId)
 },[searchParams])
 
+
 const createBlog = ()=>{
   setBlogId(null)
   let newBlogData = {...initialBlogData}
+  //author, authorId, ❤️all fields filled in
+   newBlogData.authorId = user.uid;
+
+  newBlogData.author = userDocData.username 
   let date = new Date()
       let fullDate = date.getDate().toString()+"/"
       +(1+date.getMonth()).toString()+"/"
@@ -149,11 +154,11 @@ const handleUpdateToFirebase =async ()=>{
       }
     }else {
       //make new blog
-      
-      
+      //❤️check all fields are added in createBlog and here
+      //blogId gives creation timestamp
       let timestamp = new Date().getTime().toString()
       let newBlogId = user?.uid+"blog"+timestamp
-      
+      localBlog.latestUpdateTimeStamp = timestamp
       const docRef = doc(firestore,"Blogs",newBlogId)
       await setDoc(docRef,localBlog)
     }

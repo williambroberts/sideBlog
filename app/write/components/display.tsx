@@ -32,7 +32,7 @@ const Display = () => {
               return !inline && match ? (
                 <div className="display__codeblock">
                   <div className='code__icons '
-                  style={{color:isDark?"var()":"var()"}}
+                  style={{color:isDark?"var(--code-l)":"var(--code-d)"}}
                   >
                   <button onClick={()=>setIsDark((prev)=>!prev)}>
                     {isDark? <IconMoon/>:<IconSun/>}

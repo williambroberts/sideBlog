@@ -100,7 +100,8 @@
       --box-shadow-1inset:inset 0px 2px 3px 0px rgba(0,0,0,0.1) ;
      --one:1;
      --zero:0;
-  
+    --code-l:rgb(253, 253, 252);
+    --code-d:#38393B;
      --scrollbarBG:#fdfdfc ;
     --thumbBG:#f5f5f5;
     --bg-radial:radial-gradient(ellipse at center,#192d38 0,#211f2f 100%);
