@@ -1,7 +1,7 @@
 "use client"
 import React, {useContext,useState,createContext} from 'react'
 type WriteContextValues = {
-localBLog?:any;
+localBlog?:any;
 fireBLog?:any;
 setBlogId?:Function;
 setLocalBlog?:Function;
@@ -23,6 +23,7 @@ const WriteProvider = ({children}:ChildProps) => {
       
 
     ],
+    uploadedImages:[],
     title:"",
     coverImage:"",
     views:0,

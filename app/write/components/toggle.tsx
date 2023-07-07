@@ -1,6 +1,7 @@
 import React from 'react'
 import ToggleOrderBtn from './toggleOrder'
 import IconCaretUp from '../../../icons/write/up'
+import DeleteContentItem from './deleteContentItem';
 type theProps = {
     id:string;
 }
@@ -10,8 +11,8 @@ const Toggle = ({id}:theProps) => {
         <ToggleOrderBtn icon={<IconCaretUp/>} direction={"up"}
         id={id}
         />
-
-<ToggleOrderBtn icon={<IconCaretUp/>} direction={"up"}
+    <DeleteContentItem id={id}/>
+    <ToggleOrderBtn icon={<IconCaretUp/>} direction={"up"}
         id={id}
         />
     </div>

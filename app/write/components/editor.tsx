@@ -16,13 +16,32 @@ const Editor = () => {
   const searchParams = useSearchParams()
   const {user}=useAuth()
   const [hasChanged,setHasChanged]=useState<boolean>(false)
-  const {localBLog,setBlogId,blogId,setLocalBlog,
+  const {localBlog,setBlogId,blogId,setLocalBlog,
     setFireBlog,fireBLog,imgFile,setImgFile,
     initialBlogData,setProgress,
   }=useWrite()
+  // const add = (type)=>{
+  //   let id = new Date().getTime().toString()
+   
+  //   let newContentItem = {type:type,id:id,text:""}
+  //   let newLocalBlog = {...localBlog}
+  //   newLocalBlog.content.push(newContentItem)
+  //   setLocalBlog((prev)=>newLocalBlog)
+  // }
+  const handleWriting = (e) =>{
+    let newLocalBlog = {...localBlog}
+    newLocalBlog.content = e.target.value
+    setLocalBlog((prev)=>newLocalBlog)
+  }
   const handleNewImage = (type,id,e)=>{
     if (type==="body"){
       //❤️get index of input type img with id from localblog.content
+      let index = null
+      for (let i =0;i<localBlog.content.length;i++){
+        if (localBlog.content.length[i].id===id){
+          index =i
+        }
+      }
       let newImgFile = {type:type,index:index,file:e.target.files[0]}
       setImgFile((prev)=>newImgFile)
     }else if (type==="cover"){
@@ -65,10 +84,10 @@ useEffect(()=>{
       console.log('File available at', downloadURL);
       //❤️if imgFile is for cover or normal
       if (imgFile.type==="cover"){
-        localBLog.cover=downloadURL
+        localBlog.cover=downloadURL
       }else if (imgFile.type==="body"){
         //❤️set url text for that img input component & localBlog corresponding 
-        localBLog.content[imgFile.index].src=downloadURL
+        
 
       }
 
@@ -95,7 +114,7 @@ const createBlog = ()=>{
        + date.getFullYear().toString()
   newBlogData.dateCreation = fullDate
   setLocalBlog(newBlogData)
-  //clear localBLog, dont make Fb until SAVE
+  //clear localBlog, dont make Fb until SAVE
 }
 
 const getFireBlog = async ()=>{
@@ -110,10 +129,10 @@ const getFireBlog = async ()=>{
 const handleUpdateToFirebase =async ()=>{
   //❤️use callback
   //if SAVE criteria met
-  if (localBLog.title!=="" && localBLog.coverImage!==""){
+  if (localBlog.title!=="" && localBlog.coverImage!==""){
     if (blogId){
       try {
-        let blogRef = doc(firestore,"Blogs",localBLog.id)
+        let blogRef = doc(firestore,"Blogs",localBlog.id)
         await runTransaction(firestore, async (t)=>{
           const docSnapShot = await t.get(blogRef)
           if (!docSnapShot.exists()){
@@ -121,7 +140,7 @@ const handleUpdateToFirebase =async ()=>{
             console.log("error,no snapshot")
             return
           }
-          t.update(blogRef,{...localBLog})
+          t.update(blogRef,{...localBlog})
         })
       }catch (err){
         console.log(err,"update failed")
@@ -134,7 +153,7 @@ const handleUpdateToFirebase =async ()=>{
       let newBlogId = user?.uid+"blog"+timestamp
       
       const docRef = doc(firestore,"Blogs",newBlogId)
-      await setDoc(docRef,localBLog)
+      await setDoc(docRef,localBlog)
     }
   }
 }
@@ -155,8 +174,19 @@ useEffect(()=>{
 //     router.push(pathname+"?"+)
 //   },[blogId])
   return (
-    <div>
-        
+    <div className='editor'>
+      editor
+        {/* title */}
+{/* cover image */}
+
+        <textarea
+        autoFocus
+        className='write__textarea'
+        value={localBlog.content}
+        onChange={(e)=>handleWriting(e)}
+        >
+          
+        </textarea>
     </div>
   )
 }

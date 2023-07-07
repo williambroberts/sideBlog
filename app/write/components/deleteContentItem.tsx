@@ -5,9 +5,12 @@ type theProps = {
     id:string;
 }
 const DeleteContentItem = ({id}:theProps) => {
-    const {localBLog}=useWrite()
+    const {localBlog,setLocalBlog}=useWrite()
     const handleDelete = ()=>{
-
+        let newLocalBLog = {...localBlog}
+        let newContent = localBlog.content.filter((item)=>item.id!==id)
+        newLocalBLog.content=newContent
+        setLocalBlog((prev)=>newLocalBLog)
     }
   return (
     <button onClick={handleDelete} 
