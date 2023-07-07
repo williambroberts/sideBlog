@@ -8,34 +8,39 @@ setLocalBlog?:Function;
 setFireBlog?:Function;
 setImgFile?:Function;
 imgFile?:any;
-blogId:string;
+blogId?:string;
+initialBlogData?:any;
+progress?:number;
+setProgress?:Function;
 }
 type ChildProps = {
     children:React.ReactNode;
 }
 const WriteContext = createContext<WriteContextValues|undefined>(undefined)
 const WriteProvider = ({children}:ChildProps) => {
+  const initialBlogData = {
+    content:[
+      
+
+    ],
+    title:"",
+    coverImage:"",
+    views:0,
+    author:"",
+    authorId:"",
+    tags:[],
+    category:"",
+    dateCreation:"",
+    id:"",
+    lastUpdate:"",
+  }
     const [blogId,setBlogId]=useState<string|null|undefined>(null)
     const [fireBLog,setFireBlog]=useState(undefined)
-    const [localBlog,setLocalBlog]=useState(
-      {
-        content:[
-          {type:"title",text:""},
-          {type:"coverImage",text:""},
-
-        ],
-        views:0,
-        author:"",
-        authorId:"",
-        tags:[],
-        category:"",
-        dateCreation:"",
-        id:"",
-        lastUpdate:"",
-      }
-    )
+    const [localBlog,setLocalBlog]=useState(initialBlogData)
+    const [progress,setProgress]=useState<number>(0)
     const [imgFile,setImgFile]=useState(null)
     const WriteValue = {
+      progress:progress,setProgress:setProgress,
       localBlog:localBlog,
       fireBLog:fireBLog,
       blogId:blogId,
@@ -43,6 +48,7 @@ const WriteProvider = ({children}:ChildProps) => {
       setLocalBlog:setLocalBlog,
       setFireBlog:setFireBlog,
       imgFile:imgFile,setImgFile:setImgFile,
+      initialBlogData:initialBlogData,
 
     }
 
