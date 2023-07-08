@@ -44,8 +44,9 @@ const SignUpForm = () => {
                         uid:result.user.uid,
                         email:result.user.email,
                         username:data.username,
+                        profilePhoto:"",
                         blogs:[],
-                        comments:[],
+                        comments:[], //❤️think
                         github:"",
                         codepen:"",
                         linkedin:"",

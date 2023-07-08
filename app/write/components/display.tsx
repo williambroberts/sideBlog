@@ -10,8 +10,11 @@ import IconMoon from '../../../components/theme/moon'
 import IconSun from '../../../components/theme/sun'
 import IconTickCircle from '../../../icons/tick'
 import IconCopy from '../../../icons/copy'
-const Display = () => {
-  const {localBlog}=useWrite()
+type theProps = {
+  source?:any;
+}
+const Display = ({source}:theProps) => {
+  
   const [isDark,setIsDark]=React.useState<boolean>(false)
   const [isCopied,setIsCopied]=React.useState<boolean>(false)
   const handleCopy = (text)=>{
@@ -23,9 +26,12 @@ const Display = () => {
   }
   return (
     <div className='display'>
-      display
+     {/* category */}
+      {/* title */}
+      {/* user details */}
+      {/* cover img */}
 <ReactMarkdown
-          children={localBlog.content}
+          children={source?.content}
           components={{
             code({node, inline, className, children, ...props}) {
               const match = /language-(\w+)/.exec(className || '')

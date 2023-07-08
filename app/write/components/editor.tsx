@@ -9,6 +9,9 @@ import { getStorage, ref,
   getDownloadURL,
   uploadBytesResumable 
 } from "firebase/storage";
+import AddTitle from './addItem'
+import AddItem from './addItem'
+import UploadedImages from './uploadedImages'
 
 const Editor = () => {
   const router = useRouter()
@@ -33,23 +36,16 @@ const Editor = () => {
     newLocalBlog.content = e.target.value
     //❤️DEBOUNCE THE change
     setLocalBlog((prev)=>newLocalBlog)
+    if( !hasChanged){
+      setHasChanged((prev)=>true)
+    }
+    
     
   }
-  const handleNewImage = (type,id,e)=>{
-    if (type==="body"){
-      //❤️get index of input type img with id from localblog.content
-      let index = null
-      for (let i =0;i<localBlog.content.length;i++){
-        if (localBlog.content.length[i].id===id){
-          index =i
-        }
-      }
-      let newImgFile = {type:type,index:index,file:e.target.files[0]}
-      setImgFile((prev)=>newImgFile)
-    }else if (type==="cover"){
-      let newImgFile = {type:type,file:e.target.files[0]}
-      setImgFile((prev)=>newImgFile)
-    }
+  const handleNewImage = (e)=>{
+    //❤️SAVE button
+    let newImgFile = {file:e.target.files[0]}
+    setImgFile((prev)=>newImgFile)
     
     
   }
@@ -57,13 +53,14 @@ const Editor = () => {
 useEffect(()=>{
   const uploadFile = ()=>{
     const storageRef = ref(storage,imgFile.name)
-    const uploadTask = uploadBytesResumable(storageRef, imgFile);
+    const uploadTask = uploadBytesResumable(storageRef, imgFile.file);
     uploadTask.on('state_changed',
   (snapshot) => {
     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
     const snapshotProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
     console.log('Upload is ' + snapshotProgress + '% done');
     setProgress((prev)=>snapshotProgress)
+    //❤️progressBAR
     switch (snapshot.state) {
       case 'paused':
         console.log('Upload is paused');
@@ -84,14 +81,13 @@ useEffect(()=>{
    
     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
       console.log('File available at', downloadURL);
-      //❤️if imgFile is for cover or normal
-      if (imgFile.type==="cover"){
-        localBlog.cover=downloadURL
-      }else if (imgFile.type==="body"){
-        //❤️set url text for that img input component & localBlog corresponding 
-        
 
-      }
+     
+        localBlog.uploadedImages.push(downloadURL)
+      if (!hasChanged){
+          setHasChanged((prev)=>true)
+        }
+      
 
     });
   }
@@ -115,6 +111,7 @@ const createBlog = ()=>{
    newBlogData.authorId = user.uid;
 
   newBlogData.author = userDocData.username 
+  newBlogData.userPhoto = userDocData.profilePhoto
   let date = new Date()
       let fullDate = date.getDate().toString()+"/"
       +(1+date.getMonth()).toString()+"/"
@@ -164,6 +161,25 @@ const handleUpdateToFirebase =async ()=>{
     }
   }
 }
+const handleAddItem = (key,e)=>{
+  
+  let newLocalBlog = {...localBlog}
+  if (key==="title"){
+    newLocalBlog.title=e.target.value
+  }else if (key==="category"){
+    newLocalBlog.category = e.target.value
+  }else if (key==="coverImage"){
+    newLocalBlog.coverImage = e.target.value
+  }
+  //newLocalBlog.key = e.target.value
+  console.log(newLocalBlog.key,e.target.value)
+  //debounce❤️
+  setLocalBlog(newLocalBlog)
+  if (!hasChanged){
+    setHasChanged((prev)=>true)
+  }
+
+}
 
 
 useEffect(()=>{
@@ -183,17 +199,43 @@ useEffect(()=>{
   return (
     <div className='editor'>
       editor
+      {/* create or edit */}
+      {/* uploadedImages real */}
+      <UploadedImages images={["a","v","a","c","e","e"]}/>
+      <AddItem name='Upload Image' 
+        type='file'
+        className='add__item'
+        placeholder='Upload Image'
+        value={imgFile}
+        handleChange={(e)=>handleNewImage(e)}
+        />
         {/* title */}
+        <AddItem name='Category' 
+        type='text'
+        className='add__item'
+        placeholder='Category'
+        value={localBlog.category}
+        handleChange={(e)=>handleAddItem("category",e)}
+        />
+        <AddItem 
+        name='Title'
+        type='text'
+        className='add__item'
+        placeholder='Blog title'
+        value={localBlog.title}
+        handleChange={(e)=>handleAddItem("title",e)}/>
 {/* cover image */}
 
+
         <textarea
-        autoFocus
+        // autoFocus
         className='write__textarea'
         value={localBlog.content}
         onChange={(e)=>handleWriting(e)}
         >
           
         </textarea>
+        {/* save to firebase */}
     </div>
   )
 }

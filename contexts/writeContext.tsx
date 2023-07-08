@@ -31,6 +31,8 @@ const WriteProvider = ({children}:ChildProps) => {
     dateCreation:"",
     id:"",
     latestUpdateTime:"",
+    userPhoto:"",
+    userSocials:{},//❤️ do here sync to user DOc
   }
     const [blogId,setBlogId]=useState<string|null|undefined>(null)
     const [fireBLog,setFireBlog]=useState(undefined)

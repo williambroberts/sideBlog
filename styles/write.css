@@ -21,3 +21,43 @@
 .code__icons > button{
     color: inherit;
 }
+
+.display,.editor {
+    max-width: 650px;
+    height: min-content;
+    @apply flex flex-col gap-0;
+
+}
+.add__item {
+    @apply flex flex-nowrap;
+}
+
+.UI__frame {
+    width: 100%;
+    height: 85px;
+    position: relative;
+    overflow: hidden;
+    @apply flex flex-row items-center
+}
+.UI__parent {
+    width: min-content;
+    height: 100%;
+    position: absolute;
+    @apply flex flex-row flex-nowrap;
+    transition: var(--transition-2);
+}
+.UI__item {
+    width: 114px;
+    height: 100%;
+    position: relative;
+}
+.UI__button {
+    position: absolute;
+    top: 50%;
+    
+    width: 34px;
+    height: 34px;
+    color: var(--code-d);
+    background-color: var(--white);
+    transform: translate(0%,-50%);
+}
