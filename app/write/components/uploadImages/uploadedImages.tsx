@@ -1,12 +1,18 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import {v4} from "uuid"
+import UploadedImage from './uploadedImage';
 type theProps = {
     images:string[];
 }
 const UploadedImages = ({images}:theProps) => {
     const [index,setIndex]=useState(0)
     const [maxIndex,setMaxIndex]=useState(0)
+    const [loading,setLoading]=useState<boolean>(true)
+    useEffect(()=>{
+        setLoading(false)
+    },[])
+    
     useEffect(()=>{
         //❤️debounce
         let timeout = setTimeout(()=>{
@@ -33,13 +39,14 @@ const UploadedImages = ({images}:theProps) => {
             }
         }
       
-    
+        if (loading) return;
   return (
     <div className='UI__frame'>
         <div className='UI__parent' style={{left:`${index*-114}px`}}>
             {images.map((item,index)=>(
                 <div className='UI__item' key={v4()}>
-                        img {index}
+                        <UploadedImage src={item}/>
+                        {index}
                 </div>
             )
             
@@ -49,13 +56,13 @@ const UploadedImages = ({images}:theProps) => {
         <button 
         onClick={()=>handleClick("left")}
         className='UI__button' 
-        style={{left:"17px"}}>
+        style={{left:"17px",display:index===0?"none":""}}>
                 L
             </button>
             <button 
              onClick={()=>handleClick("right")}
             className='UI__button' 
-            style={{right:"17px"}}>
+            style={{right:"17px",display:index===maxIndex?"none":""}}>
                 R
             </button>
     </div>

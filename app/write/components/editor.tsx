@@ -11,7 +11,7 @@ import { getStorage, ref,
 } from "firebase/storage";
 import AddTitle from './addItem'
 import AddItem from './addItem'
-import UploadedImages from './uploadedImages'
+import UploadedImages from './uploadImages/uploadedImages'
 
 const Editor = () => {
   const router = useRouter()

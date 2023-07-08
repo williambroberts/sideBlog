@@ -142,7 +142,7 @@
      --font-size-76:clamp(2.75rem, 2.3152rem + 2.3188vw, 4.75rem);
   
      --line-height-56:clamp(3rem, 2.375rem + 2vw, 3.5rem);
-  
+  --p-8-16:clamp(0.5rem, -0.125rem + 2vw, 1rem);
      --margin-24:clamp(1rem, 0.375rem + 2vw, 1.5rem);
   
   

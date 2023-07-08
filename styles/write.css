@@ -50,14 +50,43 @@
     width: 114px;
     height: 100%;
     position: relative;
+    @apply flex flex-row flex-nowrap
 }
 .UI__button {
     position: absolute;
     top: 50%;
     
+    box-shadow: var(--box-shadow-1);
+    @apply rounded-full box-border;
     width: 34px;
     height: 34px;
     color: var(--code-d);
     background-color: var(--white);
     transform: translate(0%,-50%);
+}
+
+.UI__image {
+    background-color: var(--bg-4);
+    width: 100%;
+    height: 100%;
+    position: relative;
+    @apply flex items-center justify-center;
+    padding-right: var(--p-8-16);
+}
+.UI__image > img {
+    object-fit: cover;
+    object-position: center;
+}
+.UI__image__grid {
+    @apply absolute;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0rem;
+    background-color: transparent;
+}
+.UI__btn {
+    color: var(--code-d);
+    font-size: var(--font-size-14);
+    @apply flex flex-col;
 }
