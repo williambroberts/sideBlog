@@ -27,26 +27,27 @@ const SplitPaneParent = ({childLeft,childRight}:theProps) => {
     
     if (!isMouseDown)return;
     console.log("run")
-    // else if (isMouseDown){
+     if (isMouseDown){
       
-    //   let NOW = new Date().getTime()
-    //   setEndX((prev)=>e.clientX-startX)
-    //   if (NOW-lastRunTime.current<wait)return;
-    //   else{
-    //     setDebouncedEndX((prev)=>endX)
-    //     lastRunTime.current=NOW
-    //   }
+      let NOW = new Date().getTime()
+      setEndX((prev)=>prev+e.clientX-startX)
+      //setDebouncedEndX((prev)=>e.clientX-startX)
+      if (NOW-lastRunTime.current<wait)return;
+      else{
+        
+        lastRunTime.current=NOW
+      }
       
 
       
-    // }
+    }
   }
   return (
     <div className='splitPane__parent__h'
     onMouseMove={(e)=>run(e)}
     onMouseUp={(e)=>end(e)}
     >
-      <ChildPane>
+      <ChildPane delta={debouncedEndX}>
     {childLeft}
     left
       </ChildPane>

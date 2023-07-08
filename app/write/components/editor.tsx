@@ -12,6 +12,8 @@ import { getStorage, ref,
 import AddTitle from './addItem'
 import AddItem from './addItem'
 import UploadedImages from './uploadImages/uploadedImages'
+import AddTag from './addTags/addTag'
+import TagManager from './addTags/manageTags'
 
 const Editor = () => {
   const router = useRouter()
@@ -234,6 +236,8 @@ useEffect(()=>{
         >
           
         </textarea>
+        <TagManager tags={localBlog?.tags}/>
+        <AddTag/>
         {/* save to firebase */}
     </div>
   )

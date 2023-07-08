@@ -3,6 +3,7 @@ import PushNoUser from './components/PushNoUser'
 import SplitPaneParent from '../../components/splitPane/horizontal/Parent'
 import Editor from './components/editor'
 import Display from './components/display/display'
+import Parent from '../../components/ReactSplitPane/parent'
 
 const WritePage = () => {
   return (
@@ -11,12 +12,19 @@ const WritePage = () => {
     >
 
 {/* <PushNoUser/> */}
-<SplitPaneParent childLeft={"left"}
+{/* <SplitPaneParent childLeft={"left"}
       childRight={"right"}
-      />
-      
-{/* <Editor/>
-    <Display/> */}
+      /> */}
+      {/* <Parent/> */}
+
+      <div className='temporary'>
+<Editor/>
+<div className='bg-[var(--t-1)]'>
+
+</div>
+    <Display/>
+      </div>
+
       
     
 
