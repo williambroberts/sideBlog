@@ -28,6 +28,9 @@
     @apply flex flex-col gap-0;
 
 }
+.editor {
+    flex:1 1 auto;
+}
 .add__item {
     @apply flex flex-nowrap;
 }
@@ -119,4 +122,20 @@
 .display__coverImage.bg {
     background: linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
 
+}
+
+.display__user__details {
+    width: 100%;
+    height: min-content;
+    @apply
+    justify-start
+    flex flex-row items-center 
+}
+.display__user__details > div > span:first-of-type{
+    color: var(--t-1);
+    font-weight: 500;
+}
+.display__user__details>div>span:last-of-type {
+    color: var(--t-3);
+    font-weight: 300;
 }

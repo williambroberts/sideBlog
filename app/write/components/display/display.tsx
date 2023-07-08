@@ -12,6 +12,7 @@ import IconTickCircle from '../../../../icons/tick'
 import IconCopy from '../../../../icons/copy'
 import Image from 'next/image'
 import DisplayCoverImage from './displayCoverImage'
+import UserDetails from './userDetails'
 type theProps = {
   source?:any;
 }
@@ -31,6 +32,10 @@ const Display = ({source}:theProps) => {
      {/* category */}
       {/* title */}
       {/* user details */}
+      <UserDetails userPhoto={source?.userPhoto}
+      author={source?.author}
+      dateCreation={source?.dateCreation}
+      />
       {/* cover img */}
       <DisplayCoverImage src={source?.coverImage}/>
 <ReactMarkdown

@@ -11,11 +11,14 @@ const WritePage = () => {
     >
 
 {/* <PushNoUser/> */}
-{/* <SplitPaneParent childLeft={"left"}
+<SplitPaneParent childLeft={"left"}
       childRight={"right"}
-      /> */}
-    <Editor/>
-    <Display/>
+      />
+      
+{/* <Editor/>
+    <Display/> */}
+      
+    
 
 
     </main>
