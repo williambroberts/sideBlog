@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import { useWrite } from '../../../contexts/writeContext'
+import { useWrite } from '../../../../contexts/writeContext'
 import Display from './display'
 
 const DisplayWrapper = () => {

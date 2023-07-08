@@ -198,7 +198,7 @@
     
     margin: 0px 0px 0px 0px;
     position:relative;
-    top:0px;
+    block-start:0px;
     flex:1 1 auto;
     width: 100%;
     background-color: transparent;
@@ -213,7 +213,12 @@
     
     
   }
+img {
+  
+  max-inline-size: 100%;
+  block-size: auto;
 
+}
   .layout__div {
     @apply flex flex-col flex-auto
   }

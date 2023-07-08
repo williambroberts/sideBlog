@@ -50,14 +50,17 @@
     width: 114px;
     height: 100%;
     position: relative;
-    @apply flex flex-row flex-nowrap
+    padding-right: var(--p-8-16);
+    @apply flex flex-row flex-nowrap items-center;
 }
 .UI__button {
     position: absolute;
     top: 50%;
     
     box-shadow: var(--box-shadow-1);
-    @apply rounded-full box-border;
+    @apply rounded-full
+    flex flex-row items-center justify-center
+    box-border;
     width: 34px;
     height: 34px;
     color: var(--code-d);
@@ -66,19 +69,34 @@
 }
 
 .UI__image {
-    background-color: var(--bg-4);
+    background-color: var(--code-d);
+    /* background:linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%); */
+    background-clip: content-box;
     width: 100%;
-    height: 100%;
+    height: 90%;
     position: relative;
+    margin: 0;
+    overflow: hidden;
+    @apply box-border border-4 
+    rounded-lg
+    border-transparent;
     @apply flex items-center justify-center;
-    padding-right: var(--p-8-16);
+    
 }
 .UI__image > img {
     object-fit: cover;
     object-position: center;
+    outline: none;
+    
+    cursor: pointer;
+}
+.UI__image.cover {
+    outline:2px solid var(--t-4)
 }
 .UI__image__grid {
     @apply absolute;
+    width: 100%;
+    height: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
@@ -86,7 +104,19 @@
     background-color: transparent;
 }
 .UI__btn {
-    color: var(--code-d);
+
+    color: var(--code-l);
     font-size: var(--font-size-14);
-    @apply flex flex-col;
+    @apply flex 
+    items-center justify-center
+    flex-col;
+}
+.display__coverImage {
+    @apply relative;
+    width: 100%;
+    aspect-ratio: 1.6/1;
+}
+.display__coverImage.bg {
+    background: linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+
 }

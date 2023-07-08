@@ -12,6 +12,8 @@ blogId?:string;
 initialBlogData?:any;
 progress?:number;
 setProgress?:Function;
+setHasChanged:Function;
+hasChanged:boolean;
 }
 type ChildProps = {
     children:React.ReactNode;
@@ -21,6 +23,7 @@ const WriteProvider = ({children}:ChildProps) => {
   const initialBlogData = {
     content:"",
     uploadedImages:[],
+    deletedImages:[],
     title:"",
     coverImage:"",
     views:0,
@@ -34,12 +37,15 @@ const WriteProvider = ({children}:ChildProps) => {
     userPhoto:"",
     userSocials:{},//❤️ do here sync to user DOc
   }
+  const [hasChanged,setHasChanged]=useState<boolean>(false)
+
     const [blogId,setBlogId]=useState<string|null|undefined>(null)
     const [fireBLog,setFireBlog]=useState(undefined)
     const [localBlog,setLocalBlog]=useState(initialBlogData)
     const [progress,setProgress]=useState<number>(0)
     const [imgFile,setImgFile]=useState(null)
     const WriteValue = {
+      hasChanged:hasChanged,setHasChanged:setHasChanged,
       progress:progress,setProgress:setProgress,
       localBlog:localBlog,
       fireBLog:fireBLog,

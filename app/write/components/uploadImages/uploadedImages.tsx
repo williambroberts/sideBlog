@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react'
 import {v4} from "uuid"
 import UploadedImage from './uploadedImage';
+import IconLeft from '../../../../icons/chevL';
+import IconRight from '../../../../icons/chevR';
 type theProps = {
     images:string[];
 }
@@ -46,7 +48,7 @@ const UploadedImages = ({images}:theProps) => {
             {images.map((item,index)=>(
                 <div className='UI__item' key={v4()}>
                         <UploadedImage src={item}/>
-                        {index}
+                            
                 </div>
             )
             
@@ -57,13 +59,13 @@ const UploadedImages = ({images}:theProps) => {
         onClick={()=>handleClick("left")}
         className='UI__button' 
         style={{left:"17px",display:index===0?"none":""}}>
-                L
+                <IconLeft/>
             </button>
             <button 
              onClick={()=>handleClick("right")}
             className='UI__button' 
             style={{right:"17px",display:index===maxIndex?"none":""}}>
-                R
+                <IconRight/>
             </button>
     </div>
   )

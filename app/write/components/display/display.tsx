@@ -1,15 +1,17 @@
 "use client"
 import React from 'react'
-import { useWrite } from '../../../contexts/writeContext'
+import { useWrite } from '../../../../contexts/writeContext'
 import ReactMarkdown from 'react-markdown'
 import Markdown from 'markdown-to-jsx'
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import {dark,materialDark} from 'react-syntax-highlighter/dist/esm/styles/prism'
 import {solarizedDark,solarizedLight} from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import IconMoon from '../../../components/theme/moon'
-import IconSun from '../../../components/theme/sun'
-import IconTickCircle from '../../../icons/tick'
-import IconCopy from '../../../icons/copy'
+import IconMoon from '../../../../components/theme/moon'
+import IconSun from '../../../../components/theme/sun'
+import IconTickCircle from '../../../../icons/tick'
+import IconCopy from '../../../../icons/copy'
+import Image from 'next/image'
+import DisplayCoverImage from './displayCoverImage'
 type theProps = {
   source?:any;
 }
@@ -18,7 +20,7 @@ const Display = ({source}:theProps) => {
   const [isDark,setIsDark]=React.useState<boolean>(false)
   const [isCopied,setIsCopied]=React.useState<boolean>(false)
   const handleCopy = (text)=>{
-    
+    //❤️ GET TEXT
     navigator.clipboard.writeText(text).then((res)=>{
       setIsCopied((prev)=>true)
       setTimeout(()=>setIsCopied(false),1000)
@@ -30,6 +32,7 @@ const Display = ({source}:theProps) => {
       {/* title */}
       {/* user details */}
       {/* cover img */}
+      <DisplayCoverImage src={source?.coverImage}/>
 <ReactMarkdown
           children={source?.content}
           components={{

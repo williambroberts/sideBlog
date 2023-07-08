@@ -18,10 +18,9 @@ const Editor = () => {
   const pathname= usePathname()
   const searchParams = useSearchParams()
   const {user,setUserDocData,userDocData}=useAuth()
-  const [hasChanged,setHasChanged]=useState<boolean>(false)
   const {localBlog,setBlogId,blogId,setLocalBlog,
     setFireBlog,fireBLog,imgFile,setImgFile,
-    initialBlogData,setProgress,
+    initialBlogData,setProgress,hasChanged,setHasChanged
   }=useWrite()
   // const add = (type)=>{
   //   let id = new Date().getTime().toString()
