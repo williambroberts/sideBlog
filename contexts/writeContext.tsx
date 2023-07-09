@@ -1,5 +1,5 @@
 "use client"
-import React, {useContext,useState,createContext} from 'react'
+import React, {useContext,useState,createContext, useEffect} from 'react'
 type WriteContextValues = {
 localBlog?:any;
 fireBLog?:any;
@@ -24,6 +24,7 @@ const WriteProvider = ({children}:ChildProps) => {
     content:"",
     uploadedImages:[],
     deletedImages:[],
+    keywords:[],
     title:"",
     coverImage:"",
     views:0,
@@ -32,8 +33,9 @@ const WriteProvider = ({children}:ChildProps) => {
     tags:[],
     category:"",
     dateCreation:"",
+    creationTimeStamp:0,
     id:"",
-    latestUpdateTime:"",
+    latestUpdateTimeStamp:"",
     userPhoto:"",
     userSocials:{},//❤️ do here sync to user DOc
   }
@@ -44,6 +46,17 @@ const WriteProvider = ({children}:ChildProps) => {
     const [localBlog,setLocalBlog]=useState(initialBlogData)
     const [progress,setProgress]=useState<number>(0)
     const [imgFile,setImgFile]=useState(null)
+
+const generateKeywords = ()=> {
+    let newKeyWords = [""," "]
+}
+
+  useEffect(()=>{
+    //generate new keywords
+    generateKeywords()
+  },[localBlog.tags,localBlog.category,
+    localBlog.author,localBlog.title])
+
     const WriteValue = {
       hasChanged:hasChanged,setHasChanged:setHasChanged,
       progress:progress,setProgress:setProgress,

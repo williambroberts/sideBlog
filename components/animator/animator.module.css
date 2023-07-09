@@ -1,21 +1,23 @@
 
     .animator {
+        animation: shrink 0.5s ease-in-out 0s 1;
         position: relative;
         width:100%;
         transition: var(--transition-1);
+        
+        
         @apply flex flex-col items-center;
 
     }
-    .collapser {
-        animation: shrink 0.13 ease-in 0s linear;
-
-    }
-
+    
+    
     @keyframes shrink {
         0%{
-            height:30px;
+            opacity: 0;
+            margin-top:30px;
         }
         100% {
-            height: 0px;
+            opacity: 1;
+            margin-top: 0px;
         }
     }

@@ -40,6 +40,9 @@ const SaveButton = ({}:theProps) => {
         let timestamp = new Date().getTime().toString()
         let newBlogId = user?.uid+"blog"+timestamp
         localBlog.latestUpdateTimeStamp = timestamp
+        localBlog.creationTimeStamp = parseInt(timestamp)
+        //add blogId to doc.data()
+        localBlog.id =newBlogId
         const docRef = doc(firestore,"Blogs",newBlogId)
         await setDoc(docRef,localBlog)
       }

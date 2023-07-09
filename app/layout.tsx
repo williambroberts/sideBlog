@@ -28,13 +28,8 @@ export default function RootLayout({ children }) {
       <body className={lato.className}>
         <ProviderForTheme>
         <BlogProvider>
-
-        
-        
         <AuthProvider>
           <NotificationProvider>
-
-          
           {children}
           <div id="portal"></div>
           </NotificationProvider>

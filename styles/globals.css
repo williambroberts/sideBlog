@@ -60,6 +60,7 @@
     --orange:#f7d4bf;
     --orange2:#f7aa35;
     --pink:#f7bfee;
+    --sepia:#8f4a18;
     --palepink: #ffe8db;
     --palegreen:#d9f7bf;
     --verypalegreen:#d9f7bf50;
@@ -164,6 +165,7 @@
     position: relative;
     color:var(--text-primary);
     border: none;
+    align-items: center;
   }
   
   
@@ -220,5 +222,19 @@ img {
 
 }
   .layout__div {
+    width: 100%;
     @apply flex flex-col flex-auto;
+  }
+main.home {
+  margin-top: 60px;
+  max-width: 650px;
+}
+  h1 {
+    font-size: var(--font-size-48);
+  }
+  h2 {
+    font-size:var(--font-size-36);  
+  }
+  h3 {
+    font-size: var(--font-size-24);
   }

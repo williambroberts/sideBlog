@@ -4,20 +4,17 @@ import styles from "./animator.module.css"
 type theProps = {
     children?:React.ReactNode;
     index:number;
+    alignItems?:string;
 }
-const Animator = ({children,index}:theProps) => {
+const Animator = ({alignItems,children,index}:theProps) => {
     const wait = 0.13
-    const [seen,setSeen]=useState<boolean>(false)
-    useEffect(()=>{
-        setTimeout(()=>{
-            setSeen((prev)=>true)
-        },index*wait)
-    },[])
+    
+    
   return (
-    <div className={styles.animator} style={{opacity:seen?"1":"0"}}>
-        <div
-        style={{animationDelay:`${index*wait}s`}}
-        ></div>
+    <div className={styles.animator} style={{animationDelay:`${index*wait}s`
+    ,alignItems:alignItems? alignItems:""
+    }}>
+       
         {children}
     </div>
   )

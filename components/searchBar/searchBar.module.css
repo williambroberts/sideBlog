@@ -1,0 +1,5 @@
+.search__form {
+    max-width: 235px;
+    @apply flex flex-row
+    flex-nowrap ;
+}
