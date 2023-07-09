@@ -39,17 +39,21 @@ const SaveButton = ({}:theProps) => {
         //blogId gives creation timestamp
         let timestamp = new Date().getTime().toString()
         let newBlogId = user?.uid+"blog"+timestamp
-        localBlog.latestUpdateTimeStamp = timestamp
-        localBlog.creationTimeStamp = parseInt(timestamp)
+        let newLocalBLog = {...localBlog}
+        newLocalBLog.latestUpdateTimeStamp = timestamp
+        newLocalBLog.creationTimeStamp = parseInt(timestamp)
         //add blogId to doc.data()
-        localBlog.id =newBlogId
+        newLocalBLog.id =newBlogId
+        console.log(newLocalBLog)
         const docRef = doc(firestore,"Blogs",newBlogId)
-        await setDoc(docRef,localBlog)
+        await setDoc(docRef,newLocalBLog)
       }
     }
   }
   const handleClick = ()=>{
-  
+    setHasChanged(true)
+    console.log("saving")
+    handleUpdateToFirebase()
   }
   return (
     <button className='save__button'

@@ -45,13 +45,13 @@ const UploadedImage = ({src}:theProps) => {
        setTimeout(()=>{
         setDeleted((prev)=>false)
         let newLocalBlog = {...localBlog}
-        let img = newLocalBlog.filter((item)=>item===src)
+        let img = newLocalBlog.uploadedImages?.filter((item)=>item===src)
         newLocalBlog.deletedImages.push(img[0])
-        newLocalBlog.filter((item)=>item!==src)
+        newLocalBlog.uploadedImages.filter((item)=>item!==src)
         setLocalBlog({...newLocalBlog})
         setIsClicked((prev)=>false)
         setHasChanged((prev)=>true)
-
+        console.log(img)
       },1000)
     }
     const handleCopy = ()=>{
@@ -90,7 +90,7 @@ const UploadedImage = ({src}:theProps) => {
         <Image 
         className={isClicked? "blur-2xl":""}
         fill
-        src={"/"} alt='/' sizes='200px'/>
+        src={src} alt='/' sizes='200px'/>
         <div className='UI__image__grid' 
         style={{display:isClicked?"":"none"}}
         >

@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 type theProps = {
-  value:string;
+  value?:string;
   name:string;
   type:string;
   required?:boolean;

@@ -1,5 +1,5 @@
 "use client"
-import React,{useState} from 'react'
+import React,{useState,memo} from 'react'
 import InputReusable from '../../../signUp/components/inputReusable'
 import IconSave from '../../../../icons/save'
 import { useWrite } from '../../../../contexts/writeContext'
@@ -21,6 +21,7 @@ const AddTag = () => {
     setSave(true)
     let newLocalBlog={...localBlog}
     newLocalBlog.tags.push(tag)
+    console.log(newLocalBlog.tags)
     setLocalBlog(newLocalBlog)
     setTag("")
     if(!hasChanged){
@@ -51,4 +52,4 @@ const AddTag = () => {
   )
 }
 
-export default AddTag
+export default memo(AddTag)

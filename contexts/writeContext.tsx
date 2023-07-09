@@ -45,19 +45,22 @@ const WriteProvider = ({children}:ChildProps) => {
     const [fireBLog,setFireBlog]=useState(undefined)
     const [localBlog,setLocalBlog]=useState(initialBlogData)
     const [progress,setProgress]=useState<number>(0)
-    const [imgFile,setImgFile]=useState(null)
+    const [imgFile,setImgFile]=useState<File|null>(null)
 
 const generateKeywords = ()=> {
     let newKeyWords = [""," "]
     //💭 toLowerCase()
     newKeyWords.push(localBlog.category.toLowerCase())
     let authorWords = localBlog.author.toLowerCase().split(" ")
-    newKeyWords.concat(authorWords)
+    newKeyWords.push(...authorWords)
     localBlog.tags.forEach((tag)=>newKeyWords.push(tag.toLowerCase()))
     let titleWords = localBlog.title.toLowerCase().split(" ")
-    newKeyWords.concat(titleWords)
-    localBlog.keywords = Array.from(new Set(newKeyWords))
+    newKeyWords.push(...titleWords)
+    let newLocalBLog = {...localBlog}
     
+    newLocalBLog.keywords = Array.from(new Set(newKeyWords))
+    setLocalBlog(newLocalBLog)
+  console.log(newLocalBLog.keywords)
 }
 
   useEffect(()=>{

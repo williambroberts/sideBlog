@@ -64,7 +64,7 @@ const Display = ({source}:theProps) => {
                 <SyntaxHighlighter
                   {...props}
                   children={String(children).replace(/\n$/, '')}
-                  style={isDark? solarizedDark:solarizedLight}
+                  style={isDark? dark:dark}
                   language={match[1]}
                   PreTag="div"
                 />

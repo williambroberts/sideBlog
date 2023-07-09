@@ -52,8 +52,8 @@ const Editor = () => {
   }
   const handleNewImage = (e)=>{
     //❤️SAVE button
-    let newImgFile = {file:e.target.files[0]}
-    setImgFile((prev)=>newImgFile)
+    
+    setImgFile((prev)=>e.target.files[0])
     
     
   }
@@ -61,7 +61,7 @@ const Editor = () => {
 useEffect(()=>{
   const uploadFile = ()=>{
     const storageRef = ref(storage,imgFile.name)
-    const uploadTask = uploadBytesResumable(storageRef, imgFile.file);
+    const uploadTask = uploadBytesResumable(storageRef, imgFile);
     uploadTask.on('state_changed',
   (snapshot) => {
     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
@@ -89,9 +89,10 @@ useEffect(()=>{
    
     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
       console.log('File available at', downloadURL);
-
-     
-        localBlog.uploadedImages.push(downloadURL)
+        let newLocalBlog = {...localBlog}
+        newLocalBlog.uploadedImages.push(downloadURL)
+        setLocalBlog((prev)=>newLocalBlog)
+       
       if (!hasChanged){
           setHasChanged((prev)=>true)
         }
@@ -102,6 +103,7 @@ useEffect(()=>{
 );
   }
 console.log(imgFile)
+//💭if imgFile not null , null on pageload and reset and noFB blog
 imgFile && uploadFile()
 },[imgFile])
 
@@ -116,13 +118,17 @@ const createBlog = ()=>{
   if (!hasChanged){
     setHasChanged(true)
   }
+  setImgFile(null)
   setBlogId(null)
   let newBlogData = {...initialBlogData}
   //author, authorId, ❤️all fields filled in
    newBlogData.authorId = user.uid;
 
   newBlogData.author = userDocData.username 
-  newBlogData.userPhoto = userDocData.profilePhoto
+  if (userDocData.profilePhoto!==undefined){
+    newBlogData.userPhoto = userDocData.profilePhoto
+  }
+  
   let date = new Date()
       let fullDate = date.getDate().toString()+"/"
       +(1+date.getMonth()).toString()+"/"
@@ -182,12 +188,12 @@ useEffect(()=>{
       <CRUD blogId={fireBLog?.blogId}/>
       {/* create or edit */}
       {/* uploadedImages real */}
-      <UploadedImages images={["a","v","a","c","e","e"]}/>
+      <UploadedImages images={localBlog?.uploadedImages}/>
       <AddItem name='Upload Image' 
         type='file'
         className='add__item'
         placeholder='Upload Image'
-        value={imgFile}
+        
         handleChange={(e)=>handleNewImage(e)}
         />
         {/* title */}
