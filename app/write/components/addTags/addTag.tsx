@@ -23,7 +23,7 @@ const AddTag = () => {
     newLocalBlog.tags.push(tag)
     setLocalBlog(newLocalBlog)
     setTag("")
-    if( !hasChanged){
+    if(!hasChanged){
       setHasChanged((prev)=>true)
     }
   }
@@ -44,7 +44,7 @@ const AddTag = () => {
       disabled={save}
       type='submit'
       className='add__tag__btn'>
-        <IconSave/> SAVE
+        <IconSave/> SAVE TAG
       </button>
 
     </form>

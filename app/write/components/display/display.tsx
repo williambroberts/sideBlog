@@ -13,6 +13,9 @@ import IconCopy from '../../../../icons/copy'
 import Image from 'next/image'
 import DisplayCoverImage from './displayCoverImage'
 import UserDetails from './userDetails'
+import DisplayTags from './displayTags'
+import DisplayCategory from './displayCategory'
+import DisplayTitle from './displayTitle'
 type theProps = {
   source?:any;
 }
@@ -30,6 +33,8 @@ const Display = ({source}:theProps) => {
   return (
     <div className='display'>
      {/* category */}
+     <DisplayCategory category={source?.category}/>
+     <DisplayTitle title={source?.title}/>
       {/* title */}
       {/* user details */}
       <UserDetails userPhoto={source?.userPhoto}
@@ -72,7 +77,7 @@ const Display = ({source}:theProps) => {
             }
           }}
         />
-       
+       <DisplayTags tags={source?.tags}/>
     </div>
   )
 }

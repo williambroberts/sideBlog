@@ -29,7 +29,7 @@ const UploadedImages = ({images}:theProps) => {
             clearTimeout(timeout)
         }
 
-    },[window.innerWidth])
+    },[window?.innerWidth])
         const handleClick = (direction)=>{
             //calc max index
             if (index===0 && direction==="left") return;

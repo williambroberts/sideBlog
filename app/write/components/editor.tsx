@@ -14,6 +14,7 @@ import AddItem from './addItem'
 import UploadedImages from './uploadImages/uploadedImages'
 import AddTag from './addTags/addTag'
 import TagManager from './addTags/manageTags'
+import CRUD from './CRUD'
 
 const Editor = () => {
   const router = useRouter()
@@ -32,6 +33,12 @@ const Editor = () => {
   //   newLocalBlog.content.push(newContentItem)
   //   setLocalBlog((prev)=>newLocalBlog)
   // }
+
+  const handleResize = (e)=>{
+    const textarea = document.getElementById("write__textarea")
+    textarea.style.height="auto"
+    textarea.style.height=`${textarea.scrollHeight}px`
+  }
   const handleWriting = (e) =>{
     let newLocalBlog = {...localBlog}
     newLocalBlog.content = e.target.value
@@ -106,6 +113,9 @@ useEffect(()=>{
 
 
 const createBlog = ()=>{
+  if (!hasChanged){
+    setHasChanged(true)
+  }
   setBlogId(null)
   let newBlogData = {...initialBlogData}
   //author, authorId, ❤️all fields filled in
@@ -131,37 +141,7 @@ const getFireBlog = async ()=>{
     setFireBlog({...snapShot.data()})
   }
 }
-const handleUpdateToFirebase =async ()=>{
-  //❤️use callback
-  //if SAVE criteria met
-  if (localBlog.title!=="" && localBlog.coverImage!==""){
-    if (blogId){
-      try {
-        let blogRef = doc(firestore,"Blogs",localBlog.id)
-        await runTransaction(firestore, async (t)=>{
-          const docSnapShot = await t.get(blogRef)
-          if (!docSnapShot.exists()){
-            //❤️check erros
-            console.log("error,no snapshot")
-            return
-          }
-          t.update(blogRef,{...localBlog})
-        })
-      }catch (err){
-        console.log(err,"update failed")
-      }
-    }else {
-      //make new blog
-      //❤️check all fields are added in createBlog and here
-      //blogId gives creation timestamp
-      let timestamp = new Date().getTime().toString()
-      let newBlogId = user?.uid+"blog"+timestamp
-      localBlog.latestUpdateTimeStamp = timestamp
-      const docRef = doc(firestore,"Blogs",newBlogId)
-      await setDoc(docRef,localBlog)
-    }
-  }
-}
+
 const handleAddItem = (key,e)=>{
   
   let newLocalBlog = {...localBlog}
@@ -173,7 +153,7 @@ const handleAddItem = (key,e)=>{
     newLocalBlog.coverImage = e.target.value
   }
   //newLocalBlog.key = e.target.value
-  console.log(newLocalBlog.key,e.target.value)
+  console.log(key,e.target.value)
   //debounce❤️
   setLocalBlog(newLocalBlog)
   if (!hasChanged){
@@ -199,7 +179,7 @@ useEffect(()=>{
 //   },[blogId])
   return (
     <div className='editor'>
-      editor
+      <CRUD blogId={fireBLog?.blogId}/>
       {/* create or edit */}
       {/* uploadedImages real */}
       <UploadedImages images={["a","v","a","c","e","e"]}/>
@@ -228,8 +208,9 @@ useEffect(()=>{
 {/* cover image */}
 
 
-        <textarea
+        <textarea id='write__textarea'
         // autoFocus
+        onInput={(e)=>handleResize(e)}
         className='write__textarea'
         value={localBlog.content}
         onChange={(e)=>handleWriting(e)}

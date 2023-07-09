@@ -10,6 +10,7 @@ import { Lato } from 'next/font/google'
 import AuthProvider from '../contexts/AuthContext'
 import NotificationProvider from '../contexts/NotificationContext'
 import ProviderForTheme from '../components/theme/themeProvider'
+import BlogProvider from '../contexts/BlogContext'
 const inter = Inter({ subsets: ['latin'] })
 const lato = Lato({subsets:["latin"],weight:["100","300","400","700","900"]})
 export const metadata = {
@@ -26,7 +27,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={lato.className}>
         <ProviderForTheme>
+        <BlogProvider>
 
+        
         
         <AuthProvider>
           <NotificationProvider>
@@ -36,6 +39,7 @@ export default function RootLayout({ children }) {
           <div id="portal"></div>
           </NotificationProvider>
         </AuthProvider>
+        </BlogProvider>
         </ProviderForTheme>
         </body>
     </html>
