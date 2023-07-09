@@ -16,7 +16,8 @@ const AddTag = () => {
     
 
   }
-  const handleSubmit = ()=>{
+  const handleSubmit = (e)=>{
+    e.preventDefault()
     setSave(true)
     let newLocalBlog={...localBlog}
     newLocalBlog.tags.push(tag)
@@ -43,7 +44,7 @@ const AddTag = () => {
       disabled={save}
       type='submit'
       className='add__tag__btn'>
-        <IconSave/>
+        <IconSave/> SAVE
       </button>
 
     </form>

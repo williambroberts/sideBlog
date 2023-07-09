@@ -149,3 +149,24 @@
     height: 100%;
 
 }
+.tag__manager {
+    min-height: 30px;
+    width: 100%
+    @apply flex flex-row flex-wrap
+    items-center justify-start
+    gap-1;
+}
+
+.editor__tag__item {
+    
+}
+.add__tag {
+    @apply flex flex-row flex-wrap
+    items-center justify-start
+    gap-1;
+}
+.add__tag__btn {
+    @apply flex flex-row flex-wrap
+    items-center justify-start
+    gap-1;
+}

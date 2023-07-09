@@ -4,14 +4,19 @@ type theProps = {
     text?:string;
     className?:string;
     icon?:React.ReactNode;
+    children?:React.ReactNode;
+    handleClick:React.MouseEventHandler<HTMLButtonElement>
 }
-const Button = ({type,className,text,icon}:theProps) => {
+const Button = ({handleClick,
+  children,type,className,text,icon}:theProps) => {
   return (
-    <button className={className?
+    <button 
+    onClick={handleClick}
+    className={className?
     className:
     ""}
 type={type}>
-    
+    {children}
         {icon}
         {text}
     </button>
