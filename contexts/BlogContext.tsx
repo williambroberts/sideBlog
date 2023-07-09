@@ -78,7 +78,7 @@ const BlogProvider = ({children}:ChildProps) => {
         setMode((prev)=>"search")
         const blogsRef = collection(firestore,"Blogs")
         const q  = query(blogsRef,
-            where("keywords","array-contains",term),
+            where("keywords","array-contains",term.toLowerCase()),
             orderBy("title"),
             limit(5),
             startAfter(LastVisible)
@@ -97,7 +97,7 @@ const BlogProvider = ({children}:ChildProps) => {
         setMode((prev)=>"tag")
         const blogsRef = collection(firestore,"Blogs")
         const q  = query(blogsRef,
-            where("tags","array-contains",tag),
+            where("tags","array-contains",tag.toLowerCase()),
             orderBy("title"),
             limit(10),
            startAfter(LastVisible) //null first time

@@ -49,6 +49,15 @@ const WriteProvider = ({children}:ChildProps) => {
 
 const generateKeywords = ()=> {
     let newKeyWords = [""," "]
+    //💭 toLowerCase()
+    newKeyWords.push(localBlog.category.toLowerCase())
+    let authorWords = localBlog.author.toLowerCase().split(" ")
+    newKeyWords.concat(authorWords)
+    localBlog.tags.forEach((tag)=>newKeyWords.push(tag.toLowerCase()))
+    let titleWords = localBlog.title.toLowerCase().split(" ")
+    newKeyWords.concat(titleWords)
+    localBlog.keywords = Array.from(new Set(newKeyWords))
+    
 }
 
   useEffect(()=>{
