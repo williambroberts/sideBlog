@@ -13,7 +13,7 @@ const DesktopLink = ({data}:theProps) => {
         <Link href={`/blog?blogId=${data?.id}`}
         className='text-[var(--t-1)]'
         >{data?.title}</Link>
-        <CanEdit id={data.id}/>
+        <CanEdit id={data.authorId}/>
     </div>
   )
 }

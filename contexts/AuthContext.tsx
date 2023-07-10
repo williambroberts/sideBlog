@@ -17,6 +17,8 @@ type AuthContextValues = {
     resetPassword:Function;
     userDocData?:any;
     setUserDocData?:Function;
+    setIsAdmin:Function;
+    isAdmin:boolean;
 }
 type ChildrenProp = {
     children:React.ReactNode
@@ -24,9 +26,10 @@ type ChildrenProp = {
 const AuthContext = createContext<AuthContextValues | undefined>(undefined)
 const AuthProvider = ({children}:ChildrenProp) => {
     const [user,setUser]=useState<any|null|undefined>({})
+    const [isAdmin,setIsAdmin]=useState<boolean>(false)
     const [userDocData,setUserDocData]=useState<object|null|undefined>(null)
     const AuthValue= {
-        user:user,
+        user:user,setIsAdmin:setIsAdmin,isAdmin:isAdmin,
         signIn:signIn,
         signOut:logOut,
         signUp:signUp,
@@ -37,6 +40,7 @@ const AuthProvider = ({children}:ChildrenProp) => {
 
     useEffect(()=>{
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+          console.log("currentuser",currentUser)
             setUser(currentUser);
           });
           return () => {
@@ -45,6 +49,14 @@ const AuthProvider = ({children}:ChildrenProp) => {
     },[])
     const getUserDoc =async ()=>{
         if (user===null)return;
+
+        let newIsADmin = user.displayName?.split("##")[1]
+        console.log(user?.displayName,"displayName")
+        if (newIsADmin==="true"){
+          setIsAdmin(true)
+        }else {
+          setIsAdmin(false)
+        }
         console.log("user",user.uid)
         try {
           let docRef = doc(firestore,"users",user.uid)

@@ -5,6 +5,7 @@ import HeaderLink from './headerLink'
 import HeaderAuthLinkWrapper from './headerAuthLinkWrapper'
 import AuthLinks from './AuthLinks'
 import Link from 'next/link'
+import ProfileLink from './profileLink'
 const HeaderHorizontal = () => {
   return (
     <header className='header__h'>
@@ -19,7 +20,8 @@ const HeaderHorizontal = () => {
 
     <HeaderAuthLinkWrapper>
       <HeaderLink href={"/write"} text="Write"/>
-      <HeaderLink href={"/profile"} text='Profile'/>
+      {/* <HeaderLink href={"/profile"} text='Profile'/> */}
+      <ProfileLink className={"header__link"}/>
     </HeaderAuthLinkWrapper>
     <AuthLinks/>
           </div>

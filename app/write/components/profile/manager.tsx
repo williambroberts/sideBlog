@@ -6,7 +6,7 @@ import { useAuth } from '../../../../contexts/AuthContext'
 import { useSearchParams } from 'next/navigation'
 
 const ProfileManager = () => {
-    const {user}=useAuth()
+    const {user,isAdmin}=useAuth()
     const searchParams = useSearchParams()
     const [isBlogs,setIsBlogs]=useState<boolean>(true)
     const [canEditProfile,setCanEditProfile]=useState<boolean>(false)
@@ -15,15 +15,22 @@ const ProfileManager = () => {
         if (who===user.uid){
             setCanEditProfile(true)
         }
+       //💭ADMIN CAN EDIT TOO
+       console.log(user.displayName,user,isAdmin)
+       if (isAdmin){
+        setCanEditProfile(true)
+       }
     },[])
     return (
     <div>
         {/* profile banner jhey ? */}
         <header>
-            <nav>
-                <button>Blogs</button>
+            <nav>   
+                <button 
+                onClick={()=>setIsBlogs(true)}
+                >Blogs</button>
                 <button
-                
+                onClick={()=>setIsBlogs(false)}
                 disabled={canEditProfile}
                 >Edit Profile</button>
             </nav>

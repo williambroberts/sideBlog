@@ -22,13 +22,16 @@ const CanEdit = ({id}:theProps) => {
     }
   return (
     desktop?    
-    <div className='canEdit__desktop'>
+    <div className='canEdit__desktop'
+    style={{display:id===user?.uid?"":"none"}}>
         <button className=''
         onClick={handleEdit}
         >EDIT</button>
         <button className=''>DELETE</button>
     </div>:
-    <div>
+    <div className='canEdit__touch'
+    style={{display:id===user?.uid?"":"none"}}>
+    {/* 🧧ADMIN userDocData.admin */}
     <button className=''>EDIT</button>
     <button className=''>DELETE</button>
     </div>

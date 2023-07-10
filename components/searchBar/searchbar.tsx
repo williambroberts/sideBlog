@@ -5,15 +5,20 @@ import Button from '../../app/write/components/addTags/button'
 import IconSearch from './searchIcon'
 import { useBlogs } from '../../contexts/BlogContext'
 import styles from "./searchbar.module.css"
-const SearchBar = () => {
+type theProps= {
+  filterByAuthor?:boolean;
+  userArg?:string;
+}
+const SearchBar = ({filterByAuthor,userArg}:theProps) => {
     const {handleSearch}=useBlogs()
     const {blogs,setBlogs}=useBlogs()
     const [text,setText]=useState<string>("")
     const handleSubmit = (e)=>{
         e.preventDefault()
         //❤️search quesry firebase
-        console.log("search",text)
-        handleSearch(text)
+        console.log("search",text,filterByAuthor,userArg)
+        //💭quiery, filter, userArg
+        handleSearch(text,filterByAuthor,userArg)
 
     }
   return (

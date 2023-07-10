@@ -37,7 +37,9 @@ export default function Home() {
     <Animator index={2}
     alignItems="flex-start"
     >
-<SearchBar/>
+<SearchBar
+
+/>
     </Animator >
     <Animator index={3}
     alignItems="flex-start"

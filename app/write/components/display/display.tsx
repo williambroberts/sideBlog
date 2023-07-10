@@ -37,7 +37,7 @@ const Display = ({source}:theProps) => {
      <DisplayTitle title={source?.title}/>
      
       <UserDetails userPhoto={source?.userPhoto}
-      author={source?.author}
+      author={source?.author} userUid={source?.authorId}
       dateCreation={source?.dateCreation}
       />
      

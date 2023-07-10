@@ -28,6 +28,7 @@ const BlogContext = createContext<BlogContextProps|null>(null)
 const BlogProvider = ({children}:ChildProps) => {
     //❤️blog id {blogid:,blog:}
     const {user}=useAuth()
+    const theLimit = 4;
     const [filterByAuth,setFilterByAuth]=useState<boolean>(false)
     const [blogs,setBlogs]=React.useState(null)
     const [stateTag,setStateTag]=useState<string>(null)
@@ -58,19 +59,19 @@ const BlogProvider = ({children}:ChildProps) => {
         }
         const blogsRef = collection(firestore,"Blogs")
         let startAfterValue = more===true?LastVisible:null
-        let q = null
+        let q = null    
         if (filterByAuthor){
             q = query(blogsRef,
                 where("authorId","==",userArg),
                 orderBy("creationTimeStamp"),
-                limit(5),
+                limit(theLimit),
                 startAfter(startAfterValue)
                 
                 )
         }else {
             q = query(blogsRef,
             orderBy("creationTimeStamp"),
-            limit(5),
+            limit(theLimit),
             startAfter(startAfterValue)
             
             )
@@ -138,19 +139,19 @@ const BlogProvider = ({children}:ChildProps) => {
         let searchTerm = term.toLowerCase()
         let startAfterValue = term===queryText?LastVisible: null
         let q = null
-        if (UserArg){
+        if (filterByAuthor){
         q  = query(blogsRef,
                 where("keywords","array-contains",searchTerm), 
                 where("authorId","==",userArg), 
                 orderBy("title"),
-                limit(5),
+                limit(theLimit),
                 startAfter(startAfterValue)
                 )
         }else {
             q  = query(blogsRef,
                 where("keywords","array-contains",searchTerm), 
                 orderBy("title"),
-                limit(5),
+                limit(theLimit),
                 startAfter(startAfterValue)
                 )
         }
@@ -185,14 +186,14 @@ const BlogProvider = ({children}:ChildProps) => {
                 where("tags","array-contains",searchTerm),
                 where("authorId","==",UserArg),
                 orderBy("title"),
-                limit(10),
+                limit(theLimit),
                startAfter(LastVisible) //null first time
                 )
         }else {
             q  = query(blogsRef,
                 where("tags","array-contains",searchTerm),
                 orderBy("title"),
-                limit(10),
+                limit(theLimit),
                startAfter(LastVisible) //null first time
                 )
         }
@@ -201,13 +202,13 @@ const BlogProvider = ({children}:ChildProps) => {
         handleUpdate(querySnapshot)
 
     }
-    const fetchMore = async()=>{
+    const fetchMore = async(filterByAuthor,userArg)=>{
         if (mode==="none"){
-            await getBlogsByLatest(true)
+            await getBlogsByLatest(true,filterByAuthor,userArg)
         }else if(mode==="search"){
-            await handleSearch(queryText)
+            await handleSearch(queryText,filterByAuthor,userArg)
         }else if (mode==="tag"){
-            await getBlogsByTag(stateTag)
+            await getBlogsByTag(stateTag,filterByAuthor,userArg)
         }
     }
 

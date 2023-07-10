@@ -1,14 +1,25 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import Animator from '../../../../components/animator/animator'
 import SearchBar from '../../../../components/searchBar/searchbar'
 import GetLatest from '../../../../components/home/getLatest'
 import BlogList from '../../../../components/home/blogList'
 import FetchMoreBlogs from '../../../../components/home/fetchMore'
 import { useAuth } from '../../../../contexts/AuthContext'
+import { useBlogs } from '../../../../contexts/BlogContext'
+import { useSearchParams } from 'next/navigation'
 
 const BlogsComponent = () => {
     const {userDocData}=useAuth()
+    const {blogs,getBlogsByLatest}=useBlogs()
+    const searchParams = useSearchParams()
+    const userArgRef = useRef<string|undefined>("")
+    useEffect(()=>{
+        let userArg = searchParams.get("Auth")
+        userArgRef.current=userArg
+        // more=false,filterbyauth,userArgs
+        getBlogsByLatest(false,true,userArg)
+    },[])
   return (
     <div>
         <Animator index={2}
@@ -27,7 +38,10 @@ const BlogsComponent = () => {
     <Animator index={2}
     alignItems="flex-start"
     >
-<SearchBar/>
+<SearchBar
+filterByAuthor={true}
+userArg={userArgRef?.current}
+/>
     </Animator >
     <Animator index={3}
     alignItems="flex-start"

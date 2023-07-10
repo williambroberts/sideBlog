@@ -5,8 +5,9 @@ import { AuthButton } from './AuthButton';
 import { setDoc,doc } from 'firebase/firestore';
 import { useNotifications } from '../../../contexts/NotificationContext';
 import { useAuth } from '../../../contexts/AuthContext';
-import { firestore } from '../../../firebase/firebaseConfig';
+import { firestore,auth } from '../../../firebase/firebaseConfig';
 import LinkToOther from './linkToOther';
+import { updateProfile } from 'firebase/auth';
 type dataProps = {
     username:string;
     password:string;
@@ -15,7 +16,7 @@ type dataProps = {
     confirmEmail:string;
 }
 const SignUpForm = () => {
-    
+    const alphanumericRegex = /^[a-zA-Z0-9_]*$/
     const [data,setData]=useState<dataProps>({username:"",password:"",
     email:"",confirmPassword:"",confirmEmail:""})
     const {notification,setNotification,setOpenNotification,
@@ -23,6 +24,16 @@ const SignUpForm = () => {
     const  {signUp} = useAuth()
     const handleSubmit = async (e)=>{
         e.preventDefault()
+        if (data.username===""){
+            setNotification((prev)=>"Username is required")
+            setOpenNotification((prev)=>true)
+            return
+        }
+        if (alphanumericRegex.test(data.username)===false){
+            setNotification((prev)=>"Alphanumeric characters only")
+            setOpenNotification((prev)=>true)
+            return
+        }
         if (data.email!==data.confirmEmail){
             setNotification((prev)=>"Emails do not match")
             setOpenNotification((prev)=>true)
@@ -55,11 +66,23 @@ const SignUpForm = () => {
                         admin:false,
 
                     }
+
                     const docRef  = doc(firestore,"users",result.user.uid)
                     await setDoc(docRef,docData)
                 }catch(err) {
                     console.log(err,"error")
                 }
+                //🧧admin user setttings
+                let newDisplayName = data.username+"###false"
+                updateProfile(auth.currentUser, {
+                    displayName:newDisplayName, photoURL: ""
+                  }).then(() => {
+                    // Profile updated!
+                    // ...
+                  }).catch((error) => {
+                    // An error occurred
+                    // ...
+                  });
                  //navigate to homepage
                 window.location.assign("/")
             }

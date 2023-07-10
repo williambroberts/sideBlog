@@ -1,13 +1,16 @@
 "use client"
 import Image from 'next/image';
+import Link from 'next/link';
 import React, { useState } from 'react'
 type theProps={
     usePhoto:string;
     author:string;
     dateCreation:string;
+    userUid?:string;
 }
-const UserDetails = ({userPhoto,author,dateCreation}) => {
+const UserDetails = ({userPhoto,author,dateCreation,userUid}) => {
     const [loading,setLoading]=useState<boolean>(false)
+    
     return (
     <div className="display__user__details">
         <Image src={userPhoto} alt='/'
@@ -28,7 +31,9 @@ const UserDetails = ({userPhoto,author,dateCreation}) => {
         <div className='
         font-[var(--font-size-14)]
         flex flex-col gap-0 '>
-        <span>{author}</span>
+        <Link 
+        className='hover:underline'
+        href={`/profile?Auth=${userUid}`}>{author}</Link>
         <span>{dateCreation}</span>
         </div>
     </div>

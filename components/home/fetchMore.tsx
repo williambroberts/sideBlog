@@ -1,9 +1,12 @@
 "use client"
 import React from 'react'
 import { useBlogs } from '../../contexts/BlogContext'
+type theProps= {
+  filterByAuthor?:boolean;
+  userArg?:string;
+}
 
-
-const FetchMoreBlogs = () => {
+const FetchMoreBlogs = ({filterByAuthor,userArg}:theProps) => {
     const {fetchMore}=useBlogs()
   return (
     <button 
