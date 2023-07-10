@@ -1,20 +1,21 @@
 
     .animator {
+        opacity: 0;
         animation: shrink 0.5s ease-in-out 0s 1;
         position: relative;
         width:100%;
         transition: var(--transition-1);
-        
-        
+        animation-fill-mode: forwards;
+        margin-top:1rem;
         @apply flex flex-col items-center;
 
     }
-    
+   
     
     @keyframes shrink {
         0%{
-            opacity: 0;
-            margin-top:30px;
+            /* opacity: 0;
+            margin-top:30px; */
         }
         100% {
             opacity: 1;

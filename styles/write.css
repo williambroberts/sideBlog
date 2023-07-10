@@ -24,6 +24,7 @@
 }
 
 .display,.editor {
+    width: 100%;
     max-width: 650px;
     height: min-content;
     @apply flex flex-col

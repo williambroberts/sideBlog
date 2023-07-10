@@ -44,10 +44,16 @@ const SaveButton = ({}:theProps) => {
         newLocalBLog.creationTimeStamp = parseInt(timestamp)
         //add blogId to doc.data()
         newLocalBLog.id =newBlogId
+        if (newLocalBLog.userPhoto===undefined){
+          newLocalBLog.userPhoto = ""
+        }
         console.log(newLocalBLog)
         const docRef = doc(firestore,"Blogs",newBlogId)
         await setDoc(docRef,newLocalBLog)
       }
+    }else{
+      //💭notify need cover and title
+      console.log("not saving")
     }
   }
   const handleClick = ()=>{

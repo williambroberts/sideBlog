@@ -6,12 +6,14 @@ interface theProps {
     tags:string[];
 }
 const DisplayTags = ({tags}:theProps) => {
-    const {getBlogsByTag}=useBlogs()
-    console.log(tags)
-    const handleClick = (tag)=>{
+    const {getBlogsByTag,setMode,setStateTag}=useBlogs()
+    //console.log(tags)
+    const handleClick = async (tag)=>{
         console.log("tag search",tag)
-        //window.location.assign("/")
-       // getBlogsByTag(tag)
+        setMode((prev)=>"tag")
+        setStateTag(tag)
+       //await getBlogsByTag(tag)
+         window.location.assign(`/?tag=${tag}`)
         //❤️search all blogs on home page for that tag
     }
   return (

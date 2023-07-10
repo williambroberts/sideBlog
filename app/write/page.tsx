@@ -14,11 +14,8 @@ const WritePage = () => {
     className='write__main'
     >
 
-{/* <PushNoUser/> */}
-{/* <SplitPaneParent childLeft={"left"}
-      childRight={"right"}
-      /> */}
-      {/* <Parent/> */}
+<PushNoUser/>
+
 
       <div className='temporary'>
 <Editor/>

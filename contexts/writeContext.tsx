@@ -45,7 +45,7 @@ const WriteProvider = ({children}:ChildProps) => {
     const [fireBLog,setFireBlog]=useState(undefined)
     const [localBlog,setLocalBlog]=useState(initialBlogData)
     const [progress,setProgress]=useState<number>(0)
-    const [imgFile,setImgFile]=useState<File|null>(null)
+    const [imgFile,setImgFile]=useState<any>(null)
 
 const generateKeywords = ()=> {
     let newKeyWords = [""," "]

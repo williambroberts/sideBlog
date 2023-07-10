@@ -45,16 +45,23 @@ const AuthProvider = ({children}:ChildrenProp) => {
     },[])
     const getUserDoc =async ()=>{
         if (user===null)return;
-        let docRef = doc(firestore,"users",user.uid)
+        console.log("user",user.uid)
+        try {
+          let docRef = doc(firestore,"users",user.uid)
         const snapShot = await getDoc(docRef)
         if (snapShot.exists()){
           console.log(snapShot.data())
           setUserDocData({...snapShot.data()})
         }
+        }catch(err){
+          console.log(err)
+        }
+        
       }
       useEffect(()=>{
-        
+
         user && getUserDoc()
+        
       },[user])
     async function resetPassword(email:string):Promise<{ result: any, error: any }>{
         let result=null, error=null

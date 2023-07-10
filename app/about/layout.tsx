@@ -6,11 +6,11 @@ import HeaderHorizontal from '../../components/header/header'
 import FooterHorizontal from '../../components/footer/footer'
 
 export const metadata = {
-    title: 'sign Up'
+    title: 'About'
 }
 
 
-const SignInLayout = ({children}) => {
+const AboutLayout = ({children}) => {
   return (
     <div className='layout__div'>
       <HeaderHorizontal/>
@@ -20,4 +20,4 @@ const SignInLayout = ({children}) => {
   )
 }
 
-export default SignInLayout
+export default AboutLayout

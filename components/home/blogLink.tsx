@@ -10,6 +10,7 @@ const BlogLink = ({data}) => {
     const desktop = getDevice()
   return (
     <div>
+      
         {desktop?
         <DesktopLink data={data}/>:
         <MobileLink data={data}/>

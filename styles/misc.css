@@ -3,3 +3,11 @@
     font-size: inherit;
     font-weight: inherit;
 }
+
+.btn {
+    color: var(--t-1);
+    font-size: var(--font-size-16);
+}
+.u {
+    text-decoration: underline;
+}

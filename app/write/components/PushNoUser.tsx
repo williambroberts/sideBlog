@@ -5,7 +5,10 @@ import { useAuth } from '../../../contexts/AuthContext'
 const PushNoUser = () => {
   const  {user}=useAuth()
     useEffect(()=>{
-        window.location.assign("/")
+      if (user===null || user===undefined){
+         window.location.assign("/")
+      }
+       
     },[user])
     return (
     <div>PushNoUser</div>

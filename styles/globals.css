@@ -225,7 +225,7 @@ img {
     width: 100%;
     @apply flex flex-col flex-auto;
   }
-main.home {
+main.page {
   margin-top: 60px;
   max-width: 650px;
 }
@@ -237,4 +237,7 @@ main.home {
   }
   h3 {
     font-size: var(--font-size-24);
+  }
+  p{
+    font-size: var(--font-size-16);
   }

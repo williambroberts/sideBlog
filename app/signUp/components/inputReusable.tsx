@@ -4,7 +4,7 @@ type inputReusableProps = {
     value:string;
     handleChange:React.ChangeEventHandler<HTMLInputElement>;
     name?:string;
-    required:boolean;
+    required?:boolean;
     placeholder:string;
     className?:string;
 

@@ -20,7 +20,7 @@ type theProps = {
   source?:any;
 }
 const Display = ({source}:theProps) => {
-  
+  console.log(source)
   const [isDark,setIsDark]=React.useState<boolean>(false)
   const [isCopied,setIsCopied]=React.useState<boolean>(false)
   const handleCopy = (text)=>{
@@ -32,16 +32,15 @@ const Display = ({source}:theProps) => {
   }
   return (
     <div className='display'>
-     {/* category */}
+    
      <DisplayCategory category={source?.category}/>
      <DisplayTitle title={source?.title}/>
-      {/* title */}
-      {/* user details */}
+     
       <UserDetails userPhoto={source?.userPhoto}
       author={source?.author}
       dateCreation={source?.dateCreation}
       />
-      {/* cover img */}
+     
       <DisplayCoverImage src={source?.coverImage}/>
 <ReactMarkdown
           children={source?.content}

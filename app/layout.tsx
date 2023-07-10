@@ -11,6 +11,7 @@ import AuthProvider from '../contexts/AuthContext'
 import NotificationProvider from '../contexts/NotificationContext'
 import ProviderForTheme from '../components/theme/themeProvider'
 import BlogProvider from '../contexts/BlogContext'
+import WriteProvider from '../contexts/writeContext'
 const inter = Inter({ subsets: ['latin'] })
 const lato = Lato({subsets:["latin"],weight:["100","300","400","700","900"]})
 export const metadata = {
@@ -29,10 +30,12 @@ export default function RootLayout({ children }) {
         <ProviderForTheme>
         <BlogProvider>
         <AuthProvider>
+          <WriteProvider>
           <NotificationProvider>
           {children}
           <div id="portal"></div>
           </NotificationProvider>
+          </WriteProvider>
         </AuthProvider>
         </BlogProvider>
         </ProviderForTheme>

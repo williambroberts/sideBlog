@@ -4,7 +4,7 @@ import InputReusable from '../../app/signUp/components/inputReusable'
 import Button from '../../app/write/components/addTags/button'
 import IconSearch from './searchIcon'
 import { useBlogs } from '../../contexts/BlogContext'
-
+import styles from "./searchbar.module.css"
 const SearchBar = () => {
     const {handleSearch}=useBlogs()
     const {blogs,setBlogs}=useBlogs()
@@ -18,7 +18,7 @@ const SearchBar = () => {
     }
   return (
     <form onSubmit={handleSubmit}
-    className='search__form'
+    className={styles.search__form}
     >
         <label htmlFor='search-input'>
 
@@ -27,7 +27,7 @@ const SearchBar = () => {
         className=''
         name='search-input'
         placeholder='Search'
-        required
+        required={false}
         type='text'
         value={text}
         handleChange={(e)=>setText(e.target.value)}

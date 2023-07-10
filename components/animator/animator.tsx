@@ -8,10 +8,9 @@ type theProps = {
 }
 const Animator = ({alignItems,children,index}:theProps) => {
     const wait = 0.13
-    
-    
+   
   return (
-    <div className={styles.animator} style={{animationDelay:`${index*wait}s`
+    <div className={`${styles.animator}`} style={{animationDelay:`${index*wait}s`
     ,alignItems:alignItems? alignItems:""
     }}>
        

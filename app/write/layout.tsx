@@ -16,9 +16,9 @@ const WriteLayout = ({children}:ChildrenProps) => {
     >
       
       <HeaderHorizontal/>
-       <WriteProvider>
+       
        {children}
-      </WriteProvider>
+      
         <FooterHorizontal/>
     </div>
   )
