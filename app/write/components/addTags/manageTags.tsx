@@ -7,7 +7,7 @@ interface theProps {
 const TagManager = ({tags}:theProps) => {
   return (
     <div className='tag__manager'>
-      {tags.map((item)=>(
+      {tags?.map((item)=>(
       <TagItem 
       tag={item}
       key={v4()}/>))}

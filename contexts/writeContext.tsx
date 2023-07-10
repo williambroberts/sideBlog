@@ -1,5 +1,7 @@
 "use client"
+import { collection, doc, getDoc } from 'firebase/firestore';
 import React, {useContext,useState,createContext, useEffect} from 'react'
+import { firestore } from '../firebase/firebaseConfig';
 type WriteContextValues = {
 localBlog?:any;
 fireBLog?:any;
@@ -14,6 +16,7 @@ progress?:number;
 setProgress?:Function;
 setHasChanged:Function;
 hasChanged:boolean;
+getBlogById:Function;
 }
 type ChildProps = {
     children:React.ReactNode;
@@ -45,7 +48,7 @@ const WriteProvider = ({children}:ChildProps) => {
     const [fireBLog,setFireBlog]=useState(undefined)
     const [localBlog,setLocalBlog]=useState(initialBlogData)
     const [progress,setProgress]=useState<number>(0)
-    const [imgFile,setImgFile]=useState<any>(null)
+    const [imgFile,setImgFile]=useState<any>({value:"",file:null})
 
 const generateKeywords = ()=> {
     let newKeyWords = [""," "]
@@ -65,11 +68,31 @@ const generateKeywords = ()=> {
 
   useEffect(()=>{
     //generate new keywords
-    generateKeywords()
-  },[localBlog.tags,localBlog.category,
-    localBlog.author,localBlog.title])
+    
+    console.log(localBlog)
+    if (localBlog!==undefined){
+      generateKeywords()
+    }
+    
+  },[localBlog?.tags,localBlog?.category,
+    localBlog?.author,localBlog?.title])
 
+    const getBlogById =async (id)=>{
+      console.log(id,"idGETblogBy")
+      const docRef = doc(firestore,"Blogs",id)
+       const docSnap = await getDoc(docRef)
+       if (docSnap.exists()){
+        console.log(docSnap.data())
+        setFireBlog({...docSnap.data()})
+        setBlogId((prev)=>docSnap.data().id)
+       
+       }
+    }
+    useEffect(()=>{
+      setLocalBlog((prev)=>fireBLog)
+    },[fireBLog])
     const WriteValue = {
+      getBlogById:getBlogById,
       hasChanged:hasChanged,setHasChanged:setHasChanged,
       progress:progress,setProgress:setProgress,
       localBlog:localBlog,

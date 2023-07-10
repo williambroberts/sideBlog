@@ -45,7 +45,7 @@ const UploadedImages = ({images}:theProps) => {
   return (
     <div className='UI__frame'>
         <div className='UI__parent' style={{left:`${index*-114}px`}}>
-            {images.map((item,index)=>(
+            {images?.map((item,index)=>(
                 <div className='UI__item' key={v4()}>
                         <UploadedImage src={item}/>
                             

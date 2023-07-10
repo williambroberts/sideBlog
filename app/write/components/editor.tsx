@@ -114,7 +114,7 @@ useEffect(()=>{
 
 //💭if imgFile not null , null on pageload and reset and noFB blog
 if (imgFile?.file!==null){
-  imgFile && uploadFile()
+  imgFile.file && uploadFile()
 }
 return ()=>{
   console.log(imgFile,"imgFile")
@@ -217,7 +217,7 @@ useEffect(()=>{
         type='text'
         className='add__item'
         placeholder='Category'
-        value={localBlog.category}
+        value={localBlog?.category}
         handleChange={(e)=>handleAddItem("category",e)}
         />
         <AddItem 
@@ -225,7 +225,7 @@ useEffect(()=>{
         type='text'
         className='add__item'
         placeholder='Blog title'
-        value={localBlog.title}
+        value={localBlog?.title}
         handleChange={(e)=>handleAddItem("title",e)}/>
 {/* cover image */}
 
@@ -234,7 +234,7 @@ useEffect(()=>{
         // autoFocus
         onInput={(e)=>handleResize(e)}
         className='write__textarea'
-        value={localBlog.content}
+        value={localBlog?.content}
         onChange={(e)=>handleWriting(e)}
         >
           

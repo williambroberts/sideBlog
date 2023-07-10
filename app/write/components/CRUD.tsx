@@ -4,6 +4,7 @@ import Button from './addTags/button'
 import { useWrite } from '../../../contexts/writeContext';
 import { useAuth } from '../../../contexts/AuthContext';
 import SaveButton from './saveButton';
+import { useBlogs } from '../../../contexts/BlogContext';
 interface theProps {
 blogId:string;
 }
@@ -11,6 +12,7 @@ const CRUD = ({blogId}:theProps) => {
     const {user,setUserDocData,userDocData}=useAuth()
     const {hasChanged,setHasChanged,setBlogId,setImgFile,imgFile,
     setLocalBlog,localBlog,initialBlogData,fireBLog}=useWrite()
+    const {}= useBlogs()
     console.log("fb",fireBLog,"loc",localBlog,"blogid",blogId)
 
     const createBlog = ()=>{
@@ -27,8 +29,8 @@ const CRUD = ({blogId}:theProps) => {
       //author, authorId, ❤️all fields filled in
        newBlogData.authorId = user.uid;
       
-      newBlogData.author = userDocData.username 
-      if (userDocData.profilePhoto!==undefined){
+      newBlogData.author = userDocData?.username 
+      if (userDocData?.profilePhoto!==undefined){
         newBlogData.userPhoto = userDocData.profilePhoto
         console.log(userDocData.profilePhoto)
       }
@@ -48,7 +50,7 @@ const CRUD = ({blogId}:theProps) => {
    },[])
   const handleEdit = ()=>{
     //get all user blogs from firebase and display them in the display
-
+    
   }
   const deleteBlog = ()=>{
     if (blogId===null){

@@ -61,6 +61,7 @@
     --orange2:#f7aa35;
     --pink:#f7bfee;
     --sepia:#8f4a18;
+    --sarah:#d96528;
     --palepink: #ffe8db;
     --palegreen:#d9f7bf;
     --verypalegreen:#d9f7bf50;
@@ -223,7 +224,9 @@ img {
 }
   .layout__div {
     width: 100%;
-    @apply flex flex-col flex-auto;
+    @apply flex flex-col 
+    items-center
+    flex-auto;
   }
 main.page {
   margin-top: 60px;

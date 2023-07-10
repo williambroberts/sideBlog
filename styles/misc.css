@@ -11,3 +11,22 @@
 .u {
     text-decoration: underline;
 }
+.blog__list {
+    width: 100%;
+    height: min-content;
+
+    @apply flex 
+    gap-2
+    flex-col;
+}
+.canEdit__desktop {
+    
+    font-size: inherit;
+    @apply 
+   
+    inline-block;
+}
+.canEdit__desktop >button {
+    @apply 
+    px-1;
+}

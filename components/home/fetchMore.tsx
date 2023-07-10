@@ -7,7 +7,7 @@ const FetchMoreBlogs = () => {
     const {fetchMore}=useBlogs()
   return (
     <button 
-    className="btn u"
+    className="btn u py-4"
     onClick={()=>fetchMore()}>
         More
     </button>

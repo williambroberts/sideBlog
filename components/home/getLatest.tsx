@@ -7,7 +7,7 @@ const GetLatest = () => {
   return (
     <button 
     onClick={()=>getBlogsByLatest()}
-    className="btn">
+    className="btn py-4">
         See Latest Blogs
     </button>
   )

@@ -11,7 +11,7 @@ const BlogList = () => {
    } 
     
   return (
-    <div className="">
+    <div className="blog__list">
       
        {blogs?.map((item,index)=><div key={v4()}>
     
