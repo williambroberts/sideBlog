@@ -30,3 +30,33 @@
     @apply 
     px-1;
 }
+.profile__component {
+    color: var(--t-1);
+}
+.profile__photo {
+    bottom: 0;
+    transform: translate(50%,50%);
+    border-color: var(--bg-4);
+    @apply rounded-full border-2 
+    absolute
+    box-border
+}
+
+.profile__name {
+    margin-top: 60px;
+    font-weight: 500;
+    color: var(--t-1);
+    font-size: var(--font-size-36);
+}
+
+.edit__btn {
+color: var(--t-2);
+background-color: var(--bg-1);
+font-weight: 600;
+font-size: var(--font-size-14);
+}
+
+.edit__btn:disabled {
+    color: var(--t-3);
+    background-color: var(--bg-3);
+}

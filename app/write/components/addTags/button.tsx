@@ -5,12 +5,14 @@ type theProps = {
     className?:string;
     icon?:React.ReactNode;
     children?:React.ReactNode;
+    disabled?:boolean;
     handleClick:React.MouseEventHandler<HTMLButtonElement>
 }
-const Button = ({handleClick,
+const Button = ({handleClick,disabled,
   children,type,className,text,icon}:theProps) => {
   return (
     <button 
+    disabled={disabled}
     onClick={handleClick}
     className={className?
     className:

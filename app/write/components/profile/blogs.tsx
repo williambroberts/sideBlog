@@ -21,7 +21,7 @@ const BlogsComponent = () => {
         getBlogsByLatest(false,true,userArg)
     },[])
   return (
-    <div>
+    <div className='w-full'>
         <Animator index={2}
     alignItems="flex-start"
     >
@@ -46,7 +46,10 @@ userArg={userArgRef?.current}
     <Animator index={3}
     alignItems="flex-start"
     >
-      <GetLatest/>
+      <GetLatest 
+      userArg={userArgRef?.current}
+      filterByAuthor={true}
+      />
     </Animator>
     <Animator index={4}
     alignItems="flex-start">
@@ -54,7 +57,10 @@ userArg={userArgRef?.current}
     </Animator>
     <Animator index={5}
     alignItems="flex-start">
-      <FetchMoreBlogs/>
+      <FetchMoreBlogs 
+      filterByAuthor={true}
+      userArg={userArgRef?.current}
+      />
     </Animator>
     </div>
   )

@@ -4,6 +4,7 @@ import { useBlogs } from '../../contexts/BlogContext'
 import BlogLink from './blogLink'
 
 import {v4} from "uuid"
+import Animator from '../animator/animator'
 const BlogList = () => {
     const {blogs}=useBlogs()
    if (blogs===null){
@@ -11,11 +12,15 @@ const BlogList = () => {
    } 
     
   return (
-    <div className="blog__list">
+    <div className={`blog__list w-full`}>
       
-       {blogs?.map((item,index)=><div key={v4()}>
-    
-        <BlogLink data={item}/>
+       {blogs?.map((item,index)=><div key={v4()} 
+       className='w-full'
+       >
+      <Animator alignItems='flex-start' index={index}>
+         <BlogLink data={item}/>
+      </Animator>
+       
        </div>)}
     </div>
   )

@@ -37,7 +37,7 @@ const SearchBar = ({filterByAuthor,userArg}:theProps) => {
         value={text}
         handleChange={(e)=>setText(e.target.value)}
         />
-        <button
+        <button className='text-[var(--t-1)]'
         type='submit'><IconSearch/></button>
         </form>
   )

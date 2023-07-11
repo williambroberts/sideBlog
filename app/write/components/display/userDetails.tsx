@@ -10,22 +10,25 @@ type theProps={
 }
 const UserDetails = ({userPhoto,author,dateCreation,userUid}) => {
     const [loading,setLoading]=useState<boolean>(false)
-    
+    const handleClick = ()=> {
+        let pathname= `/profile?Auth=${userUid}`
+        window.location.assign(pathname)
+    }
     return (
     <div className="display__user__details">
-        <Image src={userPhoto} alt='/'
+        <Image src={userPhoto} alt='/' onClick={()=>handleClick()}
         width={50}
         objectFit='cover'
         objectPosition='center'
         height={50}
-        className={`
+        className={`hover:ring-2 ring-black
             duration-300 ease-in-out
             ${
                 loading?
                 "blur-2xl grayscale":
                 "blur-0 grayscale-0"
             }
-        `}
+            hover:ring-2 ring-black`}
         onLoadingComplete={()=>setLoading(false)}
         />
         <div className='

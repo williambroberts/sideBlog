@@ -56,14 +56,16 @@ const SignUpForm = () => {
                         email:result.user.email,
                         username:data.username,
                         profilePhoto:"",
-                        blogs:[],
+                        coverPhoto:"",
+                        // blogs:[],
                         comments:[], //❤️think
                         github:"",
                         codepen:"",
                         linkedin:"",
                         twitter:"",
                         leetcode:"",
-                        admin:false,
+                        about:"",
+                        joinDate:"",
 
                     }
 

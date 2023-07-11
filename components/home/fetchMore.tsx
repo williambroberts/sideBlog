@@ -11,7 +11,7 @@ const FetchMoreBlogs = ({filterByAuthor,userArg}:theProps) => {
   return (
     <button 
     className="btn u py-4"
-    onClick={()=>fetchMore()}>
+    onClick={()=>fetchMore(filterByAuthor,userArg)}>
         More
     </button>
   )

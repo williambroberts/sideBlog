@@ -9,7 +9,7 @@ const BlogLink = ({data}) => {
 }
     const desktop = getDevice()
   return (
-    <div>
+    <div className='w-full'>
       
         {desktop?
         <DesktopLink data={data}/>:
