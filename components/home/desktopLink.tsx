@@ -3,17 +3,25 @@ import Link from 'next/link';
 import React,{memo, useState} from 'react'
 import CanEdit from './canEdit';
 import MobileLink from './mobileLink';
+import { useAuth } from '../../contexts/AuthContext';
 type theProps = {
     data?:any;
 }
 const DesktopLink = ({data}:theProps) => {
-  const [position,setPosition]=useState({left:null,top:null})
+  const {setProfileUserUid}=useAuth()
+  const [position,setPosition]=useState({left:0,top:0})
   const handleImage = (e)=>{
     let x = e.clientX
     let y = e.clientY
     let newPosition = {left:x,top:y}
-    console.log(x)
-    //setPosition(({...newPosition}))
+    //console.log(x)
+    setPosition(({...newPosition}))
+  }
+  const handleClick = ()=>{
+    //🧧set profileUserUid to the data.authorId
+    console.log(data.authorId,"setting profileUId")
+    setProfileUserUid(data.authorId)
+
   }
   return (
     <div className='w-full'>
@@ -26,7 +34,8 @@ const DesktopLink = ({data}:theProps) => {
     <div
     onMouseMove={handleImage}
     className='text-base tracking-wide py-2 hidden sm:block group'>
-       <Link href={`/profile?Auth=${data?.authorId}`}
+       <Link href={`/profile`}
+       onClick={handleClick}
         className='text-[var(--t-1)] pr-4 hover:underline'
         >{data?.author}</Link>
         <span
@@ -38,7 +47,7 @@ const DesktopLink = ({data}:theProps) => {
         <CanEdit id={data.authorId}/>
 
         <div 
-        style={{left:position.left,top:position.top}}
+        style={{transform:`translate(${position.left}px,${position.top}px)`}}
         className='hidden group-hover:inline-block w-80 h-40 bg-[var(--t-4)]
         absolute rounded-md
         '>

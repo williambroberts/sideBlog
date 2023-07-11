@@ -7,18 +7,22 @@ interface theProps {
 className?:string;
 }
 const ProfileLink = ({className}:theProps) => {
-  const {user}=useAuth()
+  const {user,setProfileUserUid}=useAuth()
 
   const pathname=usePathname()
-
+  const handleClick = ()=>{
+    console.log(user.uid)
+    setProfileUserUid((prev)=>user.uid)
+  }
     const myStyles = {
         backgroundColor:pathname==="/profile"? "var(--bg-3)":"",
         color:pathname==="/profile"? "var(--t-1)":"",
     }
   return (
-    <Link href={`/profile?Auth=${user?.uid}`}
+    <Link href={`/profile`} 
     style={{...myStyles}}
     className={className}
+    onClick={handleClick}
     >
       Profile
     </Link>

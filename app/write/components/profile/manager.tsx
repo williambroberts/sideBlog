@@ -5,20 +5,34 @@ import ProfileComponent from './profile'
 import { useAuth } from '../../../../contexts/AuthContext'
 import { useSearchParams } from 'next/navigation'
 import Edit from './Edit'
+import { firestore } from '../../../../firebase/firebaseConfig'
+import { doc, getDoc } from 'firebase/firestore'
 
 const ProfileManager = () => {
-    const {user,isAdmin}=useAuth()
-    const searchParams = useSearchParams()
-    const AdminEditing = useRef<boolean>(false)
+    const {user,isAdmin,profileUserUid,AdminEditing,setProfileUserUid
+    ,setRemoteUserData,
+    }=useAuth()
+   // const searchParams = useSearchParams()
     const [isBlogs,setIsBlogs]=useState<boolean>(true)
-    const whoRef = useRef<string>("")
-    const [canEditProfile,setCanEditProfile]=useState<boolean>(false)
    
+    const [canEditProfile,setCanEditProfile]=useState<boolean>(false)
+    const getUserDoc =async (userUid)=>{
+        //🧧get userDOc FB for whoRef for thier profile
+        try {
+          let docRef = doc(firestore,"users",userUid)
+        const snapShot:any = await getDoc(docRef)
+        if (snapShot.exists()){
+          console.log(snapShot.data())
+          setRemoteUserData(({...snapShot.data()}))
+        }
+        }catch(err){
+          console.log(err)
+        }
+      }
    
     useEffect(()=>{
-        const who = searchParams.get("Auth")
-        whoRef.current=who
-        if (who===user.uid){
+        console.log(profileUserUid,"profileuserUid")
+        if (profileUserUid===user.uid){
             setCanEditProfile(true)
         }
        //💭ADMIN CAN EDIT TOO
@@ -26,20 +40,22 @@ const ProfileManager = () => {
        if (isAdmin){
         setCanEditProfile(true)
        }
-       if(isAdmin && who!==user.uid){
+       if(isAdmin && profileUserUid!==user.uid){
         AdminEditing.current=true
        }
-    },[])
+       if (profileUserUid===undefined&& user){setProfileUserUid(user.uid)}
+       if (profileUserUid===null&& user){setProfileUserUid(user.uid)}
+    },[profileUserUid])
     return (
     <div className='w-full'>
         {/* profile banner jhey ? */}
         <ProfileComponent
-        user={whoRef?.current}
+        user={profileUserUid}
         />
         <header className='w-full'>
             <nav className='w-full flex flex-row gap-2'> 
             <span className='font-medium'>
-                {isAdmin && user.uid!==whoRef.current? "Viewing as an Admin":""}
+                {isAdmin && user.uid!==profileUserUid? "Viewing as an Admin":""}
                 </span>  
                 <button 
                 className={`hover:underline 
@@ -51,6 +67,7 @@ const ProfileManager = () => {
                 onClick={()=>setIsBlogs(true)}
                 >Blogs</button>
                 <button 
+                style={{opacity:isAdmin?"1":user.uid===profileUserUid? "1":"0"}}
                 className='hover:underline hover:ring-[var(--bg-4)]'
                 onClick={()=>setIsBlogs(false)}
                 disabled={!canEditProfile}
@@ -61,8 +78,8 @@ const ProfileManager = () => {
     <BlogsComponent/>
     :
     <Edit 
-    isAdminEditing={AdminEditing?.current}
-    userFromSearchParmas={whoRef?.current}/>    
+    
+    />    
     
     }
     </div>

@@ -6,14 +6,17 @@ import Button from '../addTags/button';
 import IconSave from '../../../../icons/save';
 import { doc, getDoc, runTransaction } from 'firebase/firestore';
 import { firestore,auth } from '../../../../firebase/firebaseConfig';
-import { updateProfile } from 'firebase/auth';
+import {  getAuth, updateProfile } from 'firebase/auth';
+import { useNotifications } from '../../../../contexts/NotificationContext';
+
 interface theProps{
-    userFromSearchParmas?:string;
-    isAdminEditing:boolean
+   
+    
 }
-const Edit = ({userFromSearchParmas,isAdminEditing}:theProps) => {
-    const {user} = useAuth()
-    const [RemoteUserData,setRemoteUserData]=useState(null)
+const Edit = ({}:theProps) => {
+    const {user,profileUserUid,AdminEditing,setRemoteUserData,RemoteUserData} = useAuth()
+    const {setNotification,setOpenNotification}=useNotifications()
+    
     const [localUserData,setLocalUserData]=useState(null)
     const getUserDoc =async (userUid)=>{
         //🧧get userDOc FB for whoRef for thier profile
@@ -31,44 +34,51 @@ const Edit = ({userFromSearchParmas,isAdminEditing}:theProps) => {
       }
       
       useEffect(()=>{
-        userFromSearchParmas && getUserDoc(userFromSearchParmas)
-      },[userFromSearchParmas])
+        profileUserUid && getUserDoc(profileUserUid)
+      },[profileUserUid])
     
-    const handleChange=(type,e)=>{
-        if (type==="username"){
-            setLocalUserData((prev)=>({...prev,username:e.target.value}))
-        }
-    }
+   
     //🧧only admin or user=user.uid can see this page
+    
     const updateUsername =async ()=>{
-        if (isAdminEditing) {
-            //🟩admn sdk
-        }else {
+        
+        if (!AdminEditing){
             updateProfile(auth.currentUser, {
-                displayName: "Jane Q. User", photoURL: "https://example.com/jane-q-user/profile.jpg"
-              }).then(() => {
-                // Profile updated!
-                // ...
-              }).catch((error) => {
-                // An error occurred
-                // ...
+                displayName:localUserData.username
+              }).then(async () => {
+                    
+                    try {
+                        let docRef = doc(firestore,"users",profileUserUid)
+                        await runTransaction(firestore, async (t)=>{
+                          const docSnapShot = await t.get(docRef)
+                          if (!docSnapShot.exists()){
+                            //❤️check erros
+                            console.log("error,no snapshot")
+                            return
+                          }
+                          t.update(docRef,{...localUserData})
+                        })
+                      }catch (error){
+                        console.log(error,"update failed")
+                        setNotification(error.code)
+                        setOpenNotification((prev)=>true)
+                      }
+              }).then(async ()=> {
+                setNotification((prev)=>"updated successfully"),
+                setOpenNotification((prev)=>true)
+                //🧧reget userDocData
+                await getUserDoc(profileUserUid)
+
+              }   
+                   
+              ).catch((error) => {
+                    setNotification(error.code)
+                    setOpenNotification((prev)=>true)
               });
         }
        
-        try {
-            let docRef = doc(firestore,"users",user)
-            await runTransaction(firestore, async (t)=>{
-              const docSnapShot = await t.get(docRef)
-              if (!docSnapShot.exists()){
-                //❤️check erros
-                console.log("error,no snapshot")
-                return
-              }
-              t.update(docRef,{...localUserData})
-            })
-          }catch (err){
-            console.log(err,"update failed")
-          }
+        
+
     }
     const updateEmail = ()=>{
 
@@ -76,7 +86,7 @@ const Edit = ({userFromSearchParmas,isAdminEditing}:theProps) => {
     const updatePassword = ()=>{
 
     }
-    const updateProfilePhotp = ()=>{
+    const updateProfilePhoto = ()=>{
 
     }
     const updateCoverPhoto = ()=>{
@@ -88,11 +98,13 @@ const Edit = ({userFromSearchParmas,isAdminEditing}:theProps) => {
     //🧧update social media accound
   return (
     <div className='w-full'>
+        
         <div className='flex flex-row w-full'>
             <span>Username</span>
         <InputReusable
         type='text'
-        value={localUserData?.username}
+        value={localUserData?.username===undefined? 
+            "":localUserData.username}
         handleChange={(e)=>setLocalUserData((prev)=>({...prev,username:e.target.value}))}
         placeholder='username'
 

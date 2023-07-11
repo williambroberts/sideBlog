@@ -2,7 +2,7 @@
 import React, { createContext,useContext,useEffect,useState } from 'react'
 import { firestore } from '../firebase/firebaseConfig';
 import { collection,query
-,where,orderBy,limit,getDocs, startAfter, startAt, QuerySnapshot } from 'firebase/firestore';
+,where,orderBy,limit,getDocs, startAfter, startAt, QuerySnapshot, doc, getDoc } from 'firebase/firestore';
 import { useAuth } from './AuthContext';
 interface BlogContextProps {
     blogs?:any;
@@ -36,6 +36,40 @@ const BlogProvider = ({children}:ChildProps) => {
     const [mode,setMode]=React.useState<"search"|"tag"|"none">("none")
     const [LastVisible,setLastVisible]=React.useState<any>(null)
     
+    const getUserDocForABlog =async (uid)=>{
+        try {
+            const docRef = doc(firestore,"users",uid)
+            let snapshot = await getDoc(docRef)
+            
+            if (snapshot.exists()){
+                console.log(snapshot.data())
+                return {...snapshot.data()}
+            }
+        }catch(err){
+            console.log(err)
+        }
+        
+    }
+    const getCorrespondingUserDocsForWantedBlogs =async (docs)=>{
+        let updatedMatchingBlogs = []
+        await docs.forEach(async (doc,index)=>{
+            await getUserDocForABlog(doc.authorId).then((userData)=>{
+                console.log(userData,"userData")
+            let docCopy = {...doc}
+            docCopy.author = userData?.username
+           docCopy.userPhoto = userData?.profilePhoto
+            updatedMatchingBlogs.push(docCopy)
+            }).then(()=>{
+                if(index===docs.length-1){
+                    console.log(updatedMatchingBlogs,"updatedMatchignBlogs",index)
+                    setBlogs((prev)=>updatedMatchingBlogs)
+                }
+                
+            }).catch((error)=>console.log(error))
+            
+        })
+        
+    }
     const handleUpdate = (querySnapshot)=>{
         //updater state function for querySnapsht=getDocs(q)
         const newLastVisible = querySnapshot.docs[querySnapshot.docs.length-1]
@@ -49,7 +83,9 @@ const BlogProvider = ({children}:ChildProps) => {
         const matchingBlogs = []
         querySnapshot.forEach((doc)=>
         matchingBlogs.push({id:doc.id,...doc.data()}))
-        setBlogs((prev)=>matchingBlogs)
+        console.log(matchingBlogs)
+        getCorrespondingUserDocsForWantedBlogs(matchingBlogs)
+        //setBlogs((prev)=>matchingBlogs)
     }
     const getBlogsByLatest = async (more=false,filterByAuthor=false,userArg)=>{
         //👌 for on page load

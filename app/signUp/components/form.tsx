@@ -66,6 +66,8 @@ const SignUpForm = () => {
                         leetcode:"",
                         about:"",
                         joinDate:"",
+                        admin:false,
+                        toDelete:false,
 
                     }
 

@@ -59,4 +59,5 @@ font-size: var(--font-size-14);
 .edit__btn:disabled {
     color: var(--t-3);
     background-color: var(--bg-3);
+    @apply flex flex-row items-center gap-1;
 }

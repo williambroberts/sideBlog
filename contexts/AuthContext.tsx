@@ -8,6 +8,7 @@ import { createUserWithEmailAndPassword,
     GoogleAuthProvider,
     signInWithPopup} from 'firebase/auth'
 import { setDoc,doc,getDoc } from 'firebase/firestore'
+import profile from '../app/write/components/profile/profile'
 type AuthContextValues = {
     user?:any;
     signIn:Function;
@@ -19,16 +20,29 @@ type AuthContextValues = {
     setUserDocData?:Function;
     setIsAdmin:Function;
     isAdmin:boolean;
+    setProfileUserUid:Function;
+    profileUserUid:string;
+    AdminEditing:any;
+    setAdminEditing:Function
+    RemoteUserData:any;
+    setRemoteUserData:Function;
 }
 type ChildrenProp = {
     children:React.ReactNode
 }
 const AuthContext = createContext<AuthContextValues | undefined>(undefined)
 const AuthProvider = ({children}:ChildrenProp) => {
+  const [profileUserUid,setProfileUserUid]=useState<string|null>(null)
+  const [RemoteUserData,setRemoteUserData]=useState(null)
     const [user,setUser]=useState<any|null|undefined>({})
     const [isAdmin,setIsAdmin]=useState<boolean>(false)
+    const [AdminEditing,setAdminEditing] = React.useState<boolean>(false)
+
     const [userDocData,setUserDocData]=useState<object|null|undefined>(null)
     const AuthValue= {
+      RemoteUserData:RemoteUserData,setRemoteUserData:setRemoteUserData,
+      AdminEditing:AdminEditing,setAdminEditing:setAdminEditing,
+      setProfileUserUid:setProfileUserUid,profileUserUid:profileUserUid,
         user:user,setIsAdmin:setIsAdmin,isAdmin:isAdmin,
         signIn:signIn,
         signOut:logOut,
@@ -47,10 +61,36 @@ const AuthProvider = ({children}:ChildrenProp) => {
             unsubscribe();
           };
     },[])
+
+    const getUserDocForProfileUserUid =async (userUid)=> {
+      //🧧get userDOc FB for whoRef for thier profile
+      try {
+        let docRef = doc(firestore,"users",userUid)
+      const snapShot:any = await getDoc(docRef)
+      if (snapShot.exists()){
+        console.log(snapShot.data())
+        setRemoteUserData(({...snapShot.data()}))
+      }
+      }catch(err){
+        console.log(err)
+      }
+    }
+     useEffect(()=>{
+
+  profileUserUid && getUserDocForProfileUserUid(profileUserUid)
+      return ()=>{
+        if (RemoteUserData===null){
+          getUserDocForProfileUserUid(profileUserUid)
+          
+        }
+      }
+
+     },[profileUserUid])
     const getUserDoc =async ()=>{
         if (user===null)return;
 
         let newIsADmin = user.displayName?.split("##")[1]
+         
         console.log(user?.displayName,"displayName")
         if (newIsADmin==="true"){
           setIsAdmin(true)

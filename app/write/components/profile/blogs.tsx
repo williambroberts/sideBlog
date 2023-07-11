@@ -10,16 +10,15 @@ import { useBlogs } from '../../../../contexts/BlogContext'
 import { useSearchParams } from 'next/navigation'
 
 const BlogsComponent = () => {
-    const {userDocData}=useAuth()
+    const {userDocData,profileUserUid}=useAuth()
     const {blogs,getBlogsByLatest}=useBlogs()
     const searchParams = useSearchParams()
-    const userArgRef = useRef<string|undefined>("")
+     const userArgRef = useRef<string|undefined>("")
     useEffect(()=>{
-        let userArg = searchParams.get("Auth")
-        userArgRef.current=userArg
+       
         // more=false,filterbyauth,userArgs
-        getBlogsByLatest(false,true,userArg)
-    },[])
+        getBlogsByLatest(false,true,profileUserUid)
+    },[profileUserUid])
   return (
     <div className='w-full'>
         <Animator index={2}

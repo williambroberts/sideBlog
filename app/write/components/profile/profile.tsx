@@ -3,42 +3,30 @@ import { doc, getDoc } from 'firebase/firestore';
 import Image from 'next/image';
 import React,{memo,useEffect,useState} from 'react'
 import { firestore } from '../../../../firebase/firebaseConfig';
+import { useAuth } from '../../../../contexts/AuthContext';
 interface theProps {
   user:string;
 }
 const ProfileComponent = ({user}:theProps) => {
-  const [userDoc,setUserDoc]=React.useState(null)
-  const [loadedProfilePhoto,setLoadedProfilePhoto]=useState<boolean>(false)
-  const getUserDoc =async (userUid)=>{
-    //🧧get userDOc FB for whoRef for thier profile
-    try {
-      let docRef = doc(firestore,"users",userUid)
-    const snapShot:any = await getDoc(docRef)
-    if (snapShot.exists()){
-      console.log(snapShot.data())
-      setUserDoc(({...snapShot.data()}))
-    }
-    }catch(err){
-      console.log(err)
-    }
-  }
+  const {RemoteUserData}= useAuth()
   
-  useEffect(()=>{
-    user && getUserDoc(user)
-  },[user])
+  const [loadedProfilePhoto,setLoadedProfilePhoto]=useState<boolean>(false)
+  
+  console.log(RemoteUserData,"remoteUserData")
+ 
   return (
     <div className='profile__component'>
       <div className='
       relative
       w-full h-60 bg-[var(--bg-3)]'>
-        <Image src={userDoc?.coverPhoto} 
+        <Image src={RemoteUserData?.coverPhoto} 
         alt='cover Photo' 
-        style={{opacity:userDoc?.coverPhoto===""?"0":"1"}}
+        style={{opacity:RemoteUserData?.coverPhoto===""?"0":"1"}}
         fill objectFit="cover" objectPosition='center'
         sizes='(min-width:1280px) 50vw, 100vw'
         />
 
-        <Image src={userDoc?.profilePhoto} alt='user'
+        <Image src={RemoteUserData?.profilePhoto} alt='user'
         width={120} height={120}
 
         objectFit='cover'
@@ -47,13 +35,13 @@ const ProfileComponent = ({user}:theProps) => {
         />
       </div>
 
-      <h1 className='profile__name'>{userDoc?.username}</h1>
-      <p className='text-base text-inherit'>{userDoc?.about}</p>
+      <h1 className='profile__name'>{RemoteUserData?.username}</h1>
+      <p className='text-base text-inherit'>{RemoteUserData?.about}</p>
       <div className='w-full flex flex-row gap-2 
       items-center 
       '>
         <span
-        >{userDoc?.joinDate}</span>
+        >{RemoteUserData?.joinDate}</span>
         {/* 🧧user link */}
         <span></span>
       </div>
