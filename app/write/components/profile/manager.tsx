@@ -43,7 +43,11 @@ const ProfileManager = () => {
        if(isAdmin && profileUserUid!==user.uid){
         AdminEditing.current=true
        }
-       if (profileUserUid===undefined&& user){setProfileUserUid(user.uid)}
+       if (profileUserUid===undefined&& user){
+        console.log(profileUserUid,user.uid)
+        setProfileUserUid(user.uid)
+      
+      }
        if (profileUserUid===null&& user){setProfileUserUid(user.uid)}
     },[profileUserUid])
     return (

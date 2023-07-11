@@ -89,7 +89,7 @@ const BlogProvider = ({children}:ChildProps) => {
     }
     const getBlogsByLatest = async (more=false,filterByAuthor=false,userArg)=>{
         //👌 for on page load
-        //console.log("get blog by latest",more)
+        console.log("get blog by latest",more,filterByAuthor,userArg)
         if (mode!=="none"){
             setMode("none")
         }
@@ -144,9 +144,14 @@ const BlogProvider = ({children}:ChildProps) => {
 
 
 
-            }).then(()=>{
+            }).then(async ()=>{
                 console.log("then2",seen.blogs)
-                setBlogs(seen.blogs)
+                // setBlogs(seen.blogs)
+                if (seen.blogs.length===0){
+                    setBlogs((prev)=>[])
+                    return
+                }
+                getCorrespondingUserDocsForWantedBlogs(seen.blogs)
             }).catch((rej)=>console.log(rej))
             
         })

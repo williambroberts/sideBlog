@@ -41,6 +41,19 @@
     absolute
     box-border
 }
+.profile__photo__setter{
+    bottom: 0;
+    width: 120px;
+    height: 120px;
+    transform: translate(50%,50%);
+    border-color: transparent;
+    background-color: transparent;
+    @apply rounded-full border-2 
+    absolute flex flex-col items-center 
+    justify-center text-lg text-white
+    font-semibold ring-2 ring-black
+    box-border
+}
 
 .profile__name {
     margin-top: 60px;

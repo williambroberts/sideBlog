@@ -10,13 +10,18 @@ import { useBlogs } from '../../../../contexts/BlogContext'
 import { useSearchParams } from 'next/navigation'
 
 const BlogsComponent = () => {
-    const {userDocData,profileUserUid}=useAuth()
+    const {userDocData,profileUserUid,user}=useAuth()
     const {blogs,getBlogsByLatest}=useBlogs()
     const searchParams = useSearchParams()
-     const userArgRef = useRef<string|undefined>("")
+    
     useEffect(()=>{
        
         // more=false,filterbyauth,userArgs
+        if (profileUserUid===undefined && user.uid){
+          getBlogsByLatest(false,true,user?.uid)
+        }else if (user===undefined || user===null){
+          window.location.assign("/")
+        }
         getBlogsByLatest(false,true,profileUserUid)
     },[profileUserUid])
   return (
@@ -39,14 +44,14 @@ const BlogsComponent = () => {
     >
 <SearchBar
 filterByAuthor={true}
-userArg={userArgRef?.current}
+userArg={profileUserUid}
 />
     </Animator >
     <Animator index={3}
     alignItems="flex-start"
     >
       <GetLatest 
-      userArg={userArgRef?.current}
+      userArg={profileUserUid}
       filterByAuthor={true}
       />
     </Animator>
@@ -58,7 +63,7 @@ userArg={userArgRef?.current}
     alignItems="flex-start">
       <FetchMoreBlogs 
       filterByAuthor={true}
-      userArg={userArgRef?.current}
+      userArg={profileUserUid}
       />
     </Animator>
     </div>

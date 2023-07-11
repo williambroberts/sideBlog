@@ -26,6 +26,8 @@ type AuthContextValues = {
     setAdminEditing:Function
     RemoteUserData:any;
     setRemoteUserData:Function;
+    newProfilePhotoSetter:any;
+    setNewProfilePhotoSetter:Function;
 }
 type ChildrenProp = {
     children:React.ReactNode
@@ -37,9 +39,11 @@ const AuthProvider = ({children}:ChildrenProp) => {
     const [user,setUser]=useState<any|null|undefined>({})
     const [isAdmin,setIsAdmin]=useState<boolean>(false)
     const [AdminEditing,setAdminEditing] = React.useState<boolean>(false)
-
+    const [newProfilePhotoSetter,setNewProfilePhotoSetter]=useState<any>({seeBtn:false,oldUrl:""})
     const [userDocData,setUserDocData]=useState<object|null|undefined>(null)
     const AuthValue= {
+      setNewProfilePhotoSetter:setNewProfilePhotoSetter,
+      newProfilePhotoSetter:newProfilePhotoSetter,
       RemoteUserData:RemoteUserData,setRemoteUserData:setRemoteUserData,
       AdminEditing:AdminEditing,setAdminEditing:setAdminEditing,
       setProfileUserUid:setProfileUserUid,profileUserUid:profileUserUid,
@@ -77,13 +81,16 @@ const AuthProvider = ({children}:ChildrenProp) => {
     }
      useEffect(()=>{
 
-  profileUserUid && getUserDocForProfileUserUid(profileUserUid)
-      return ()=>{
-        if (RemoteUserData===null){
+        profileUserUid && getUserDocForProfileUserUid(profileUserUid)
+      
+        if (RemoteUserData===null && profileUserUid!==undefined){
           getUserDocForProfileUserUid(profileUserUid)
           
+        }else if (RemoteUserData===null && profileUserUid===undefined){
+          getUserDocForProfileUserUid(user.uid)
+          setProfileUserUid(user.uid)
         }
-      }
+      
 
      },[profileUserUid])
     const getUserDoc =async ()=>{
