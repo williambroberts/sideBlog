@@ -137,3 +137,8 @@ font-size: var(--font-size-14);
     width: 1rem;
     height: 1rem;
 }
+
+.textarea {
+    background-color: var(--bg-3);
+    @apply w-full 
+}

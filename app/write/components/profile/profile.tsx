@@ -117,7 +117,7 @@ const handleDisgardNewCover = ()=>{
           px-2 py-1 text-sm w-full justify-center
           `}
           style={{visibility:newProfilePhotoSetter.seeBtn===true?"visible":"hidden"}}>
-            KEEP <IconTickCircle/>
+            Keep <IconTickCircle/>
           </button>
           <button
         onClick={handleDisgardNewProfilePhoto}
@@ -126,7 +126,7 @@ const handleDisgardNewCover = ()=>{
           gap-1
           `}
           style={{visibility:newProfilePhotoSetter.seeBtn===true?"visible":"hidden"}}>
-            DISGARD <IconCrossCircled/>
+            Disgard <IconCrossCircled/>
           </button>
         <div className='arrow'>
 

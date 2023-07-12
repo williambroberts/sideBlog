@@ -64,7 +64,7 @@ const SignUpForm = () => {
                         linkedin:"",
                         twitter:"",
                         leetcode:"",
-                        about:"",
+                        about:"Add your about section",
                         joinDate:"",
                         admin:false,
                         toDelete:false,

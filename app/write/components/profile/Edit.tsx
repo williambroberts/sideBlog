@@ -10,6 +10,7 @@ import {  getAuth, updateProfile } from 'firebase/auth';
 import { useNotifications } from '../../../../contexts/NotificationContext';
 import AddItem from '../addItem';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import TextAreaReusable from './textarea';
 
 interface theProps{
    
@@ -201,8 +202,28 @@ const Edit = ({}:theProps) => {
     useEffect(()=>{
       coverPhotoFile.file && uploadFileCoverPhoto()
     },[coverPhotoFile])
-    const updateAbout = ()=>{
 
+    
+    const updateAbout = async()=>{
+      try {
+        const docRef = doc(firestore,"users",profileUserUid)
+        await runTransaction(firestore, async (t)=>{
+          const docSnapShot = await t.get(docRef)
+          if (!docSnapShot.exists()){
+            //❤️check erros
+            console.log("error,no snapshot")
+            return
+          }
+          t.update(docRef,{...localUserData})
+        })
+        await getUserDoc(profileUserUid)
+      }catch (error){
+        console.log(error,"update failed")
+        setNotification(error.code)
+        setOpenNotification((prev)=>true)
+      } 
+      
+      
     }
     
     //🧧update social media accound
@@ -248,6 +269,28 @@ const Edit = ({}:theProps) => {
         id='coverPhoto-input'
         handleChange={(e)=>updateCoverPhoto(e)}
         />
+        </div>
+
+        <div className='w-full flex flex-col gap-1 text-[var(--t-1)] text-base'>
+          <span>About</span>
+         
+          <TextAreaReusable
+          rows={5}
+          value={localUserData?.about===undefined? 
+            "":localUserData.about}
+          placeholder='About...'
+          className='textarea'
+          handleChange={(e)=>setLocalUserData((prev)=>({...prev,about:e.target.value}))}
+          />
+          <Button
+
+className='edit__btn'
+disabled={localUserData?.about===RemoteUserData?.about}
+handleClick={updateAbout}
+type='submit'>
+
+<IconSave/> Save about
+</Button>
         </div>
     </div>
   )
