@@ -21,8 +21,10 @@ const BlogsComponent = () => {
           getBlogsByLatest(false,true,user?.uid)
         }else if (user===undefined || user===null){
           window.location.assign("/")
+        }else{
+           getBlogsByLatest(false,true,profileUserUid)
         }
-        getBlogsByLatest(false,true,profileUserUid)
+       
     },[profileUserUid])
   return (
     <div className='w-full'>

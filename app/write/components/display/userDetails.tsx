@@ -15,11 +15,13 @@ const UserDetails = ({userPhoto,author,dateCreation,userUid}) => {
     const {setProfileUserUid} = useAuth()
     const handleClick = ()=> {
         //🌮set profileUseruid to this blogs
-        setProfileUserUid(userUid)
-        window.location.assign("/profile")
+        setProfileUserUid((prev)=>userUid)
+       // window.location.assign("/profile")
     }
     return (
     <div className="display__user__details">
+        <Link href={`/profile`}>
+       
         <Image src={userPhoto} alt='/' onClick={()=>handleClick()}
         width={50}
         
@@ -36,6 +38,7 @@ const UserDetails = ({userPhoto,author,dateCreation,userUid}) => {
             hover:ring-2 ring-black`}
         onLoadingComplete={()=>setLoading(false)}
         />
+         </Link>
         <div className='
         font-[var(--font-size-14)]
         flex flex-col gap-0 '>

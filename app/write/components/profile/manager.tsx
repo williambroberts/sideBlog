@@ -10,25 +10,30 @@ import { doc, getDoc } from 'firebase/firestore'
 
 const ProfileManager = () => {
     const {user,isAdmin,profileUserUid,setProfileUserUid
-    ,setRemoteUserData,setAdminEditing,
+    ,setRemoteUserData,setAdminEditing,setLocalUserData,
     }=useAuth()
    // const searchParams = useSearchParams()
     const [isBlogs,setIsBlogs]=useState<boolean>(true)
    
     const [canEditProfile,setCanEditProfile]=useState<boolean>(false)
     const getUserDoc =async (userUid)=>{
-        //🧧get userDOc FB for whoRef for thier profile
-        try {
-          let docRef = doc(firestore,"users",userUid)
-        const snapShot:any = await getDoc(docRef)
-        if (snapShot.exists()){
-          console.log(snapShot.data())
-          setRemoteUserData(({...snapShot.data()}))
-        }
-        }catch(err){
-          console.log(err)
-        }
+      //🧧get userDOc FB for whoRef for thier profile
+      try {
+        let docRef = doc(firestore,"users",userUid)
+      const snapShot:any = await getDoc(docRef)
+      if (snapShot.exists()){
+        console.log(snapShot.data())
+        setRemoteUserData(({...snapShot.data()}))
+        setLocalUserData(({...snapShot.data()}))
       }
+      }catch(err){
+        console.log(err)
+      }
+    }
+    
+    useEffect(()=>{
+      profileUserUid && getUserDoc(profileUserUid)
+    },[profileUserUid])
    
     useEffect(()=>{
         console.log(profileUserUid,"profileuserUid")
@@ -72,7 +77,12 @@ const ProfileManager = () => {
                 >Blogs</button>
                 <button 
                 style={{opacity:isAdmin?"1":user.uid===profileUserUid? "1":"0"}}
-                className='hover:underline hover:ring-[var(--bg-4)]'
+                className={`hover:underline 
+                hover:ring-1 ring-[var(--bg-4)]
+                cursor-pointer
+                px-2 py-1 rounded-sm
+             ${!isBlogs? "bg-[var(--bg-3)]":""}
+                `}
                 onClick={()=>setIsBlogs(false)}
                 disabled={!canEditProfile}
                 >Edit Profile</button>

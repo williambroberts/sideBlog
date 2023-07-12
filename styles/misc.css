@@ -44,27 +44,50 @@
     box-border
 }
 .profile__photo__setter{
-    bottom: 0;
+    bottom: 68px;
     z-index: 1;
     width: 120px;
-    height: 120px;
+    height: 60px;
     transform: translate(50%,50%);
-    border-color: transparent;
-    background-color: transparent;
-    @apply rounded-full border-2 
+    
+    background-color: var(--bg-3);
+    color: var(--t-2);
+    opacity: 0.85;
+    transition: var(--transition-2);
+    @apply rounded-md
     absolute flex flex-col items-center 
-    justify-center text-lg text-white
-    font-semibold ring-2 ring-black
+    justify-center text-lg
+    font-semibold
     box-border
 }
-
+.profile__photo__setter>button {
+    transform: scale(0.85);
+    z-index: 1;
+}
+.profile__photo__setter>button:hover{
+    transform: scale(1);
+    opacity: 1;
+    
+    color: var(--t-1);
+    background-color: var(--bg-2);
+}
 .profile__name {
     margin-top: 60px;
     font-weight: 500;
     color: var(--t-1);
     font-size: var(--font-size-36);
 }
-
+.arrow {
+    position: absolute;
+    left: 50%;
+    bottom: 0px;
+    transform: translate(-50%,50%) rotate(45deg);
+    
+    display: inline-block;
+    background-color:inherit;
+    width: 1rem;
+    height: 1rem;
+}
 .edit__btn {
 color: var(--t-2);
 background-color: var(--bg-1);
@@ -76,4 +99,41 @@ font-size: var(--font-size-14);
     color: var(--t-3);
     background-color: var(--bg-3);
     @apply flex flex-row items-center gap-1;
+}
+
+.cover__photo__setter {
+    bottom: 0px;
+    left: 50%;
+    transform: translate(-50%,50%);
+    width: min-content;
+    height: min-content;
+    background-color: var(--bg-2);
+    color: var(--t-2);
+    @apply absolute rounded-md
+    items-center justify-center
+    flex flex-col gap-1;
+}
+.cover__photo__setter>button {
+    transition: var(--transition-2);
+    color: var(--t-2);
+    opacity: 0.66;
+    background-color: inherit;
+    @apply flex flex-row rounded-md
+    items-center gap-1 py-1 px-2
+}
+.cover__photo__setter>button:hover {
+    color:white;
+    opacity: 1;
+    
+}
+.arrowCover {
+    position: absolute;
+    left: 50%;
+    top: 0px;
+    transform: translate(-50%,-50%) rotate(45deg);
+    
+    display: inline-block;
+    background-color:inherit;
+    width: 1rem;
+    height: 1rem;
 }

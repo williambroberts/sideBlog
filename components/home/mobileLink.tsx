@@ -3,12 +3,19 @@ import Image from 'next/image'
 import React,{memo} from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation';
+import { useAuth } from '../../contexts/AuthContext';
 interface theProps {
     data?:any;
 }
 const MobileLink = ({data}:theProps) => {
   const [loaded,setLoaded]=React.useState<boolean>(false)
+  const {setProfileUserUid}=useAuth()
   const router = useRouter()
+  const handleProfile = ()=>{
+    console.log(data.authorId,"setting profileUId")
+    setProfileUserUid((prev)=>data.authorId)
+    //router.push("/profile")
+  }
   const handleClick = ()=>{
     let pathname = `/blog?blogId=${data?.id}`
     router.push(pathname)
@@ -18,7 +25,8 @@ const MobileLink = ({data}:theProps) => {
         <div className='flex flex-col gap-1 items-start justify-start'>
             <span className='text-[var(--t-3)]'>{data?.dateCreation}</span>
             <Link 
-            href={`/profile?Auth=${data?.authorId}`}
+            onClick={handleProfile}
+            href={`/profile`}
             className='text-[var(--t-2)]
             hover:underline
             '>{data?.author}</Link>

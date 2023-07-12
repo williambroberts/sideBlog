@@ -28,6 +28,10 @@ type AuthContextValues = {
     setRemoteUserData:Function;
     newProfilePhotoSetter:any;
     setNewProfilePhotoSetter:Function;
+    newCoverPhotoSetter:any;
+    setNewCoverPhotoSetter:Function;
+    localUserData:any;
+    setLocalUserData:Function;
 }
 type ChildrenProp = {
     children:React.ReactNode
@@ -36,12 +40,18 @@ const AuthContext = createContext<AuthContextValues | undefined>(undefined)
 const AuthProvider = ({children}:ChildrenProp) => {
   const [profileUserUid,setProfileUserUid]=useState<string|null>(null)
   const [RemoteUserData,setRemoteUserData]=useState(null)
+  const [localUserData,setLocalUserData]=useState(null)
     const [user,setUser]=useState<any|null|undefined>({})
     const [isAdmin,setIsAdmin]=useState<boolean>(false)
     const [AdminEditing,setAdminEditing] = React.useState<boolean>(false)
+    const [newCoverPhotoSetter,setNewCoverPhotoSetter]=useState<any>({seeBtn:false,oldUrl:""})
+
     const [newProfilePhotoSetter,setNewProfilePhotoSetter]=useState<any>({seeBtn:false,oldUrl:""})
     const [userDocData,setUserDocData]=useState<object|null|undefined>(null)
     const AuthValue= {
+      setLocalUserData:setLocalUserData,localUserData:localUserData,
+      newCoverPhotoSetter:newCoverPhotoSetter,
+      setNewCoverPhotoSetter:setNewCoverPhotoSetter,
       setNewProfilePhotoSetter:setNewProfilePhotoSetter,
       newProfilePhotoSetter:newProfilePhotoSetter,
       RemoteUserData:RemoteUserData,setRemoteUserData:setRemoteUserData,

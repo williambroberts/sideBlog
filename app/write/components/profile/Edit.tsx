@@ -17,11 +17,14 @@ interface theProps{
 }
 const Edit = ({}:theProps) => {
     const {user,profileUserUid,AdminEditing,setRemoteUserData,RemoteUserData,
-      setNewProfilePhotoSetter,
+      setNewProfilePhotoSetter,setNewCoverPhotoSetter,
+    setLocalUserData,localUserData,
     } = useAuth()
     const {setNotification,setOpenNotification}=useNotifications()
+    const [coverPhotoFile,setCoverPhotoFile]=useState<any|null>({value:"",file:null})
+
     const [profilePhotoFile,setProfilePhotoFile]=useState<any|null>({value:"",file:null})
-    const [localUserData,setLocalUserData]=useState(null)
+    
     const [progress,setProgress]=useState<number>(0)
     const getUserDoc =async (userUid)=>{
         //🧧get userDOc FB for whoRef for thier profile
@@ -38,9 +41,7 @@ const Edit = ({}:theProps) => {
         }
       }
       
-      useEffect(()=>{
-        profileUserUid && getUserDoc(profileUserUid)
-      },[profileUserUid])
+     
     
    
     //🧧only admin or user=user.uid can see this page
@@ -91,6 +92,52 @@ const Edit = ({}:theProps) => {
     const updatePassword = ()=>{
 
     }
+    const uploadFileCoverPhoto = ()=>{
+      const storageRef = ref(storage,coverPhotoFile.file.name)
+      const uploadTask = uploadBytesResumable(storageRef, coverPhotoFile.file);
+      uploadTask.on('state_changed',
+    (snapshot) => {
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+      const snapshotProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + snapshotProgress + '% done');
+      setProgress((prev)=>snapshotProgress)
+      //❤️progressBAR🧧
+      switch (snapshot.state) {
+        case 'paused':
+          console.log('Upload is paused');
+          setNotification((prev)=>"Upload is paused")
+          setOpenNotification((prev)=>true)
+          break;
+        case 'running':
+          console.log('Upload is running');
+          setNotification((prev)=>"Upload is running")
+          setOpenNotification((prev)=>true)
+          break;
+      }
+    }, (error) => {
+      
+      switch (error.code) {
+        default:
+          console.log(error,error.code)
+          break
+      }
+    }, () => {
+     
+      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+        console.log('File available at', downloadURL);
+          //🧧set new cover photo
+          setNewCoverPhotoSetter({seeBtn:true,oldUrl:RemoteUserData.coverPhoto})
+        setRemoteUserData((prev)=>({...prev,coverPhoto:downloadURL}))
+        
+          
+         
+        
+  
+      });
+    }
+  );
+    }
+    
     const uploadFileProfilePhoto = ()=>{
       const storageRef = ref(storage,profilePhotoFile.file.name)
       const uploadTask = uploadBytesResumable(storageRef, profilePhotoFile.file);
@@ -114,8 +161,7 @@ const Edit = ({}:theProps) => {
           break;
       }
     }, (error) => {
-      // A full list of error codes is available at
-      // https://firebase.google.com/docs/storage/web/handle-errors
+      
       switch (error.code) {
         default:
           console.log(error,error.code)
@@ -149,9 +195,12 @@ const Edit = ({}:theProps) => {
       
       profilePhotoFile.file && uploadFileProfilePhoto()
     },[profilePhotoFile])
-    const updateCoverPhoto = ()=>{
-
+    const updateCoverPhoto = (e)=>{
+      setCoverPhotoFile((prev)=>({value:e.target.value,file:e.target.files[0]}))
     }
+    useEffect(()=>{
+      coverPhotoFile.file && uploadFileCoverPhoto()
+    },[coverPhotoFile])
     const updateAbout = ()=>{
 
     }
@@ -190,7 +239,16 @@ const Edit = ({}:theProps) => {
         handleChange={(e)=>updateProfilePhoto(e)}
         />
         </div>
-
+        <div className='flex flex-row w-full'>
+        <AddItem name='Cover photo' 
+        type='file'
+        value={coverPhotoFile.value}
+        className='add__item'
+        placeholder='Cover photo'
+        id='coverPhoto-input'
+        handleChange={(e)=>updateCoverPhoto(e)}
+        />
+        </div>
     </div>
   )
 }

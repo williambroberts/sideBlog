@@ -6,20 +6,20 @@ import { auth, firestore } from '../../../../firebase/firebaseConfig';
 import { useAuth } from '../../../../contexts/AuthContext';
 import { useNotifications } from '../../../../contexts/NotificationContext';
 import { updateProfile } from 'firebase/auth';
+import IconCrossCircled from '../../../../icons/cross';
+import IconTickCircle from '../../../../icons/tick';
 interface theProps {
   user:string;
 }
 const ProfileComponent = ({user}:theProps) => {
   const {setRemoteUserData,RemoteUserData,setNewProfilePhotoSetter,
-    profileUserUid,AdminEditing,
-    newProfilePhotoSetter}= useAuth()
+    profileUserUid,AdminEditing,newCoverPhotoSetter,
+    newProfilePhotoSetter,setNewCoverPhotoSetter}= useAuth()
   const {setNotification,setOpenNotification}=useNotifications()
   const [loadedProfilePhoto,setLoadedProfilePhoto]=useState<boolean>(false)
   
-  //console.log(RemoteUserData,"remoteUserData")
-const handleKeepNewProfilePhoto =async ()=>{
-  setNewProfilePhotoSetter((prev)=>({...prev,seeBtn:false}))
-  const docRef = doc(firestore,"users",profileUserUid)
+  const handleRunTransaction =async ()=>{
+    const docRef = doc(firestore,"users",profileUserUid)
   try {
     await runTransaction(firestore, async (transaction) => {
       const sfDoc = await transaction.get(docRef);
@@ -37,6 +37,11 @@ const handleKeepNewProfilePhoto =async ()=>{
   } catch (e) {
     console.log("Transaction failed: ", e);
   }
+  }
+  //console.log(RemoteUserData,"remoteUserData")
+const handleKeepNewProfilePhoto =async ()=>{
+  setNewProfilePhotoSetter((prev)=>({...prev,seeBtn:false}))
+  await handleRunTransaction()
   //❤️if not admin editing another user update display name?
   if (!AdminEditing){
     updateProfile(auth.currentUser,{
@@ -55,6 +60,17 @@ const handleDisgardNewProfilePhoto = ()=>{
   )
   setRemoteUserData((prev)=>({...prev,profilePhoto:newProfilePhotoSetter.oldUrl}))
 }
+const handleKeepNewCover = async ()=> {
+  setNewCoverPhotoSetter((prev)=>({...prev,seeBtn:false}))
+  await handleRunTransaction()
+}
+const handleDisgardNewCover = ()=>{
+  setNewCoverPhotoSetter((prev)=>
+    ({...prev,seeBtn:false})
+  )
+  setRemoteUserData((prev)=>({...prev,coverPhoto:newCoverPhotoSetter.oldUrl}))
+}
+
   return (
     <div className='profile__component'>
       <div className='
@@ -66,7 +82,19 @@ const handleDisgardNewProfilePhoto = ()=>{
         fill objectFit="cover" objectPosition='center'
         sizes='(min-width:1280px) 50vw, 100vw'
         />
-
+        <div className={`cover__photo__setter`}
+        data-theme="dark"
+        style={{visibility:newCoverPhotoSetter.seeBtn===true?"visible":"hidden"}}
+        >
+          <div className='arrowCover'></div>
+          <button onClick={handleKeepNewCover}>
+            Keep <IconTickCircle/>
+          </button>
+          <button onClick={handleDisgardNewCover}>
+            Disgard <IconCrossCircled/>
+          </button>
+          
+        </div>
         <Image src={RemoteUserData?.profilePhoto} alt='user'
         width={120} height={120}
         
@@ -75,24 +103,34 @@ const handleDisgardNewProfilePhoto = ()=>{
         className={`profile__photo flex flex-row items-center 
         justify-center`}
         />
-        <div className={`profile__photo__setter`}>
+        <div data-theme='dark'
+        style={{visibility:newProfilePhotoSetter.seeBtn===true?"visible":"hidden"}}
+       
+        className={`profile__photo__setter 
+        group
+        `}
+        
+        >
         <button
         onClick={handleKeepNewProfilePhoto}
-          className={`cursor-pointer
-          hover:ring-2 hover:ring-green-700 px-2 py-1 text-sm
+          className={`cursor-pointer flex items-center flex-nowrap gap-1
+          px-2 py-1 text-sm w-full justify-center
           `}
           style={{visibility:newProfilePhotoSetter.seeBtn===true?"visible":"hidden"}}>
-            KEEP
+            KEEP <IconTickCircle/>
           </button>
           <button
         onClick={handleDisgardNewProfilePhoto}
-          className={`cursor-pointer
-          hover:ring-2 hover:ring-red-700 px-2 py-1 text-sm
+          className={`cursor-pointer flex items-center flex-nowrap
+           px-2 py-1 text-sm w-full justify-center
+          gap-1
           `}
           style={{visibility:newProfilePhotoSetter.seeBtn===true?"visible":"hidden"}}>
-            DISGARD
+            DISGARD <IconCrossCircled/>
           </button>
-       
+        <div className='arrow'>
+
+        </div>
         </div>
           
       </div>
