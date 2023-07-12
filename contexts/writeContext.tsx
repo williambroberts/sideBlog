@@ -17,6 +17,8 @@ setProgress?:Function;
 setHasChanged:Function;
 hasChanged:boolean;
 getBlogById:Function;
+setIsDelete:Function;
+isDelete:any
 }
 type ChildProps = {
     children:React.ReactNode;
@@ -43,7 +45,7 @@ const WriteProvider = ({children}:ChildProps) => {
     userSocials:{},//❤️ do here sync to user DOc
   }
   const [hasChanged,setHasChanged]=useState<boolean>(false)
-
+  const [isDelete,setIsDelete]=useState<boolean>(false)
     const [blogId,setBlogId]=useState<string|null|undefined>(null)
     const [fireBLog,setFireBlog]=useState(undefined)
     const [localBlog,setLocalBlog]=useState(initialBlogData)
@@ -89,9 +91,11 @@ const generateKeywords = ()=> {
        }
     }
     useEffect(()=>{
+      "settings local blog to fireBlog"
       setLocalBlog((prev)=>fireBLog)
     },[fireBLog])
     const WriteValue = {
+      isDelete:isDelete,setIsDelete:setIsDelete,
       getBlogById:getBlogById,
       hasChanged:hasChanged,setHasChanged:setHasChanged,
       progress:progress,setProgress:setProgress,

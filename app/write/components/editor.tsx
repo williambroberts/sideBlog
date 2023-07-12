@@ -38,6 +38,7 @@ const Editor = () => {
     const newBlogId = searchParams.get("blogId")
     setBlogId(newBlogId)
     console.log("blogID",blogId)//💭remove log
+    blogId && getFireBlog()
   },[])
 
   const handleResize = (e)=>{

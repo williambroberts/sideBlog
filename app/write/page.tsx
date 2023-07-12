@@ -25,7 +25,7 @@ const WritePage = () => {
 <div className='bg-[var(--t-1)]'>
 
 </div> {filterByAuth?
-   <div>
+   <div className='mt-16'>
     <BlogsComponent/>
    </div>
    :

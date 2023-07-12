@@ -22,13 +22,21 @@
 .canEdit__desktop {
     
     font-size: inherit;
-    @apply 
-   
-    inline-block;
+    @apply ml-4
+    flex-nowrap items-center gap-0
+    
+    inline-flex;
 }
 .canEdit__desktop >button {
-    @apply 
-    px-1;
+    overflow: hidden;
+    transition: var(--transition-2);
+    @apply text-base flex-auto
+    flex flex-row flex-nowrap items-center gap-1
+    opacity-60
+   ;    
+}
+.canEdit__desktop>button:hover {
+    @apply opacity-100
 }
 .profile__component {
     color: var(--t-1);
@@ -142,3 +150,4 @@ font-size: var(--font-size-14);
     background-color: var(--bg-3);
     @apply w-full 
 }
+

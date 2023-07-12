@@ -5,17 +5,21 @@ import { useWrite } from '../../../contexts/writeContext';
 import { useAuth } from '../../../contexts/AuthContext';
 import SaveButton from './saveButton';
 import { useBlogs } from '../../../contexts/BlogContext';
+import IconCreateSharp from '../../../icons/new';
+import IconDelete from '../../../icons/delete';
+import IconListTask from '../../../icons/list';
 interface theProps {
 blogId:string;
 }
 const CRUD = ({blogId}:theProps) => {
-    const {user,setUserDocData,userDocData}=useAuth()
+    const {user,setUserDocData,userDocData,profileUserUid}=useAuth()
     const {hasChanged,setHasChanged,setBlogId,setImgFile,imgFile,
-    setLocalBlog,localBlog,initialBlogData,fireBLog}=useWrite()
-    const {}= useBlogs()
+    setLocalBlog,localBlog,initialBlogData,fireBLog,isDelete,setIsDelete}=useWrite()
+    const {setFilterByAuth}= useBlogs()
     console.log("fb",fireBLog,"loc",localBlog,"blogid",blogId)
 
     const createBlog = ()=>{
+      setFilterByAuth(false)
       console.log("new blog")
       if (!hasChanged){
         setHasChanged(true)
@@ -45,20 +49,24 @@ const CRUD = ({blogId}:theProps) => {
     }
    useEffect(()=>{
       if (blogId===null || blogId===undefined){
+        console.log("making new blog")
         createBlog()
       }
    },[])
   const handleEdit = ()=>{
     //get all user blogs from firebase and display them in the display
-    
+    setFilterByAuth(true)
   }
-  const deleteBlog = ()=>{
+  const handleDelete = ()=>{
     if (blogId===null){
         //❤️create BLog
         createBlog()
         return
     }
     //delete blog from firebase,NOtification
+
+
+    ///🧧create new blog
 
   }
   return (
@@ -67,19 +75,38 @@ const CRUD = ({blogId}:theProps) => {
         className='editor__header__btn'
         handleClick={()=>createBlog()}
         >
-            NEW BLOG
+            <IconCreateSharp/> NEW 
         </Button>
-        <Button
-        className='editor__header__btn'
-        handleClick={deleteBlog}
+        <button className={`delete__btn ${isDelete?
+      "px-0":"px-0"  
+      }`}
+        style={{width:isDelete?"0px":""}}
+        onClick={()=>setIsDelete(true)}
         >
-            DELETE BLOG 
-        </Button>
+          <IconDelete/> Delete
+
+        </button>
+        <button className={`delete__btn ${isDelete?
+      "px-1":"px-0"  
+      }`}
+        onClick={()=>setIsDelete((prev)=>false)}
+        style={{width:isDelete?"":"0px"}}
+        >
+          Cancel
+        </button>
+        <button className={`delete__btn ${isDelete?
+      "px-1":"px-0"  
+      }`}
+        onClick={handleDelete}
+         style={{width:isDelete?"":"0px"}}
+        >
+          Delete
+        </button>
         <Button
         className='editor__header__btn'
         handleClick={handleEdit}
         >
-            EDIT ANOTHER
+            <IconListTask/> Blogs
         </Button>
         <SaveButton/>
     </header>

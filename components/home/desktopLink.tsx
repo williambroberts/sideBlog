@@ -11,16 +11,23 @@ type theProps = {
 }
 const DesktopLink = ({data}:theProps) => {
   const {setProfileUserUid}=useAuth()
-  const [position,setPosition]=useState({left:0,top:0})
+  const [position,setPosition]=useState({left:0,top:0,display:""})
   const handleImage = (e)=>{
     let parent = e.target.parentElement
-    console.log(parent,e.target)
-    if (parent.className==="canEdit__desktop"){return;}
+    console.log(parent.tagName,e.target.tagName)
+    if (parent.className==="canEdit__desktop"){
+      setPosition((prev)=>({...prev,display:"none"}))
+      return;}
+    if ((e.target.tagName!=="SPAN" &&parent.tagName!=="DIV")
+    || (e.target.tagName!=="A" && parent.tagName!=="DIV") 
+    ||(e.target.tagName==="DIV")||(e.target.tagName==="IMG")){
+      setPosition((prev)=>({...prev,display:"none"}))
+      return;}
     let innerBounds= e.target.getBoundingClientRect()
     let Parentbounds = parent.getBoundingClientRect()
     let x = e.clientX-Parentbounds.left-160
-    let y = e.clientY-Parentbounds.top-(180)
-    let newPosition = {left:x,top:y}
+    let y = e.clientY-Parentbounds.top-(210)
+    let newPosition = {left:x,top:y,display:""}
     //console.log(x)
     setPosition(({...newPosition}))
   }
@@ -51,19 +58,21 @@ const DesktopLink = ({data}:theProps) => {
         <Link href={`/blog?blogId=${data?.id}`}
         className='text-[var(--t-1)] hover:underline'
         >{data?.title}</Link>
-        <CanEdit id={data.authorId}/>
+        <CanEdit id={data.authorId} blogId={data?.id}/>
 
         <div 
         style={{
           backgroundImage:`url(${data?.coverImage})`,
+          display:position.display,
           transform:`translate(${position.left}px,${position.top}px)`
       }}
         className='hidden group-hover:inline-block w-80 h-40 bg-[var(--t-4)]
         absolute rounded-md z-10 overflow-hidden left-0  
+        bg-center bg-cover
         '>
           
           <div className='w-full h-hull overflow-hidden'>
-            <img 
+            <img loading='lazy'
             className='w-full h-full'
             src={data?.coverImage} alt="/"
             

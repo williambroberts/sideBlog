@@ -95,10 +95,11 @@
     object-fit: cover;
     object-position: center;
     outline: none;
-    
+    background-color: transparent;
     cursor: pointer;
 }
 .UI__image.cover {
+    /* background-color: transparent; */
     outline:2px solid var(--t-4)
 }
 .UI__image__grid {
@@ -109,7 +110,7 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     gap: 0rem;
-    background-color: transparent;
+    /* background-color: transparent; */
 }
 .UI__btn {
 
@@ -125,7 +126,7 @@
     aspect-ratio: 1.6/1;
 }
 .display__coverImage.bg {
-    background: linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+    background: var(--code-d)
 
 }
 
@@ -194,10 +195,7 @@
 
 }
 .save__button {
-    color: var(--t-1);
-    @apply flex flex-row
-    items-center
-    gap-1 flex-nowrap;
+    
 }
 .save__button:disabled{
     color: var(--t-4);
@@ -207,14 +205,34 @@
     height: 60px;
     top: 60px;
     width: 100%;
-    background-color: var(--bg-2);
+    background-color: var(--bg-3);
     font-size: var(--font-size-12);
-    @apply flex flex-row flex-nowrap
-    gap-1;
+    @apply flex flex-row
+    items-center 
+    flex-nowrap px-2 box-border
+    gap-0;
 }
-.editor__header__btn {
-    color: var(--t-1);
-    padding: 0rem 0.125rem;
+.editor__header>button{
+    transition: var(--transition-2);
+    width: min-content;
+    overflow: hidden;
     font-size: var(--font-size-12);
+    @apply flex  uppercase 
+    opacity-60 justify-start 
+    flex-col items-center;
 }
+.editor__header>button:hover {
+    opacity: 1;
+}
+
+.editor__header>button:last-of-type{
+padding-left: 0.5rem;
+}
+.editor__header>button:first-of-type{
+    padding-right: 0.5rem;
+    }
+.editor__header>button:nth-last-of-type(2){
+    padding-left: 0.5rem;
+}
+
 
