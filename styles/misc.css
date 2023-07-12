@@ -35,6 +35,8 @@
 }
 .profile__photo {
     bottom: 0;
+    width: 120px;
+    height: 120px;
     transform: translate(50%,50%);
     border-color: var(--bg-4);
     @apply rounded-full border-2 
@@ -43,6 +45,7 @@
 }
 .profile__photo__setter{
     bottom: 0;
+    z-index: 1;
     width: 120px;
     height: 120px;
     transform: translate(50%,50%);

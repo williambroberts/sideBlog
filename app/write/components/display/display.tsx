@@ -20,7 +20,7 @@ type theProps = {
   source?:any;
 }
 const Display = ({source}:theProps) => {
-  console.log(source)
+ // console.log(source)
   const [isDark,setIsDark]=React.useState<boolean>(false)
   const [isCopied,setIsCopied]=React.useState<boolean>(false)
   const handleCopy = (text)=>{

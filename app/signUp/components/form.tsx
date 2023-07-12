@@ -77,16 +77,7 @@ const SignUpForm = () => {
                     console.log(err,"error")
                 }
                 //🧧admin user setttings
-                let newDisplayName = data.username+"###false"
-                updateProfile(auth.currentUser, {
-                    displayName:newDisplayName, photoURL: ""
-                  }).then(() => {
-                    // Profile updated!
-                    // ...
-                  }).catch((error) => {
-                    // An error occurred
-                    // ...
-                  });
+                
                  //navigate to homepage
                 window.location.assign("/")
             }

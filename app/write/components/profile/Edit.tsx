@@ -129,7 +129,7 @@ const Edit = ({}:theProps) => {
 
           
          setNewProfilePhotoSetter((prev)=>
-         ({seeBtn:false,save:false,oldUrl:RemoteUserData.profilePhoto}))
+         ({seeBtn:true,oldUrl:RemoteUserData.profilePhoto}))
          setRemoteUserData((prev)=>
          ({...prev,profilePhoto:downloadURL}))
         
@@ -146,7 +146,8 @@ const Edit = ({}:theProps) => {
       
     }
     useEffect(()=>{
-      uploadFileProfilePhoto()
+      
+      profilePhotoFile.file && uploadFileProfilePhoto()
     },[profilePhotoFile])
     const updateCoverPhoto = ()=>{
 

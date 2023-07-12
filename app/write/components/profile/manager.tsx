@@ -9,8 +9,8 @@ import { firestore } from '../../../../firebase/firebaseConfig'
 import { doc, getDoc } from 'firebase/firestore'
 
 const ProfileManager = () => {
-    const {user,isAdmin,profileUserUid,AdminEditing,setProfileUserUid
-    ,setRemoteUserData,
+    const {user,isAdmin,profileUserUid,setProfileUserUid
+    ,setRemoteUserData,setAdminEditing,
     }=useAuth()
    // const searchParams = useSearchParams()
     const [isBlogs,setIsBlogs]=useState<boolean>(true)
@@ -41,7 +41,7 @@ const ProfileManager = () => {
         setCanEditProfile(true)
        }
        if(isAdmin && profileUserUid!==user.uid){
-        AdminEditing.current=true
+        setAdminEditing((prev)=>true)
        }
        if (profileUserUid===undefined&& user){
         console.log(profileUserUid,user.uid)
