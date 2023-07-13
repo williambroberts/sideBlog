@@ -4,7 +4,7 @@ import ProfileManager from '../write/components/profile/manager'
 const ProfilePage = () => {
   return (
     <main className='page'>
-        hehekajfkejasjf
+        
         <ProfileManager/>
     </main>
   )

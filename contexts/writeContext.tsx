@@ -36,6 +36,7 @@ const WriteProvider = ({children}:ChildProps) => {
     author:"",
     authorId:"",
     tags:[],
+    readTime:"",
     category:"",
     dateCreation:"",
     creationTimeStamp:0,

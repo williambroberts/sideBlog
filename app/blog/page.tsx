@@ -17,6 +17,14 @@ const BlogPage = () => {
         return {...docSnap.data()}
       }
     }
+
+useEffect(()=>{
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  })
+},[])
+
     const updateBlogDoc =async (newData,id)=>{
       const docRef = doc(firestore,"Blogs",id)
       try {

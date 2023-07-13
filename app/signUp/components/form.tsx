@@ -49,6 +49,9 @@ const SignUpForm = () => {
                 setNotification((prev)=>error.code)
                 return
             }else {
+                let date = new Date()
+                let newDate=date.getDate()+"/"
+                +(date.getMonth()+1)+"/"+date.getFullYear()
                 try {
                     const docData = {
                         savedBlogs:[],
@@ -65,7 +68,7 @@ const SignUpForm = () => {
                         twitter:"",
                         leetcode:"",
                         about:"Add your about section",
-                        joinDate:"",
+                        joinDate:newDate,
                         admin:false,
                         toDelete:false,
 

@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react'
 import { useAuth } from '../../../../contexts/AuthContext';
+import IconCalendarOutline from '../../../../icons/date';
 type theProps={
     usePhoto:string;
     author:string;
@@ -27,13 +28,13 @@ const UserDetails = ({userPhoto,author,dateCreation,userUid}) => {
         
         height={50}
         style={{objectFit:"cover",objectPosition:"center"}}
-        className={`hover:ring-2 ring-black rounded-full
+        className={`hover:ring-2 hover:ring-black rounded-full transition-all
             duration-300 ease-in-out w-[50px] h-[50px] cursor-pointer
-            
+            mr-2 ring-2 ring-slate-400 my-10
             ${
                 loading?
-                "blur-2xl grayscale":
-                "blur-0 grayscale-0"
+                "blur-2xl grayscale opacity-0":
+                "blur-0 grayscale-0 opacity-100"
             }
             hover:ring-2 ring-black`}
         onLoadingComplete={()=>setLoading(false)}
@@ -46,7 +47,10 @@ const UserDetails = ({userPhoto,author,dateCreation,userUid}) => {
         className='hover:underline'
         onClick={()=>handleClick()}
         href={`/profile?`}>{author}</Link>
-        <span>{dateCreation}</span>
+        <span
+         className="flex flex-row items-center gap-1"
+        >
+            <IconCalendarOutline/> {dateCreation}</span>
         </div>
     </div>
   )

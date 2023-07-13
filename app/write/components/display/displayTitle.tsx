@@ -9,7 +9,9 @@ className='
 text-[var(--t-1)]
 text-primary text-3xl
  font-bold tracking-tight
-  leading-tight'>
+  leading-tight
+  mt-4
+  '>
     {title}
 </h1>
   )

@@ -6,6 +6,7 @@ import { doc,runTransaction,setDoc
 import { firestore } from '../../../firebase/firebaseConfig'
 import { useAuth } from '../../../contexts/AuthContext'
 import IconSave from '../../../icons/save'
+import { getBlogReadTime } from '../../../firebase/CLientFunctions'
 type theProps = {
     
 }
@@ -19,6 +20,9 @@ const SaveButton = ({}:theProps) => {
     //if SAVE criteria met
     if (localBlog.title!=="" && localBlog.coverImage!==""){
       if (blogId){
+        //🧧improve length function
+        localBlog.readTime=getBlogReadTime(localBlog.content)
+        
         try {
           let blogRef = doc(firestore,"Blogs",localBlog.id)
           await runTransaction(firestore, async (t)=>{

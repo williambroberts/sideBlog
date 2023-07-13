@@ -15,6 +15,10 @@ import UploadedImages from './uploadImages/uploadedImages'
 import AddTag from './addTags/addTag'
 import TagManager from './addTags/manageTags'
 import CRUD from './CRUD'
+import IconUpload from '../../../icons/upload'
+import IconBxCategory from '../../../icons/category'
+import IconFormatTitle from '../../../icons/title'
+import IconWrite from '../../../icons/write'
 
 const Editor = () => {
   const router = useRouter()
@@ -207,6 +211,8 @@ useEffect(()=>{
       <UploadedImages images={localBlog?.uploadedImages}/>
       <AddItem name='Upload Image' 
         type='file'
+        dataTheme="light"
+        icon={<IconUpload/>}
         value={imgFile?.value}
         className='add__item'
         placeholder='Upload Image'
@@ -216,6 +222,7 @@ useEffect(()=>{
         {/* title */}
         <AddItem name='Category' 
         type='text'
+        icon={<IconBxCategory/>}
         className='add__item'
         placeholder='Category'
         value={localBlog?.category}
@@ -224,17 +231,24 @@ useEffect(()=>{
         <AddItem 
         name='Title'
         type='text'
+        icon={<IconFormatTitle/>}
         className='add__item'
         placeholder='Blog title'
         value={localBlog?.title}
         handleChange={(e)=>handleAddItem("title",e)}/>
 {/* cover image */}
 
-
+        <span className='text-sm inline-flex items-center gap-1
+        uppercase font-light leading-tight'>
+           <IconWrite/> Write your blog 
+        </span>
         <textarea id='write__textarea'
         // autoFocus
+        placeholder={"Blog content"}
         onInput={(e)=>handleResize(e)}
-        className='write__textarea'
+        className='
+        
+        '
         value={localBlog?.content}
         onChange={(e)=>handleWriting(e)}
         >

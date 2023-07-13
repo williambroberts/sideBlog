@@ -8,6 +8,10 @@ import { useBlogs } from '../../../contexts/BlogContext';
 import IconCreateSharp from '../../../icons/new';
 import IconDelete from '../../../icons/delete';
 import IconListTask from '../../../icons/list';
+import { deleteDoc, doc } from 'firebase/firestore';
+import { firestore } from '../../../firebase/firebaseConfig';
+import IconTickCircle from '../../../icons/tick';
+import IconCancel from '../../../icons/cancel';
 interface theProps {
 blogId:string;
 }
@@ -57,14 +61,16 @@ const CRUD = ({blogId}:theProps) => {
     //get all user blogs from firebase and display them in the display
     setFilterByAuth(true)
   }
-  const handleDelete = ()=>{
+  const handleDelete = async(id)=>{
     if (blogId===null){
         //❤️create BLog
         createBlog()
         return
     }
     //delete blog from firebase,NOtification
-
+    const docRef =doc(firestore,"Blogs",id)
+    await deleteDoc(docRef)
+    createBlog()
 
     ///🧧create new blog
 
@@ -92,15 +98,15 @@ const CRUD = ({blogId}:theProps) => {
         onClick={()=>setIsDelete((prev)=>false)}
         style={{width:isDelete?"":"0px"}}
         >
-          Cancel
+        <IconCancel/>  Cancel
         </button>
         <button className={`delete__btn ${isDelete?
       "px-1":"px-0"  
       }`}
-        onClick={handleDelete}
+        onClick={()=>handleDelete(blogId)}
          style={{width:isDelete?"":"0px"}}
         >
-          Delete
+         <IconTickCircle/> Delete
         </button>
         <Button
         className='editor__header__btn'

@@ -2,6 +2,8 @@
 import {v4} from "uuid"
 import React,{memo} from 'react'
 import { useBlogs } from '../../../../contexts/BlogContext';
+import IconClock from "../../../../icons/clock";
+import IconTags from "../../../../icons/tags";
 interface theProps {
     tags:string[];
 }
@@ -18,10 +20,21 @@ const DisplayTags = ({tags}:theProps) => {
     }
   return (
     <div className='display__tags'>
+        <span className="flex flex-row 
+        text-[var(--t-3)] pr-2 items-center gap-1
+        flex-wrap">
+
+            <IconClock/> ~ {}min
+        </span>
+        <span className=" ml-2 text-[var(--t-2)]
+        
+        "><IconTags/></span>
         {tags?.map((item)=>
             <button key={v4()}
             onClick={()=>handleClick(item)}
-            className='display__tag'>
+            className='flex flex-row items-center gap-1 px-1
+            hover:underline
+            '>
                 #{item}
             </button>
         )}

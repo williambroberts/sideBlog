@@ -28,7 +28,7 @@
     max-width: 650px;
     height: min-content;
     @apply flex flex-col
-    relative
+    relative box-border
     gap-0;
 
 }
@@ -36,7 +36,9 @@
     flex:1 1 auto;
 }
 .add__item {
-    @apply flex flex-nowrap;
+    @apply flex
+    items-center
+    flex-nowrap;
 }
 
 .UI__frame {
@@ -121,7 +123,9 @@
     flex-col;
 }
 .display__coverImage {
-    @apply relative;
+    @apply relative 
+    mb-4
+    rounded-lg overflow-clip;
     width: 100%;
     aspect-ratio: 1.6/1;
 }
@@ -134,7 +138,7 @@
     width: 100%;
     height: min-content;
     @apply
-    justify-start
+    justify-start py-2
     flex flex-row items-center 
 }
 .display__user__details > div > span:first-of-type{
@@ -157,7 +161,10 @@
 .tag__manager {
     min-height: 30px;
     width: 100%;
-    @apply flex flex-row flex-wrap
+    @apply flex flex-row 
+    box-border
+    p-2
+    flex-wrap
     items-center justify-start
     gap-1;
 }
@@ -172,9 +179,18 @@
     gap-1;
 }
 .add__tag__btn {
+    background-color: var(--bg-1);
+    border: 1px solid var(--bg-4);
+    transition: var(--transition-2);
     @apply flex flex-row flex-wrap
-    items-center justify-start
+    items-center rounded px-2 py-1
+    uppercase font-light tracking-tighter
+    mx-1 opacity-60
+    justify-start
     gap-1;
+}
+.add__tag__btn:hover {
+    opacity: 1;
 }
 
 .write__textarea {
@@ -186,16 +202,16 @@
     font-weight: 400;
     font-size: var(--font-size-14);
     color: var(--t-1);
-    @apply flex items-center justify-center flex-wrap
+    @apply flex items-center 
+    py-3
+    justify-start flex-wrap
     ;
     width: 100%;
     height: min-content;
 }
-.display__tag {
 
-}
 .save__button {
-    
+  
 }
 .save__button:disabled{
     color: var(--t-4);

@@ -39,6 +39,8 @@
     @apply opacity-100
 }
 .profile__component {
+    margin-top: 0px;
+    width: 100%;
     color: var(--t-1);
 }
 .profile__photo {
@@ -80,6 +82,7 @@
     background-color: var(--bg-2);
 }
 .profile__name {
+    margin-bottom: 1rem;
     margin-top: 60px;
     font-weight: 500;
     color: var(--t-1);

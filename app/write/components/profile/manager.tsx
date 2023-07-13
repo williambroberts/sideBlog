@@ -32,6 +32,14 @@ const ProfileManager = () => {
     }
     
     useEffect(()=>{
+      window.scrollTo({
+        top:0,
+        behavior:"smooth"
+      })
+    },[])
+    
+
+    useEffect(()=>{
       profileUserUid && getUserDoc(profileUserUid)
     },[profileUserUid])
    
@@ -57,7 +65,7 @@ const ProfileManager = () => {
     },[profileUserUid])
     return (
     <div className='w-full'>
-        {/* profile banner jhey ? */}
+      
         <ProfileComponent
         user={profileUserUid}
         />

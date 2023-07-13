@@ -31,7 +31,7 @@ const Display = ({source}:theProps) => {
     }).catch((rej)=>console.log(rej,"error"))
   }
   return (
-    <div className='display'>
+    <div className={`display mt-20 mx-0 mb-10`}>
     
      <DisplayCategory category={source?.category}/>
      <DisplayTitle title={source?.title}/>
@@ -40,7 +40,7 @@ const Display = ({source}:theProps) => {
       author={source?.author} userUid={source?.authorId}
       dateCreation={source?.dateCreation}
       />
-     
+      <DisplayTags tags={source?.tags}/>
       <DisplayCoverImage src={source?.coverImage}/>
 <ReactMarkdown
           children={source?.content}
@@ -76,7 +76,7 @@ const Display = ({source}:theProps) => {
             }
           }}
         />
-       <DisplayTags tags={source?.tags}/>
+      
     </div>
   )
 }

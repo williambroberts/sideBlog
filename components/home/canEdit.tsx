@@ -6,6 +6,8 @@ import { useWrite } from '../../contexts/writeContext';
 import { usePathname, useRouter } from 'next/navigation';
 import IconEdit from '../../icons/edit';
 import IconDelete from '../../icons/delete';
+import { deleteDoc, doc } from 'firebase/firestore';
+import { firestore } from '../../firebase/firebaseConfig';
 type theProps = {
     id:string;
     blogId:string;
@@ -14,7 +16,7 @@ const CanEdit = ({id,blogId}:theProps) => {
     const {user,isAdmin}=useAuth()
     const router = useRouter()
     const pathname = usePathname()
-    const {setFilterByAuth}=useBlogs()
+    const {setFilterByAuth,getBlogsByLatest}=useBlogs()
     const {setLocalBlog,getBlogById,setIsDelete,isDelete}=useWrite()
     function getDevice(){
         return !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
@@ -32,12 +34,15 @@ const CanEdit = ({id,blogId}:theProps) => {
       
       // window.location.assign("/write")
     }
-    const handleDelete = ()=>{
+    const handleDelete =async ()=>{
       //🌮dELEE
       console.log("delete blog",blogId)
       setIsDelete(false)
+      const docRef =doc(firestore,"Blogs",blogId)
+      await deleteDoc(docRef)
+      await getBlogsByLatest(false,false)
     }
-    console.log(isDelete,"isDelete")
+    
   return (
     desktop?    
     <div className='canEdit__desktop'

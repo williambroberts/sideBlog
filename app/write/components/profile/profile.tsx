@@ -136,7 +136,9 @@ const handleDisgardNewCover = ()=>{
       </div>
 
       <h1 className='profile__name'>{RemoteUserData?.username}</h1>
-      <p className='text-base text-inherit'>{RemoteUserData?.about}</p>
+      <p className='text-base text-inherit
+      first-letter:text-lg my-2
+      '>{RemoteUserData?.about}</p>
       <div className='w-full flex flex-row gap-2 
       items-center 
       '>

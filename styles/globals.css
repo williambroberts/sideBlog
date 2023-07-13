@@ -249,3 +249,57 @@ main.page {
     color: var(--t-2);
     font-size: var(--font-size-16);
   }
+
+  textarea {
+    background-color: var(--bg-3);
+    outline: none;
+    width: 100%;
+    transition: var(--transition-1);
+    border: 1px solid transparent;
+    box-sizing: border-box;
+    @apply rounded-md overflow-hidden;
+  }
+
+  textarea:focus, input:focus {
+    border-color: var(--bg-4);
+    @apply ring-inset ring-white ring-2
+  }
+
+  textarea::placeholder{
+    color: var(--t-3);
+    white-space: pre-line;
+    font-size: var(--font-size-14);
+    @apply uppercase font-light
+  }
+
+  input {
+    background-color: var(--bg-3);
+    outline: none;
+    width: 100%;
+    transition: var(--transition-1);
+    border: 1px solid transparent;
+    
+    @apply rounded-md my-1
+    py-2 box-border px-1
+    overflow-hidden;
+  }
+
+  input::placeholder {
+    color: var(--t-3);
+    @apply uppercase font-light
+  }
+
+  input::-webkit-file-upload-button {
+    background-color: var(--bg-1);
+    box-shadow: none;
+    border: 1px solid var(--bg-4);
+    transition: var(--transition-1);
+    color: var(--t-2);
+    font-weight: 300;
+    font-size: var(--font-size-14);
+    @apply rounded-sm cursor-pointer
+  }
+  input::-webkit-file-upload-button:hover {
+
+    @apply ring-2 ring-white ring-inset
+  }

@@ -20,10 +20,14 @@ const TagItem = ({tag}:theProps) => {
   }
   return (
     <div
-    className='editor__tag__item'
+    className='inline-flex gap-1 
+    bg-[var(--bg-3)]
+    text-sm flex-row'
     >{tag}
         <Button handleClick={()=>handleDelete(tag)}
-        
+        className='hover:opacity-100 opacity-60
+        duration-300 ease-in-out transition-all
+        '
         >
             <IconCrossCircled/>
         </Button>

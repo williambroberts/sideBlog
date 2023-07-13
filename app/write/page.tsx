@@ -24,13 +24,15 @@ const WritePage = () => {
 <Editor/>
 <div className='bg-[var(--t-1)]'>
 
-</div> {filterByAuth?
+</div> 
    <div className='mt-16'>
-    <BlogsComponent/>
-   </div>
-   :
+    
+    
+   {filterByAuth? <BlogsComponent/>:
  <Display source={localBlog}/>
 }
+   
+   </div>
    
       </div>
 
