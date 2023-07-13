@@ -6,6 +6,13 @@ return Math.round(numOfWords/rate)
 }
 
 
-export function TagFilter() {
+export function TagFilter(tags) {
     //.👍🏻return unique tags
+    let setOfTags = new Set(tags)
+    return Array.from(setOfTags)
+
+}
+
+export function debounceContent(){
+    
 }

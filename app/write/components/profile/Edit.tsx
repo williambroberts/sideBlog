@@ -228,12 +228,18 @@ const Edit = ({}:theProps) => {
     
     //🧧update social media accound
   return (
-    <div className='w-full'>
+    <div className='w-full text-[var(--t-1)]'>
         
-        <div className='flex flex-row w-full'>
-            <span>Username</span>
+        <div className='flex flex-row w-full
+         items-center gap-1'>
+            <span
+            className='font-light uppercase text-sm'
+            >Username</span>
         <InputReusable
         type='text'
+        className='focus:border-[var(--bg-4)]
+        
+        '
         value={localUserData?.username===undefined? 
             "":localUserData.username}
         handleChange={(e)=>setLocalUserData((prev)=>({...prev,username:e.target.value}))}
@@ -272,19 +278,28 @@ const Edit = ({}:theProps) => {
         </div>
 
         <div className='w-full flex flex-col gap-1 text-[var(--t-1)] text-base'>
-          <span>About</span>
+          <span
+           className='font-light my-3'
+          >About</span>
          
           <TextAreaReusable
           rows={5}
           value={localUserData?.about===undefined? 
             "":localUserData.about}
           placeholder='About...'
-          className='textarea'
+          className='font-light'
           handleChange={(e)=>setLocalUserData((prev)=>({...prev,about:e.target.value}))}
           />
           <Button
 
-className='edit__btn'
+className={`flex flex-row opacity-60
+items-center flex-wrap border-solid
+border rounded border-[var(--bg-4)] 
+gap-1 justify-center bg-[var(--bg-1)]
+duration-300 transition-all ease-in-out
+cursor-pointer
+px-2 py-1 text-base font-light hover:opacity-100
+`}
 disabled={localUserData?.about===RemoteUserData?.about}
 handleClick={updateAbout}
 type='submit'>

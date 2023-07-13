@@ -19,6 +19,7 @@
 .search__form>input:focus{
     border: none;
     outline: none;
+    @apply ring-transparent
 }
 .search__form:focus-within{
     @apply ring-1 ring-[var(--t-2)]

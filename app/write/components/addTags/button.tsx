@@ -6,12 +6,14 @@ type theProps = {
     icon?:React.ReactNode;
     children?:React.ReactNode;
     disabled?:boolean;
-    handleClick:React.MouseEventHandler<HTMLButtonElement>
+    handleClick?:React.MouseEventHandler<HTMLButtonElement>
+    dataTheme?:string;
 }
-const Button = ({handleClick,disabled,
+const Button = ({dataTheme,handleClick,disabled,
   children,type,className,text,icon}:theProps) => {
   return (
     <button 
+    data-theme={dataTheme}
     disabled={disabled}
     onClick={handleClick}
     className={className?

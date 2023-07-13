@@ -303,3 +303,16 @@ main.page {
 
     @apply ring-2 ring-white ring-inset
   }
+
+
+  strong {
+    font-weight: 600;
+    color: inherit;
+  }
+  code {
+    color: inherit;
+    padding: 3px;
+    background-color: var(--bg-3);
+    @apply inline-block 
+    rounded-sm 
+  }

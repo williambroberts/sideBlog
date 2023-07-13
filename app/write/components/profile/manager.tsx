@@ -7,6 +7,8 @@ import { useSearchParams } from 'next/navigation'
 import Edit from './Edit'
 import { firestore } from '../../../../firebase/firebaseConfig'
 import { doc, getDoc } from 'firebase/firestore'
+import IconListTask from '../../../../icons/list'
+import IconEdit from '../../../../icons/edit'
 
 const ProfileManager = () => {
     const {user,isAdmin,profileUserUid,setProfileUserUid
@@ -69,31 +71,34 @@ const ProfileManager = () => {
         <ProfileComponent
         user={profileUserUid}
         />
-        <header className='w-full'>
+        <header className='w-full text-[var(--t-2)] my-2'>
             <nav className='w-full flex flex-row gap-2'> 
             <span className='font-medium'>
                 {isAdmin && user.uid!==profileUserUid? "Viewing as an Admin":""}
                 </span>  
                 <button 
-                className={`hover:underline 
+                className={`opacity-60 hover:opacity-100
+                duration-300 ease-in-out transition-all
                 hover:ring-1 ring-[var(--bg-4)]
                 cursor-pointer
+                flex flex-row items-center gap-1
                 px-2 py-1 rounded-sm
              ${isBlogs? "bg-[var(--bg-3)]":""}
                 `}
                 onClick={()=>setIsBlogs(true)}
-                >Blogs</button>
+                ><IconListTask/> Blogs</button>
                 <button 
                 style={{opacity:isAdmin?"1":user.uid===profileUserUid? "1":"0"}}
-                className={`hover:underline 
+                className={` opacity-60 hover:opacity-100
+                duration-300 ease-in-out transition-all
                 hover:ring-1 ring-[var(--bg-4)]
-                cursor-pointer
-                px-2 py-1 rounded-sm
+                cursor-pointer flex flex-row items-center
+                px-2 py-1 rounded-sm gap-1
              ${!isBlogs? "bg-[var(--bg-3)]":""}
                 `}
                 onClick={()=>setIsBlogs(false)}
                 disabled={!canEditProfile}
-                >Edit Profile</button>
+                ><IconEdit/> Edit Profile</button>
             </nav>
         </header>
         {isBlogs?

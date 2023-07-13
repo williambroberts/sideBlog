@@ -27,7 +27,7 @@ const TagItem = ({tag}:theProps) => {
         <Button handleClick={()=>handleDelete(tag)}
         className='hover:opacity-100 opacity-60
         duration-300 ease-in-out transition-all
-        '
+        cursor-pointer'
         >
             <IconCrossCircled/>
         </Button>

@@ -3,6 +3,7 @@ import React,{useState,memo} from 'react'
 import InputReusable from '../../../signUp/components/inputReusable'
 import IconSave from '../../../../icons/save'
 import { useWrite } from '../../../../contexts/writeContext'
+import { TagFilter } from '../../../../firebase/CLientFunctions'
 
 const AddTag = () => {
   const {localBlog,setLocalBlog,setHasChanged,hasChanged}=useWrite()
@@ -21,8 +22,10 @@ const AddTag = () => {
     setSave(true)
     let newLocalBlog={...localBlog}
     newLocalBlog.tags.push(tag)
-    console.log(newLocalBlog.tags)
-    setLocalBlog(newLocalBlog)
+    let newTagArr = TagFilter(newLocalBlog.tags)
+    //console.log(newLocalBlog.tags)
+
+    setLocalBlog((prev)=>({...prev,tags:newTagArr}))
     setTag("")
     if(!hasChanged){
       setHasChanged((prev)=>true)

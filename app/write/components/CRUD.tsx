@@ -20,7 +20,7 @@ const CRUD = ({blogId}:theProps) => {
     const {hasChanged,setHasChanged,setBlogId,setImgFile,imgFile,
     setLocalBlog,localBlog,initialBlogData,fireBLog,isDelete,setIsDelete}=useWrite()
     const {setFilterByAuth}= useBlogs()
-    console.log("fb",fireBLog,"loc",localBlog,"blogid",blogId)
+    //console.log("fb",fireBLog,"loc",localBlog,"blogid",blogId)
 
     const createBlog = ()=>{
       setFilterByAuth(false)
@@ -53,13 +53,15 @@ const CRUD = ({blogId}:theProps) => {
     }
    useEffect(()=>{
       if (blogId===null || blogId===undefined){
-        console.log("making new blog")
+        //console.log("making new blog")
         createBlog()
       }
    },[])
   const handleEdit = ()=>{
+    console.log("get view of all blogs")
     //get all user blogs from firebase and display them in the display
     setFilterByAuth(true)
+    
   }
   const handleDelete = async(id)=>{
     if (blogId===null){

@@ -25,18 +25,14 @@ const Editor = () => {
   const pathname= usePathname()
   const searchParams = useSearchParams()
   const {user,setUserDocData,userDocData}=useAuth()
+  const [temp,setTemp]=useState<string>("")
+  const wait = 1000
+  const [last,setLast]=useState<number>(0)
   const {localBlog,setBlogId,blogId,setLocalBlog,
     setFireBlog,fireBLog,imgFile,setImgFile,
     initialBlogData,setProgress,hasChanged,setHasChanged
   }=useWrite()
-  // const add = (type)=>{
-  //   let id = new Date().getTime().toString()
-   
-  //   let newContentItem = {type:type,id:id,text:""}
-  //   let newLocalBlog = {...localBlog}
-  //   newLocalBlog.content.push(newContentItem)
-  //   setLocalBlog((prev)=>newLocalBlog)
-  // }
+  
 
   useEffect(()=>{
     const newBlogId = searchParams.get("blogId")
@@ -51,16 +47,35 @@ const Editor = () => {
     textarea.style.height=`${textarea.scrollHeight}px`
   }
   const handleWriting = (e) =>{
-    let newLocalBlog = {...localBlog}
-    newLocalBlog.content = e.target.value
+    setTemp(e.target.value)
     //❤️DEBOUNCE THE change
-    setLocalBlog((prev)=>newLocalBlog)
+   
     if( !hasChanged){
       setHasChanged((prev)=>true)
     }
     
     
   }
+
+  useEffect(()=>{
+    //🧧period debounce handler
+    let NOW = new Date().getTime()
+
+    let delay  = Math.max(0,(last+wait-NOW))
+    let timeout = setTimeout(()=>{
+        setLast(NOW)
+        console.log(localBlog,"🧧")
+        if (last!==0){
+          setLocalBlog((prev)=>({
+          ...prev,content:temp
+        }))
+        }
+        
+    },delay)
+    return ()=>{
+      clearTimeout(timeout)}
+  },[temp])
+
   const handleNewImage = (e)=>{
     //❤️SAVE button
     
