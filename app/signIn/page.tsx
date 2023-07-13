@@ -12,6 +12,7 @@ const SignInPage = () => {
         <AuthBanner text='Welcome back to sideBlog'/>
         <SignInForm/>
         <RoutePusher/>
+        
     </main>
   )
 }

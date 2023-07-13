@@ -1,7 +1,7 @@
 "use client"
 import React,{createContext,useContext,useEffect,useState} from 'react'
 type NotificationContextValues = {
-notification:string;
+notification:any;
 notificationTime:number;
 openNotification:boolean;
 setOpenNotification:Function;
@@ -14,7 +14,7 @@ children:React.ReactNode;
 const NotificationContext = createContext<NotificationContextValues| undefined>(undefined)
 const NotificationProvider = ({children}:ChildrenProp) => {
     const [notification,setNotification]=useState<any>({type:"",message:""})
-    const [notificationTime,setNotificationTime]=useState<number>(1000)
+    const [notificationTime,setNotificationTime]=useState<number>(3000)
     const [openNotification,setOpenNotification]=useState<boolean>(false)
     const NotificationValue = {
 notification:notification,

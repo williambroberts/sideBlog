@@ -8,6 +8,7 @@ import { useNotifications } from '../../../../contexts/NotificationContext';
 import { updateProfile } from 'firebase/auth';
 import IconCrossCircled from '../../../../icons/cross';
 import IconTickCircle from '../../../../icons/tick';
+import NotificationPortal from '../../../signUp/components/notificationPortal';
 interface theProps {
   user:string;
 }
@@ -15,7 +16,7 @@ const ProfileComponent = ({user}:theProps) => {
   const {setRemoteUserData,RemoteUserData,setNewProfilePhotoSetter,
     profileUserUid,AdminEditing,newCoverPhotoSetter,
     newProfilePhotoSetter,setNewCoverPhotoSetter}= useAuth()
-  const {setNotification,setOpenNotification}=useNotifications()
+  const {setNotification,setOpenNotification,openNotification}=useNotifications()
   const [loadedProfilePhoto,setLoadedProfilePhoto]=useState<boolean>(false)
   
   const handleRunTransaction =async ()=>{
@@ -147,6 +148,8 @@ const handleDisgardNewCover = ()=>{
         {/* 🧧user link */}
         <span></span>
       </div>
+
+      {openNotification && <NotificationPortal/>}
     </div>
   )
 }

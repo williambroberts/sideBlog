@@ -4,7 +4,7 @@ import InputReusable from '../../app/signUp/components/inputReusable'
 import Button from '../../app/write/components/addTags/button'
 import IconSearch from './searchIcon'
 import { useBlogs } from '../../contexts/BlogContext'
-import styles from "./searchbar.module.css"
+
 type theProps= {
   filterByAuthor?:boolean;
   userArg?:string;
@@ -23,7 +23,7 @@ const SearchBar = ({filterByAuthor,userArg}:theProps) => {
     }
   return (
     <form onSubmit={handleSubmit}
-    className={styles.search__form}
+    className={`search__form`}
     >
         <label htmlFor='search-input'>
 

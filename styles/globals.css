@@ -316,3 +316,23 @@ main.page {
     @apply inline-block 
     rounded-sm 
   }
+
+button {
+  color: var(--t-1);
+  font-size: var(--font-size-16);
+  font-weight: 400;
+  
+  opacity: 0.85;
+  transition: var(--transition-1);
+  @apply flex flex-row items-center justify-center gap-1
+  px-3 py-2 overflow-hidden rounded-sm;
+}
+button:hover {
+opacity: 1;
+}
+
+div#portal {
+  left: 50%;
+  transform: translate(-50%,0);
+  @apply fixed bottom-5 w-min 
+}

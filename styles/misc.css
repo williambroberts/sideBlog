@@ -22,11 +22,12 @@
 .canEdit__desktop {
     color:var(--t-2);
     font-size: inherit;
-    @apply ml-4
+    @apply ml-0
     flex-nowrap items-center gap-0
-    
+    sm:ml-4
     inline-flex;
 }
+
 .canEdit__desktop >button {
     overflow: hidden;
     transition: var(--transition-2);
@@ -185,3 +186,31 @@ opacity: 0.6;
 .canEdit__touch>button:hover {
     @apply opacity-100
 }
+
+form.search__form {
+    margin-block-start: 1rem;
+    height: 40px;
+    border-radius:9999px;
+    max-width: 235px;
+    padding: 0rem 1rem;
+    @apply flex flex-row 
+    items-center justify-normal
+    bg-[var(--bg-3)]
+    flex-nowrap overflow-hidden;
+}
+
+form.search__form > input{
+    border: none;
+    outline: none;
+    @apply bg-transparent;
+
+}
+.search__form>input:focus{
+    border: none;
+    outline: none;
+    @apply ring-transparent
+}
+.search__form:focus-within{
+    @apply ring-1 ring-[var(--t-2)]
+}
+

@@ -106,14 +106,10 @@ const AuthProvider = ({children}:ChildrenProp) => {
     const getUserDoc =async ()=>{
         if (user===null)return;
 
-        let newIsADmin = user.displayName?.split("##")[1]
+        
          
-        console.log(user?.displayName,"displayName")
-        if (newIsADmin==="true"){
-          setIsAdmin(true)
-        }else {
-          setIsAdmin(false)
-        }
+        
+        
         console.log("user",user.uid)
         try {
           let docRef = doc(firestore,"users",user.uid)
@@ -121,6 +117,9 @@ const AuthProvider = ({children}:ChildrenProp) => {
         if (snapShot.exists()){
           console.log(snapShot.data())
           setUserDocData({...snapShot.data()})
+          if (snapShot.data().admin===true){
+            setIsAdmin((prev)=>true)
+          }
         }
         }catch(err){
           console.log(err)

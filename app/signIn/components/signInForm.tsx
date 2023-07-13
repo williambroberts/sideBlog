@@ -5,10 +5,11 @@ import LinkToOther from '../../signUp/components/linkToOther'
 import { AuthButton } from '../../signUp/components/AuthButton'
 import { useAuth } from '../../../contexts/AuthContext'
 import { useNotifications } from '../../../contexts/NotificationContext'
+import NotificationPortal from '../../signUp/components/notificationPortal'
 
 const SignInForm = () => {
   const {signIn}=useAuth()
-  const {setNotification,setOpenNotification}=useNotifications()
+  const {setNotification,setOpenNotification,openNotification}=useNotifications()
     const [state,dispatch]=useReducer(reducer,{email:"",password:""})
     const handleSubmit = async (e)=>{
         e.preventDefault()
@@ -47,7 +48,7 @@ const SignInForm = () => {
         <LinkToOther text='Don&apos;t have an account?' textLink='Sign up'
         href='/signUp'/>
 
-
+{openNotification && <NotificationPortal/>}
     </form>
   )
 }

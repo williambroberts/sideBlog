@@ -9,17 +9,17 @@ const NotificationPortal = ({}) => {
     const {notification,setOpenNotification,notificationTime}=useNotifications()
     useEffect(()=>{
         setTimeout(()=>{
-            setOpenNotification((prev)=>false)
+            setOpenNotification((prev)=>true)
         },notificationTime)
     },[])
   return ReactDom.createPortal(
     <div 
     data-theme="dark"
     className='rounded-md text-[var(--t-1)] text-base
-    px-2 py-2 w-min h-min
-    bg-[var(--bg-3)]
+    px-2 py-2 w-min h-min  max-w-full 
+    bg-[var(--bg-3)] flex whitespace-nowrap
     '>
-       {notification}
+       {notification?.message}
     </div>,
     document.getElementById("portal")
   )
