@@ -60,7 +60,7 @@ const Editor = () => {
   useEffect(()=>{
     //🧧period debounce handler
     let NOW = new Date().getTime()
-
+    
     let delay  = Math.max(0,(last+wait-NOW))
     let timeout = setTimeout(()=>{
         setLast(NOW)
@@ -264,7 +264,7 @@ useEffect(()=>{
         className='
         
         '
-        value={localBlog?.content}
+        value={temp}
         onChange={(e)=>handleWriting(e)}
         >
           

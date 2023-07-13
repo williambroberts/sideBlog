@@ -16,6 +16,7 @@ import UserDetails from './userDetails'
 import DisplayTags from './displayTags'
 import DisplayCategory from './displayCategory'
 import DisplayTitle from './displayTitle'
+import Animator from '../../../../components/animator/animator'
 type theProps = {
   source?:any;
 }
@@ -32,14 +33,20 @@ const Display = ({source}:theProps) => {
   }
   return (
     <div className={`display mt-20 mx-0 mb-10`}>
-    
-     <DisplayCategory category={source?.category}/>
+    <Animator index={1}>
+    <DisplayCategory category={source?.category}/>
+    </Animator>
+     <Animator index={2}>
      <DisplayTitle title={source?.title}/>
+     </Animator>
      
-      <UserDetails userPhoto={source?.userPhoto}
+     <Animator index={3}>
+     <UserDetails userPhoto={source?.userPhoto}
       author={source?.author} userUid={source?.authorId}
       dateCreation={source?.dateCreation}
       />
+     </Animator>
+     
       <DisplayTags tags={source?.tags}/>
       <DisplayCoverImage src={source?.coverImage}/>
 <ReactMarkdown

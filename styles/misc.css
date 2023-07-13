@@ -165,3 +165,23 @@ opacity: 0.6;
     @apply w-full 
 }
 
+
+.canEdit__touch {
+    color:var(--t-2);
+    font-size: inherit;
+    @apply ml-0
+    flex-nowrap items-center gap-0
+    
+    inline-flex;
+}
+.canEdit__touch >button {
+    overflow: hidden;
+    transition: var(--transition-2);
+    @apply text-base flex-auto
+    flex flex-row flex-nowrap items-center gap-1
+    opacity-60
+   ;    
+}
+.canEdit__touch>button:hover {
+    @apply opacity-100
+}

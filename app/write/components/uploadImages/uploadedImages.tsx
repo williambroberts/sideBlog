@@ -10,11 +10,24 @@ type theProps = {
 const UploadedImages = ({images}:theProps) => {
     const [index,setIndex]=useState(0)
     const [maxIndex,setMaxIndex]=useState(0)
+    const [windowSizes,setWindowSizes]=useState([0,0])
     const [loading,setLoading]=useState<boolean>(true)
     useEffect(()=>{
         setLoading(false)
+        //🟩window sizes listner
+        function runSetWindowSizes(){
+            setWindowSizes([window.innerWidth,window.innerHeight])
+        }
+        if (window!==undefined){
+            window.addEventListener("resize",runSetWindowSizes)
+        }
+        return ()=>{
+            window.removeEventListener("resize",runSetWindowSizes)
+        }
     },[])
     
+
+
     useEffect(()=>{
         //❤️debounce
         let timeout = setTimeout(()=>{
@@ -29,7 +42,7 @@ const UploadedImages = ({images}:theProps) => {
             clearTimeout(timeout)
         }
 
-    },[window?.innerWidth])
+    },[windowSizes[0]])
         const handleClick = (direction)=>{
             //calc max index
             if (index===0 && direction==="left") return;

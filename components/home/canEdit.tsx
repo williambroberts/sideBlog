@@ -8,6 +8,7 @@ import IconEdit from '../../icons/edit';
 import IconDelete from '../../icons/delete';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { firestore } from '../../firebase/firebaseConfig';
+import IconCancel from '../../icons/cancel';
 type theProps = {
     id:string;
     blogId:string;
@@ -67,7 +68,7 @@ const CanEdit = ({id,blogId}:theProps) => {
         onClick={()=>setIsDelete((prev)=>false)}
         style={{width:isDelete?"":"0px"}}
         >
-          Cancel
+          <IconCancel/> Cancel
         </button>
         <button className={`${isDelete?
       "px-1":"px-0"  
@@ -75,19 +76,42 @@ const CanEdit = ({id,blogId}:theProps) => {
         onClick={handleDelete}
          style={{width:isDelete?"":"0px"}}
         >
-          Delete
+          <IconDelete/> Delete
         </button>
     </div>:
-    <div className='canEdit__touch'
-    style={{display:id===user?.uid?"":isAdmin?"":"none"}}>
-    {/* 🧧ADMIN userDocData.admin */}
-    <button className=''
-    onClick={handleEdit}
-    ><IconEdit/> EDIT</button>
-    <button 
-    onClick={handleDelete}
-    className=''><IconDelete/> DELETE</button>
-    </div>
+   <div className={`canEdit__touch `}
+   style={{display:id===user?.uid?"":isAdmin? "":"none"}}>
+
+       <button className={`${isDelete?
+     "px-0":"px-1"  
+     }`}
+       style={{width:isDelete?"0px":""}}
+       onClick={handleEdit}
+       ><IconEdit/> Edit</button>
+       <button 
+       className={`${isDelete?
+         "px-0":"px-1"  
+         }`}
+       style={{width:isDelete?"0px":""}}
+       onClick={()=>setIsDelete((prev)=>true)}
+       ><IconDelete/>Delete</button>
+       <button className={`${isDelete?
+     "px-1":"px-0"  
+     }`}
+       onClick={()=>setIsDelete((prev)=>false)}
+       style={{width:isDelete?"":"0px"}}
+       >
+        <IconCancel/> Cancel 
+       </button>
+       <button className={`${isDelete?
+     "px-1":"px-0"  
+     }`}
+       onClick={handleDelete}
+        style={{width:isDelete?"":"0px"}}
+       >
+       <IconDelete/> Delete
+       </button>
+   </div>
 
     
   )

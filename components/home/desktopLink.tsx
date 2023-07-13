@@ -46,8 +46,10 @@ const DesktopLink = ({data}:theProps) => {
      
     
     <div
-    onMouseMove={handleImage}
-    className='text-base tracking-wide py-2  sm:block group'>
+    onMouseMove={handleImage} 
+    className='text-base tracking-wide py-2 
+    hidden
+    sm:block group'>
        <Link href={`/profile`}
        onClick={handleClick}
         className='text-[var(--t-1)] pr-4 hover:underline'

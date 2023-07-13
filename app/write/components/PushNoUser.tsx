@@ -11,7 +11,7 @@ const PushNoUser = () => {
        
     },[user])
     return (
-    <div>PushNoUser</div>
+    <div className='pushNoUser'></div>
   )
 }
 

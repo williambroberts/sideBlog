@@ -48,6 +48,7 @@ const CRUD = ({blogId}:theProps) => {
           +(1+date.getMonth()).toString()+"/"
            + date.getFullYear().toString()
       newBlogData.dateCreation = fullDate
+      console.log(newBlogData,"newBlogData🟩")
       setLocalBlog(newBlogData)
       //clear localBlog, dont make Fb until SAVE
     }
