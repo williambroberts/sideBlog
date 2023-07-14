@@ -214,3 +214,6 @@ form.search__form > input{
     @apply ring-1 ring-[var(--t-2)]
 }
 
+.notification {
+    width: min(300px,100vw);
+}

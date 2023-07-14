@@ -52,13 +52,17 @@ const ContactPage = () => {
       }
   return (
     <main className='page'>
-        <Animator index={1}>
-            
-        </Animator>
-        <Animator index={2}>
-            <h1>
+        <Animator index={1}
+        alignItems='flex-start'>
+        <h1>
                 Contact
             </h1>
+        </Animator>
+        <Animator index={2}
+        alignItems='flex-start'>
+           <h3>
+            Send a message
+           </h3>
         </Animator>
         <Animator index={3}>
         <form className='' onSubmit={(e)=>submitForm(e)}>
@@ -75,7 +79,7 @@ const ContactPage = () => {
             border-[var(--bg-4)] rounded-md
             '> 
             {clicked?  <IconTickCircle className=""/>:
-             <IconMail className=""/> }{clicked?"Sent":"Submit"}</button>
+             <IconMail className=""/> }{clicked?"Sent":"Send now"}</button>
         </form>
         </Animator>
         <Animator index={4}>

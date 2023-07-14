@@ -88,7 +88,7 @@ const ProfileManager = () => {
                 onClick={()=>setIsBlogs(true)}
                 ><IconListTask/> Blogs</button>
                 <button 
-                style={{opacity:isAdmin?"1":user.uid===profileUserUid? "1":"0"}}
+                style={{opacity:isAdmin?"1":user?.uid===profileUserUid? "1":"0"}}
                 className={` opacity-60 hover:opacity-100
                 duration-300 ease-in-out transition-all
                 hover:ring-1 ring-[var(--bg-4)]

@@ -1,4 +1,6 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
+
 import ThemeButton from '../theme/themeButton'
 import IconPlantFill from '../../icons/plant'
 import HeaderLink from './headerLink'
@@ -6,10 +8,13 @@ import HeaderAuthLinkWrapper from './headerAuthLinkWrapper'
 import AuthLinks from './AuthLinks'
 import Link from 'next/link'
 import ProfileLink from './profileLink'
+import IconMenuLeft from '../../icons/menu'
+import Hamburger from './hamburger'
 const HeaderHorizontal = () => {
+  const [hamburger,setHamburger]=useState<boolean>(false)
   return (
     <header className='header__h'>
-        <nav>
+        <nav className='desktop'>
           <Link className='header__h__logo'
           href={"/"}
           ><IconPlantFill/></Link>
@@ -30,6 +35,21 @@ const HeaderHorizontal = () => {
           </div>
           
         </nav>
+    <nav className='mobile'>
+      <button className='cursor-pointer
+      rounded-sm bg-[var(--bg-1)] 
+      p-2 text-base font-medium'
+      onClick={()=>setHamburger(true)}
+      ><IconMenuLeft/></button>
+    </nav>
+    <div 
+    style={{display:hamburger?"":"none"}}
+    onClick={()=>setHamburger(false)}
+    className='blur'>
+
+    </div>
+    <Hamburger open={hamburger}/>
+    
     </header>
   )
 }

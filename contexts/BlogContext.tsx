@@ -96,8 +96,8 @@ const BlogProvider = ({children}:ChildProps) => {
         const blogsRef = collection(firestore,"Blogs")
         let startAfterValue = more===true?LastVisible:null
         let q = null    
-        let sendUserArg = userArg===undefined? user.uid:userArg
-        if (user.uid===undefined && userArg===undefined){
+        let sendUserArg = userArg===undefined? user?.uid:userArg
+        if (user===undefined && userArg===undefined){
            console.log("both undefined")
             
         }

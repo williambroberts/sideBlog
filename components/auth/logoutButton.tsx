@@ -1,6 +1,7 @@
 "use client"
 import React from 'react'
 import { useAuth } from '../../contexts/AuthContext'
+import IconLogout from '../../icons/signOut'
 
 const LogoutButton = () => {
     const {signOut,user}=useAuth()
@@ -11,6 +12,7 @@ const LogoutButton = () => {
     <button onClick={handleClick}
     className='logout__button'
     >
+      <IconLogout/>
       Sign out
     </button>
   )
