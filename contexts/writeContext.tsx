@@ -19,6 +19,8 @@ hasChanged:boolean;
 getBlogById:Function;
 setIsDelete:Function;
 isDelete:any
+openAddItem:any;
+setOpenAddItem:Function;
 }
 type ChildProps = {
     children:React.ReactNode;
@@ -45,6 +47,7 @@ const WriteProvider = ({children}:ChildProps) => {
     userPhoto:"",
     userSocials:{},//❤️ do here sync to user DOc
   }
+  const [openAddItem,setOpenAddItem]=useState({"yes":false,"image":false,"category":false,"title":false})
   const [hasChanged,setHasChanged]=useState<boolean>(false)
   const [isDelete,setIsDelete]=useState<boolean>(false)
     const [blogId,setBlogId]=useState<string|null|undefined>(null)
@@ -96,6 +99,7 @@ const generateKeywords = ()=> {
       setLocalBlog((prev)=>fireBLog)
     },[fireBLog])
     const WriteValue = {
+      openAddItem:openAddItem,setOpenAddItem:setOpenAddItem,
       isDelete:isDelete,setIsDelete:setIsDelete,
       getBlogById:getBlogById,
       hasChanged:hasChanged,setHasChanged:setHasChanged,

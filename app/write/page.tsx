@@ -77,7 +77,9 @@ paneCollection.forEach((element:any)=>{
           </div>
         
         </Pane>
-        <Pane style={style('var(--bg-2)')}>
+        <Pane style={style('var(--bg-2)')} 
+        minSize={50}
+        maxSize='80%'>
           <div className={`overflow-scroll h-full w-full px-2 
            box-border
            ${direction.current==="vertical"? "pt-16":"pt-4"}

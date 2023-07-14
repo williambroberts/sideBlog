@@ -13,7 +13,7 @@ const HeaderLink = ({icon,href,text}:theProps) => {
     const myStyles = {
         backgroundColor:pathname===href? "var(--bg-3)":"",
         color:pathname===href? "var(--t-1)":"",
-      border:pathname===href? "1px solid var(--bg-4)":"",
+      border:pathname===href? "1px dashed var(--bg-4)":"",
     }
   return (
     <Link href={href} style={{...myStyles}}

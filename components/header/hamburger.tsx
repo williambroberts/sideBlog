@@ -49,7 +49,9 @@ const Hamburger = ({open}:theProps) => {
       icon={<IconWrite/>}
       href={"/write"} text="Write"/>
       {/* <HeaderLink href={"/profile"} text='Profile'/> */}
-      <ProfileLink className={"header__link"}/>
+      <ProfileLink 
+      open={open}
+      className={"header__link"}/>
     </HeaderAuthLinkWrapper>
     <AuthLinks open={open}
     fontSize='14'

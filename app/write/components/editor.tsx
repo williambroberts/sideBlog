@@ -224,14 +224,16 @@ useEffect(()=>{
       {/* create or edit */}
       {/* uploadedImages real */}
       <UploadedImages images={localBlog?.uploadedImages}/>
-      <AddItem name='Upload Image' 
+      <div className='w-full flex flex-row items-center gap-1'>
+      <AddItem name="Image" 
         type='file'
         dataTheme="light"
         icon={<IconUpload/>}
         value={imgFile?.value}
         className='add__item'
-        placeholder='Upload Image'
+        placeholder='Image'
         id='imgFile-input'
+        openType='image'
         handleChange={(e)=>handleNewImage(e)}
         />
         {/* title */}
@@ -240,18 +242,22 @@ useEffect(()=>{
         icon={<IconBxCategory/>}
         className='add__item'
         placeholder='Category'
+        openType='category'
         value={localBlog?.category}
         handleChange={(e)=>handleAddItem("category",e)}
         />
         <AddItem 
         name='Title'
         type='text'
+        openType='title'
         icon={<IconFormatTitle/>}
         className='add__item'
         placeholder='Blog title'
         value={localBlog?.title}
         handleChange={(e)=>handleAddItem("title",e)}/>
-{/* cover image */}
+      </div>
+      
+
 
         <span className='text-sm inline-flex items-center gap-1
         uppercase font-light leading-tight'>

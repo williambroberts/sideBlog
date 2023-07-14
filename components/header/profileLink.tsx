@@ -6,9 +6,9 @@ import { usePathname } from 'next/navigation';
 import Icon036Profile from '../../icons/profile';
 interface theProps {
 className?:string;
-
+open?:boolean;
 }
-const ProfileLink = ({className}:theProps) => {
+const ProfileLink = ({className,open}:theProps) => {
   const {user,setProfileUserUid}=useAuth()
 
   const pathname=usePathname()
@@ -26,7 +26,7 @@ const ProfileLink = ({className}:theProps) => {
     className={className}
     onClick={handleClick}
     >
-      <Icon036Profile/>
+      {open?  <Icon036Profile/>:""}
       Profile
     </Link>
   )
