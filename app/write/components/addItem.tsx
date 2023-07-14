@@ -8,7 +8,7 @@ type theProps = {
   required?:boolean;
   placeholder:string;
   className?:string;
-  handleChange:React.ChangeEventHandler<HTMLInputElement>
+  handleChange:React.ChangeEventHandler<HTMLInputElement> | React.MouseEventHandler<HTMLButtonElement>
   id?:string;
   dataTheme?:string;
   icon?:React.ReactNode;
@@ -17,11 +17,11 @@ type theProps = {
 const AddItem = ({icon,openType,
   dataTheme,name,handleChange,placeholder,
   type,value,required,className,id}:theProps) => {
-    const {openAddItem,setOpenAddItem}=useWrite()
+    const {openAddItem,setOpenAddItem,openState}=useWrite()
     const handleOpen = ()=>{
       let temp = openAddItem[openType]
       let newYes=!openAddItem["yes"]
-      let newState = {"yes":false,"image":false,"title":false,"category":false}
+      let newState = {...openState}
       newState[openType]=!temp
       newState["yes"]=newYes
       console.log(newState)
@@ -30,7 +30,7 @@ const AddItem = ({icon,openType,
     const close = openAddItem["yes"]
   return (
     <div className={`className flex flex-row 
-    duration-200 transition-all ease-in-out
+    duration-200 transition-all ease-in-out delay-700
     overflow-hidden 
     ${(openAddItem["yes"]===true&&openAddItem[openType]===false)? 
     "px-0 max-w-0":""}
@@ -42,11 +42,13 @@ const AddItem = ({icon,openType,
 
     >
         <span
-        onClick={()=>handleOpen()}
-        className='text-sm uppercase font-light 
+        onClick={type==="file"?handleChange :()=>handleOpen()}
+        className={`text-sm uppercase font-light 
         text-[var(--t-2)] h-full gap-1
-        flex flex-row items-center mx-1
-        '
+        flex flex-row items-center mx-1 flex-nowrap
+        ${(openAddItem["yes"]===true&&openAddItem[openType]===false)? 
+        "px-0 max-w-0":""}
+        `}
         >
           {icon}
           {name}
@@ -55,7 +57,7 @@ const AddItem = ({icon,openType,
         <input 
         className={`duration-200 transition-all
         ease-in-out overflow-hidden box-border
-        
+
         ${openAddItem[openType]? "":"px-0 min-w-0 border-none "}
         `}
         style={{width:openAddItem[openType]?"":"0px"

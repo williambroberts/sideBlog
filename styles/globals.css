@@ -251,13 +251,15 @@ main.page {
   }
 
   textarea {
-    background-color: var(--bg-3);
+    background-color: var(--bg-1);
     outline: none;
     width: 100%;
     transition: var(--transition-1);
-    border: 1px solid transparent;
+    border: 1px solid var(--bg-4);
     box-sizing: border-box;
-    @apply rounded-md overflow-hidden;
+    @apply rounded-md 
+    px-2 py-2
+    overflow-hidden;
   }
 
   textarea:focus, input:focus {
@@ -335,4 +337,35 @@ div#portal {
   left: 50%;
   transform: translate(-50%,0);
   @apply fixed bottom-5 w-min 
+}
+
+label {
+  @apply relative;
+  transform: var(--transition-1);
+
+}
+label:hover {
+  background-color: var(--bg-4);
+}
+
+label>.label__hover {
+  color: var(--t-1);
+  background-color: var(--bg-2);
+  font-weight:400;
+  transition: va(--transition-1);
+  font-size: 11px;
+  width: min-content;
+  bottom: 0px;
+  left: 50%;
+  transform: translate(-50%,110%);
+  @apply absolute flex-row items-center
+rounded-sm
+  whitespace-nowrap
+  
+  ;
+  display: none;
+}
+
+label:hover >.label__hover{
+  display: flex;
 }

@@ -4,7 +4,7 @@ import React,{memo, useState} from 'react'
 import CanEdit from './canEdit';
 import MobileLink from './mobileLink';
 import { useAuth } from '../../contexts/AuthContext';
-import Parent from '../ReactSplitPane/parent';
+
 import Image from 'next/image';
 type theProps = {
     data?:any;
@@ -50,7 +50,7 @@ const DesktopLink = ({data}:theProps) => {
     className='text-base tracking-wide py-2 
     hidden
     sm:block group'>
-       <Link href={`/profile`}
+       <Link href={`/profile?id=${data?.authorId}`}
        onClick={handleClick}
         className='text-[var(--t-1)] pr-4 hover:underline'
         >{data?.author}</Link>

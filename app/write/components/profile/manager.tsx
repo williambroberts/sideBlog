@@ -10,11 +10,12 @@ import { doc, getDoc } from 'firebase/firestore'
 import IconListTask from '../../../../icons/list'
 import IconEdit from '../../../../icons/edit'
 
+
 const ProfileManager = () => {
     const {user,isAdmin,profileUserUid,setProfileUserUid
     ,setRemoteUserData,setAdminEditing,setLocalUserData,
     }=useAuth()
-   // const searchParams = useSearchParams()
+   const searchParams = useSearchParams()
     const [isBlogs,setIsBlogs]=useState<boolean>(true)
    
     const [canEditProfile,setCanEditProfile]=useState<boolean>(false)
@@ -42,10 +43,14 @@ const ProfileManager = () => {
     
 
     useEffect(()=>{
+      console.log(profileUserUid,"profileUserUId")
       profileUserUid && getUserDoc(profileUserUid)
+      
     },[profileUserUid])
    
     useEffect(()=>{
+        
+
         console.log(profileUserUid,"profileuserUid")
         if (profileUserUid===user.uid){
             setCanEditProfile(true)

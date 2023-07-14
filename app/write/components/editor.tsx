@@ -37,8 +37,12 @@ const Editor = () => {
   useEffect(()=>{
     const newBlogId = searchParams.get("blogId")
     setBlogId(newBlogId)
-    console.log("blogID",blogId)//💭remove log
+    //console.log("blogID",blogId)//💭remove log
     blogId && getFireBlog()
+    //❤️if no blog make new one
+   if (blogId==null){
+    createBlog()
+   }
   },[])
 
   const handleResize = (e)=>{
@@ -76,70 +80,6 @@ const Editor = () => {
       clearTimeout(timeout)}
   },[temp])
 
-  const handleNewImage = (e)=>{
-    //❤️SAVE button
-    
-    let newImgFile = {file:e.target.files[0],value:e.target.value}
-    console.log(e.target.value,e.target.files[0])
-    setImgFile((prev)=>newImgFile)
-    
-    
-    
-  }
-  const uploadFile = ()=>{
-    const storageRef = ref(storage,imgFile.file.name)
-    const uploadTask = uploadBytesResumable(storageRef, imgFile.file);
-    uploadTask.on('state_changed',
-  (snapshot) => {
-    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-    const snapshotProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    console.log('Upload is ' + snapshotProgress + '% done');
-    setProgress((prev)=>snapshotProgress)
-    //❤️progressBAR
-    switch (snapshot.state) {
-      case 'paused':
-        console.log('Upload is paused');
-        break;
-      case 'running':
-        console.log('Upload is running');
-        break;
-    }
-  }, (error) => {
-    // A full list of error codes is available at
-    // https://firebase.google.com/docs/storage/web/handle-errors
-    switch (error.code) {
-      default:
-        console.log(error,error.code)
-        break
-    }
-  }, () => {
-   
-    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-      console.log('File available at', downloadURL);
-        let newLocalBlog = {...localBlog}
-        newLocalBlog.uploadedImages.push(downloadURL)
-        setLocalBlog((prev)=>newLocalBlog)
-       
-      if (!hasChanged){
-          setHasChanged((prev)=>true)
-        }
-      
-
-    });
-  }
-);
-  }
-useEffect(()=>{
-  
-
-//💭if imgFile not null , null on pageload and reset and noFB blog
-if (imgFile?.file!==null){
-  imgFile.file && uploadFile()
-}
-return ()=>{
-  console.log(imgFile,"imgFile")
-}
-},[imgFile])
 
 useEffect(()=>{
   const newBlogId = searchParams.get("blogId")
@@ -148,7 +88,7 @@ useEffect(()=>{
 },[searchParams])
 
 
-const createBlog = ()=>{
+const createBlog =async ()=>{
   if (!hasChanged){
     setHasChanged(true)
   }
@@ -157,7 +97,7 @@ const createBlog = ()=>{
   let newBlogData = {...initialBlogData}
   //author, authorId, ❤️all fields filled in
    newBlogData.authorId = user.uid;
-
+  
   newBlogData.author = userDocData.username 
   if (userDocData.profilePhoto!==undefined){
     newBlogData.userPhoto = userDocData.profilePhoto
@@ -183,25 +123,7 @@ const getFireBlog = async ()=>{
   }
 }
 
-const handleAddItem = (key,e)=>{
-  
-  let newLocalBlog = {...localBlog}
-  if (key==="title"){
-    newLocalBlog.title=e.target.value
-  }else if (key==="category"){
-    newLocalBlog.category = e.target.value
-  }else if (key==="coverImage"){
-    newLocalBlog.coverImage = e.target.value
-  }
-  //newLocalBlog.key = e.target.value
-  console.log(key,e.target.value)
-  //debounce❤️
-  setLocalBlog(newLocalBlog)
-  if (!hasChanged){
-    setHasChanged((prev)=>true)
-  }
 
-}
 
 
 useEffect(()=>{
@@ -221,40 +143,13 @@ useEffect(()=>{
   return (
     <div className='editor'>
       <CRUD blogId={fireBLog?.blogId}/>
-      {/* create or edit */}
-      {/* uploadedImages real */}
+     
       <UploadedImages images={localBlog?.uploadedImages}/>
       <div className='w-full flex flex-row items-center gap-1'>
-      <AddItem name="Image" 
-        type='file'
-        dataTheme="light"
-        icon={<IconUpload/>}
-        value={imgFile?.value}
-        className='add__item'
-        placeholder='Image'
-        id='imgFile-input'
-        openType='image'
-        handleChange={(e)=>handleNewImage(e)}
-        />
-        {/* title */}
-        <AddItem name='Category' 
-        type='text'
-        icon={<IconBxCategory/>}
-        className='add__item'
-        placeholder='Category'
-        openType='category'
-        value={localBlog?.category}
-        handleChange={(e)=>handleAddItem("category",e)}
-        />
-        <AddItem 
-        name='Title'
-        type='text'
-        openType='title'
-        icon={<IconFormatTitle/>}
-        className='add__item'
-        placeholder='Blog title'
-        value={localBlog?.title}
-        handleChange={(e)=>handleAddItem("title",e)}/>
+      
+      
+       
+       
       </div>
       
 

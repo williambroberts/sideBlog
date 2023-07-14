@@ -28,7 +28,7 @@ const MobileLink = ({data}:theProps) => {
             <span className='text-[var(--t-3)]'>{data?.dateCreation}</span>
             <Link 
             onClick={handleProfile}
-            href={`/profile`}
+            href={`/profile?id=${data?.authorId}`}
             className='text-[var(--t-2)]
             hover:underline
             '>{data?.author}</Link>

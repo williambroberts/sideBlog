@@ -229,16 +229,17 @@
     gap-0;
 }
 .editor__header>button{
-    transition: var(--transition-2);
+    transition: var(--transition-1);
     width: min-content;
     overflow: hidden;
     font-size: var(--font-size-12);
-    @apply flex  uppercase 
+    @apply flex  uppercase rounded-md
     opacity-60 justify-start 
-    flex-col items-center;
+    flex-row items-center;
 }
 .editor__header>button:hover {
     opacity: 1;
+    background-color: var(--bg-4);
 }
 
 .editor__header>button:last-of-type{
@@ -251,4 +252,11 @@ padding-left: 0.5rem;
     padding-left: 0.5rem;
 }
 
+.delete__btn:hover {
+background-color: var(--bg-4);
+}
+.delete__btn {
+    transition: var(--transition-1);
+    @apply rounded-md;
+}
 

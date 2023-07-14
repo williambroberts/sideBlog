@@ -21,7 +21,8 @@ const TagItem = ({tag}:theProps) => {
   return (
     <div
     className='inline-flex gap-1 
-    bg-[var(--bg-3)]
+    px-1 py-0 uppercase first-letter:text-red-950 
+    bg-[var(--bg-3)] items-center rounded-md 
     text-sm flex-row'
     >{tag}
         <Button handleClick={()=>handleDelete(tag)}

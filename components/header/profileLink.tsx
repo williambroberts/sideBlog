@@ -19,9 +19,10 @@ const ProfileLink = ({className,open}:theProps) => {
     const myStyles = {
         backgroundColor:pathname==="/profile"? "var(--bg-3)":"",
         color:pathname==="/profile"? "var(--t-1)":"",
+        border:pathname==="/profile"? "1px dashed var(--bg-4)":"",
     }
   return (
-    <Link href={`/profile`} 
+    <Link href={`/profile?id=${user?.uid}`} 
     style={{...myStyles}}
     className={className}
     onClick={handleClick}

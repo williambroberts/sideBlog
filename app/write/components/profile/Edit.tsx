@@ -11,6 +11,10 @@ import { useNotifications } from '../../../../contexts/NotificationContext';
 import AddItem from '../addItem';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import TextAreaReusable from './textarea';
+import IconImages from '../../../../icons/cover';
+import Icon036Profile from '../../../../icons/profile';
+import IconBxPhotoAlbum from '../../../../icons/photo';
+import IconPersonLinesFill from '../../../../icons/bio';
 
 interface theProps{
    
@@ -256,19 +260,27 @@ const Edit = ({}:theProps) => {
             <IconSave/> Save
             </Button>
         </div>
+        <span
+        className='flex flex-row text-inherit text-base
+        '
+        >Update your photos</span>
         <div className='flex flex-row w-full'>
-        <AddItem name='Profile photo' 
+          
+        <AddItem name='Profile' 
         type='file'
+        icon={<IconBxPhotoAlbum/>}
+        openType='profile'
         value={profilePhotoFile.value}
         className='add__item'
         placeholder='Profile photo'
         id='profilePhoto-input'
         handleChange={(e)=>updateProfilePhoto(e)}
         />
-        </div>
-        <div className='flex flex-row w-full'>
-        <AddItem name='Cover photo' 
+       
+        <AddItem name='Cover' 
         type='file'
+        icon={<IconImages/>}
+        openType='cover'
         value={coverPhotoFile.value}
         className='add__item'
         placeholder='Cover photo'
@@ -279,8 +291,12 @@ const Edit = ({}:theProps) => {
 
         <div className='w-full flex flex-col gap-1 text-[var(--t-1)] text-base'>
           <span
-           className='font-light my-3'
-          >About</span>
+           className='font-light my-3 flex items-center
+           gap-1
+           '
+          >
+            <IconPersonLinesFill/>
+            Bio</span>
          
           <TextAreaReusable
           rows={5}
@@ -304,7 +320,7 @@ disabled={localUserData?.about===RemoteUserData?.about}
 handleClick={updateAbout}
 type='submit'>
 
-<IconSave/> Save about
+<IconSave/> Save bio
 </Button>
         </div>
     </div>

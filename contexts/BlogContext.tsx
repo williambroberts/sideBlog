@@ -4,6 +4,7 @@ import { firestore } from '../firebase/firebaseConfig';
 import { collection,query
 ,where,orderBy,limit,getDocs, startAfter, startAt, QuerySnapshot, doc, getDoc } from 'firebase/firestore';
 import { useAuth } from './AuthContext';
+import { useSearchParams } from 'next/navigation';
 interface BlogContextProps {
     blogs?:any;
     setBlogs?:Function;
@@ -27,7 +28,7 @@ type ChildProps = {
 const BlogContext = createContext<BlogContextProps|null>(null)
 const BlogProvider = ({children}:ChildProps) => {
     //❤️blog id {blogid:,blog:}
-    const {user}=useAuth()
+    const {user,setProfileUserUid}=useAuth()
     const theLimit = 4;
     const [filterByAuth,setFilterByAuth]=useState<boolean>(false)
     const [blogs,setBlogs]=React.useState(null)
@@ -35,7 +36,7 @@ const BlogProvider = ({children}:ChildProps) => {
     const [queryText,setQueryText]=React.useState<string>("")
     const [mode,setMode]=React.useState<"search"|"tag"|"none">("none")
     const [LastVisible,setLastVisible]=React.useState<any>(null)
-    
+    const searchParams = useSearchParams()
     const getUserDocForABlog =async (uid)=>{
         try {
             const docRef = doc(firestore,"users",uid)
@@ -97,9 +98,12 @@ const BlogProvider = ({children}:ChildProps) => {
         let startAfterValue = more===true?LastVisible:null
         let q = null    
         let sendUserArg = userArg===undefined? user?.uid:userArg
-        if (user===undefined && userArg===undefined){
-           console.log("both undefined")
-            
+        console.log(user.uid,sendUserArg,"senduserArg")
+        if (sendUserArg===undefined){
+            let newArg = searchParams.get("id")
+            console.log(newArg,"newArg")
+            sendUserArg=newArg
+            setProfileUserUid(newArg)
         }
         if (filterByAuthor){
             q = query(blogsRef,

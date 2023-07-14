@@ -1,3 +1,6 @@
+import { doc, getDoc } from "firebase/firestore"
+import { firestore } from "./firebaseConfig"
+
 export function getBlogReadTime (content){
  //return time in mins to read the blog
  const rate = 200
@@ -15,4 +18,12 @@ export function TagFilter(tags) {
 
 export function debounceContent(){
     
+}
+
+export async function getUserDoc(userUid) {
+    const docRef = doc(firestore,"users",userUid)
+    const docSnapshot = await getDoc(docRef)
+    if (docSnapshot.exists()){
+        return {...docSnapshot.data()}   
+    }
 }

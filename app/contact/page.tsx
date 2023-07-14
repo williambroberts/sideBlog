@@ -54,17 +54,19 @@ const ContactPage = () => {
     <main className='page'>
         <Animator index={1}
         alignItems='flex-start'>
-        <h1>
+        <h1 className='py-2 mt-4 font-light'>
                 Contact
             </h1>
         </Animator>
         <Animator index={2}
         alignItems='flex-start'>
-           <h3>
+           <h3 className='font-light my-4'>
             Send a message
            </h3>
         </Animator>
-        <Animator index={3}>
+        <Animator index={3}
+         alignItems='flex-start'
+        >
         <form className='' onSubmit={(e)=>submitForm(e)}>
             <input type="text" required placeholder='Name' autoComplete='your name' id="frm-name" name="name"  
             onChange={(e)=>setName(e.target.value)}  value={name}/>
@@ -82,8 +84,10 @@ const ContactPage = () => {
              <IconMail className=""/> }{clicked?"Sent":"Send now"}</button>
         </form>
         </Animator>
-        <Animator index={4}>
-            <RequestAdmin/>
+        <Animator index={4}
+         alignItems='flex-start'
+        >
+            {/* <RequestAdmin/> */}
         </Animator>
         <Animator index={5}>
             
