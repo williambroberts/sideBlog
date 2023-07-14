@@ -19,6 +19,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import IconFormatTitle from '../../../icons/title';
 import IconBxCategory from '../../../icons/category';
 import IconCardImage from '../../../icons/image';
+import { handleBlur } from '../../../firebase/CLientFunctions';
 interface theProps {
 blogId:string;
 }
@@ -28,6 +29,7 @@ const CRUD = ({blogId}:theProps) => {
     setLocalBlog,localBlog,initialBlogData,fireBLog,isDelete,setIsDelete
   ,setProgress,
   }=useWrite()
+  const [titleWidth,setTitleWidth]=React.useState<number>(130)
     const {setFilterByAuth,filterByAuth}= useBlogs()
     //console.log("fb",fireBLog,"loc",localBlog,"blogid",blogId)
 
@@ -152,11 +154,26 @@ const CRUD = ({blogId}:theProps) => {
   
     let newLocalBlog = {...localBlog}
     if (key==="title"){
-      newLocalBlog.title=e.target.value
+        let inputTag = document.getElementById("title-input")
+        let newWidth=inputTag.scrollWidth
+        setTitleWidth(newWidth)
+        newLocalBlog.title=e.target.value
+      
+      
     }else if (key==="category"){
-      newLocalBlog.category = e.target.value
+      
+       
+     
+        newLocalBlog.category = e.target.value
+      
+      
     }else if (key==="coverImage"){
-      newLocalBlog.coverImage = e.target.value
+      if (e.target.value===""){
+        newLocalBlog.coverImage = "https://picsum.photos/320/200"
+      }else {
+        newLocalBlog.coverImage = e.target.value
+      }
+      
     }
     //newLocalBlog.key = e.target.value
     console.log(key,e.target.value)
@@ -167,9 +184,34 @@ const CRUD = ({blogId}:theProps) => {
     }
   
   }
+  const handleBlurTitle = (event)=>{
+    if (event.target.value===""){
+      setTitleWidth(130)
+      setLocalBlog((prev)=>({...prev,title:"Untitled document"}))
+    }
+  }
   return (
     <header className='editor__header'>
-        <AddItem 
+      <div className={`flex flex-row items-center
+      gap-1 w-full 
+      
+      `}>
+      <input
+      onBlur={handleBlurTitle}
+      style={{width:`${titleWidth}px`}}
+      id="title-input"
+      className='editor__title__input'
+      value={localBlog?.title}
+      onChange={(e)=>handleAddItem("title",e)}
+      type="text"
+      />
+      </div>
+      <div className='flex flex-row 
+      gap-1
+      items-center h-min'>
+
+      
+        {/* <AddItem 
         name='Title'
         type='text'
         
@@ -177,7 +219,7 @@ const CRUD = ({blogId}:theProps) => {
         className='add__item'
         placeholder='Blog title'
         value={localBlog?.title}
-        handleChange={(e)=>handleAddItem("title",e)}/>
+        handleChange={(e)=>handleAddItem("title",e)}/> */}
 
 
         <Button
@@ -264,6 +306,7 @@ const CRUD = ({blogId}:theProps) => {
         value={localBlog?.category}
         handleChange={(e)=>handleAddItem("category",e)}
         />
+        </div>
     </header>
   )
 }

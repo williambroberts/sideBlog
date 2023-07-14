@@ -42,6 +42,7 @@ const Editor = () => {
     //❤️if no blog make new one
    if (blogId==null){
     createBlog()
+    //🟩🧧redo check this refresh func
    }
   },[])
 
@@ -98,7 +99,7 @@ const createBlog =async ()=>{
   //author, authorId, ❤️all fields filled in
    newBlogData.authorId = user.uid;
   
-  newBlogData.author = userDocData.username 
+  newBlogData.author = userDocData?.username 
   if (userDocData.profilePhoto!==undefined){
     newBlogData.userPhoto = userDocData.profilePhoto
     console.log(userDocData.profilePhoto)

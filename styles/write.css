@@ -223,12 +223,12 @@
     width: 100%;
     background-color: var(--bg-3);
     font-size: var(--font-size-12);
-    @apply flex flex-row
-    items-center z-10
+    @apply flex flex-col justify-start
+    items-start z-10 w-full
     flex-nowrap px-2 box-border
     gap-0;
 }
-.editor__header>button{
+.editor__header>div:last-of-type>button{
     transition: var(--transition-1);
     width: min-content;
     overflow: hidden;
@@ -237,21 +237,30 @@
     opacity-60 justify-start 
     flex-row items-center;
 }
-.editor__header>button:hover {
+.editor__header>div:last-of-type>button:hover {
     opacity: 1;
     background-color: var(--bg-4);
 }
 
-.editor__header>button:last-of-type{
+.editor__header>div:last-of-type>button:last-of-type{
 padding-left: 0.5rem;
 }
-.editor__header>button:first-of-type{
+.editor__header>div:last-of-type>button:first-of-type{
     padding-right: 0.5rem;
     }
-.editor__header>button:nth-last-of-type(2){
+.editor__header>div:last-of-type>button:nth-last-of-type(2){
     padding-left: 0.5rem;
 }
-
+.editor__title__input {
+    width:min-content;
+    opacity: 0.6;
+    border: 1px solid var(--t-1);
+    @apply rounded-md ring-inset ring-1 
+    ring-white px-1 py-1 text-sm;
+}
+.editor__title__input:hover{
+    opacity: 1;
+}
 .delete__btn:hover {
 background-color: var(--bg-4);
 }

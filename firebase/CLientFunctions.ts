@@ -27,3 +27,10 @@ export async function getUserDoc(userUid) {
         return {...docSnapshot.data()}   
     }
 }
+
+export function handleBlur(initial,unwanted,event,setState){
+    if (event.target.value===unwanted){
+        setState(initial)
+        
+    }
+}
