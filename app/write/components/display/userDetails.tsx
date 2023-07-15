@@ -11,7 +11,7 @@ type theProps={
     userUid?:string;
 }
 const UserDetails = ({userPhoto,author,dateCreation,userUid}) => {
-    console.log(userPhoto,"userphoto")
+    //console.log(userPhoto,"userphoto")
     const [loading,setLoading]=useState<boolean>(false)
     const {setProfileUserUid} = useAuth()
     const handleClick = ()=> {

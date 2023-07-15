@@ -9,7 +9,7 @@ import IconCreateSharp from '../../../icons/new';
 import IconDelete from '../../../icons/delete';
 import IconListTask from '../../../icons/list';
 import { deleteDoc, doc } from 'firebase/firestore';
-import { firestore, storage } from '../../../firebase/firebaseConfig';
+import { auth, firestore, storage } from '../../../firebase/firebaseConfig';
 import IconTickCircle from '../../../icons/tick';
 import IconCancel from '../../../icons/cancel';
 import IconBxArrowBack from '../../../icons/back';
@@ -19,7 +19,8 @@ import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import IconFormatTitle from '../../../icons/title';
 import IconBxCategory from '../../../icons/category';
 import IconCardImage from '../../../icons/image';
-import { handleBlur } from '../../../firebase/CLientFunctions';
+import { getABlogFromFirebase, getUserDoc, handleBlur } from '../../../firebase/CLientFunctions';
+import { useRouter, useSearchParams } from 'next/navigation';
 interface theProps {
 blogId:string;
 }
@@ -27,12 +28,16 @@ const CRUD = ({blogId}:theProps) => {
     const {user,setUserDocData,userDocData,profileUserUid}=useAuth()
     const {hasChanged,setHasChanged,setBlogId,setImgFile,imgFile,
     setLocalBlog,localBlog,initialBlogData,fireBLog,isDelete,setIsDelete
-  ,setProgress,
+  ,setProgress,setFireBlog,setTemp,
   }=useWrite()
   const [titleWidth,setTitleWidth]=React.useState<number>(130)
     const {setFilterByAuth,filterByAuth}= useBlogs()
-    //console.log("fb",fireBLog,"loc",localBlog,"blogid",blogId)
+    const searchParams=useSearchParams()
+    const router = useRouter()
 
+  useEffect(()=>{
+    fireBLog.content && setTemp((prev)=>fireBLog.content)
+  },[fireBLog?.content])
 
     const handleNewImage = (e)=>{
       //❤️SAVE button
@@ -84,52 +89,71 @@ const CRUD = ({blogId}:theProps) => {
     }
   );
     }
+
+
+
   useEffect(()=>{
   //💭if imgFile not null , null on pageload and reset and noFB blog
   if (imgFile?.file!==null){
     imgFile.file && uploadFile()
   }
   return ()=>{
-    console.log(imgFile,"imgFile")
+    //console.log(imgFile,"imgFile")
   }
   },[imgFile])
 
-    const createBlog = ()=>{
+    const createBlog =async ()=>{
+      const blogIdParam = searchParams.get("blogId")
+      let authorId = blogIdParam.split("blog")[0]
+      setTemp("")
       setFilterByAuth(false)
-      console.log("new blog")
+      //console.log("new blog")
       if (!hasChanged){
         setHasChanged(true)
       }
       
-     
+      let userData = await getUserDoc(authorId)
       let newImgFile = {value:"",file:null}
       setImgFile(newImgFile)
       setBlogId(null)
       let newBlogData = {...initialBlogData}
       //author, authorId, ❤️all fields filled in
-       newBlogData.authorId = user.uid;
-      console.log(user.uid,"OK👍🏻")
-      newBlogData.author = userDocData?.username 
-      if (userDocData?.profilePhoto!==undefined){
-        newBlogData.userPhoto = userDocData.profilePhoto
-        console.log(userDocData.profilePhoto)
-      }
+       newBlogData.authorId =authorId
+      newBlogData.author = userData?.username 
+      
+      newBlogData.userPhoto = userData?.profilePhoto
+       
+      
       
       let date = new Date()
           let fullDate = date.getDate().toString()+"/"
           +(1+date.getMonth()).toString()+"/"
            + date.getFullYear().toString()
       newBlogData.dateCreation = fullDate
-      console.log(newBlogData,"newBlogData🟩")
+      //console.log(newBlogData,"newBlogData🟩")
       setLocalBlog(newBlogData)
+      let newRoute = `/write?blogId=${authorId}blognewBlog`
+      router.push(newRoute)
       //clear localBlog, dont make Fb until SAVE
     }
+   
    useEffect(()=>{
-      if (blogId===null || blogId===undefined){
-        //console.log("making new blog")
-        createBlog()
+
+    let blogIdQP = searchParams.get("blogId")
+    let timestamp = blogIdQP.split("blog")[1]
+     console.log("🟩🧧❤️👍🏻🍔🌮",timestamp)
+      if (timestamp===""){
+        console.log("making new blog❤️🧧🟩")
+        createBlog()  
+      }else if (timestamp!=="newBlog"){
+        setBlogId(blogIdQP)
+        getABlogFromFirebase(blogIdQP).then((theBlog)=>{
+          setFireBlog({...theBlog})
+          setLocalBlog({...theBlog})
+          console.log(theBlog)
+        }).catch((error)=>console.log(error))
       }
-   },[])
+   },[hasChanged,blogId,searchParams])
   const handleEdit = ()=>{
     console.log("get view of all blogs")
     //get all user blogs from firebase and display them in the display
@@ -206,9 +230,11 @@ const CRUD = ({blogId}:theProps) => {
       type="text"
       />
       </div>
-      <div className='flex flex-row 
-      gap-1
-      items-center h-min'>
+      <div 
+      id="write__header__div__bottom"
+      className='flex flex-row 
+      gap-1 
+      items-center h-9'>
 
       
         {/* <AddItem 
@@ -223,13 +249,13 @@ const CRUD = ({blogId}:theProps) => {
 
 
         <Button
-        className='editor__header__btn'
+        className='py-1'
         handleClick={()=>createBlog()}
         >
             <IconCreateSharp/> NEW 
         </Button>
         <button className={`delete__btn ${isDelete?
-      "px-0":"px-3 py-2"  
+      "px-0":"px-3 py-1"  
       }`}
         style={{width:isDelete?"0px":""}}
         onClick={()=>setIsDelete(true)}
@@ -254,7 +280,7 @@ const CRUD = ({blogId}:theProps) => {
          <IconTickCircle/> Delete
         </button>
         <Button
-        className='editor__header__btn'
+        className='py-1'
         handleClick={handleEdit}
         >
             {filterByAuth?
@@ -269,8 +295,8 @@ const CRUD = ({blogId}:theProps) => {
         
 
         <label htmlFor='imgFile-input'
-        className='cursor-pointer p-2 rounded-md 
-        
+        className='cursor-pointer p-1 rounded-md 
+        flex items-center
         '
         ><IconCardImage/>
         <input 

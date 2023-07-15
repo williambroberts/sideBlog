@@ -21,6 +21,7 @@ export function debounceContent(){
 }
 
 export async function getUserDoc(userUid) {
+    if (userUid===null||userUid===undefined){return};
     const docRef = doc(firestore,"users",userUid)
     const docSnapshot = await getDoc(docRef)
     if (docSnapshot.exists()){
@@ -32,5 +33,15 @@ export function handleBlur(initial,unwanted,event,setState){
     if (event.target.value===unwanted){
         setState(initial)
         
+    }
+}
+
+export async function getABlogFromFirebase(blogId){
+    if (blogId===null||blogId===undefined){return};
+ const docRef = doc(firestore,"Blogs",blogId)
+ const docSnapshot = await getDoc(docRef)
+    if (docSnapshot.exists()){
+        //console.log(docSnapshot.data())
+        return {...docSnapshot.data()}   
     }
 }

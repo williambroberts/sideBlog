@@ -82,7 +82,7 @@ const AuthProvider = ({children}:ChildrenProp) => {
         let docRef = doc(firestore,"users",userUid)
       const snapShot:any = await getDoc(docRef)
       if (snapShot.exists()){
-        console.log(snapShot.data())
+        //console.log(snapShot.data())
         setRemoteUserData(({...snapShot.data()}))
       }
       }catch(err){
@@ -115,7 +115,7 @@ const AuthProvider = ({children}:ChildrenProp) => {
           let docRef = doc(firestore,"users",user.uid)
         const snapShot = await getDoc(docRef)
         if (snapShot.exists()){
-          console.log(snapShot.data())
+          //console.log(snapShot.data())
           setUserDocData({...snapShot.data()})
           if (snapShot.data().admin===true){
             setIsAdmin((prev)=>true)

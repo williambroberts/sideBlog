@@ -22,6 +22,11 @@ isDelete:any
 openAddItem:any;
 setOpenAddItem:Function;
 openState:any;
+temp:string;
+setTemp:Function;
+wait:number;
+last:number;
+setLast:Function;
 }
 type ChildProps = {
     children:React.ReactNode;
@@ -57,6 +62,9 @@ const WriteProvider = ({children}:ChildProps) => {
     "profile":false,
 
   }
+  const [temp,setTemp]=useState<string>("")
+  const wait = 1000
+  const [last,setLast]=useState<number>(0)
   const [openAddItem,setOpenAddItem]=useState(openState)
   const [hasChanged,setHasChanged]=useState<boolean>(false)
   const [isDelete,setIsDelete]=useState<boolean>(false)
@@ -109,6 +117,7 @@ const generateKeywords = ()=> {
       setLocalBlog((prev)=>fireBLog)
     },[fireBLog])
     const WriteValue = {
+      wait:wait,last:last,setLast:setLast,temp:temp,setTemp:setTemp,
       openState:openState,
       openAddItem:openAddItem,setOpenAddItem:setOpenAddItem,
       isDelete:isDelete,setIsDelete:setIsDelete,

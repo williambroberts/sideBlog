@@ -7,6 +7,7 @@ import { firestore } from '../../../firebase/firebaseConfig'
 import { useAuth } from '../../../contexts/AuthContext'
 import IconSave from '../../../icons/save'
 import { getBlogReadTime } from '../../../firebase/CLientFunctions'
+import { useRouter } from 'next/navigation'
 type theProps = {
     
 }
@@ -15,6 +16,8 @@ const SaveButton = ({}:theProps) => {
   const {hasChanged,setHasChanged,
   localBlog,setLocalBlog,blogId
   }=useWrite()
+const router = useRouter()
+
   const handleUpdateToFirebase =async ()=>{
     //❤️use callback
     //if SAVE criteria met
@@ -41,9 +44,10 @@ const SaveButton = ({}:theProps) => {
         //make new blog
         //❤️check all fields are added in createBlog and here
         //blogId gives creation timestamp
-        let timestamp = new Date().getTime().toString()
-        let newBlogId = user?.uid+"blog"+timestamp
         let newLocalBLog = {...localBlog}
+        let timestamp = new Date().getTime().toString()
+        let newBlogId = newLocalBLog.authorId+"blog"+timestamp
+        
         newLocalBLog.latestUpdateTimeStamp = timestamp
         newLocalBLog.creationTimeStamp = parseInt(timestamp)
         //add blogId to doc.data()
@@ -54,6 +58,8 @@ const SaveButton = ({}:theProps) => {
         console.log(newLocalBLog)
         const docRef = doc(firestore,"Blogs",newBlogId)
         await setDoc(docRef,newLocalBLog)
+        let newRoute= `/write?blogId=${newBlogId}`
+        router.push(newRoute)
       }
     }else{
       //💭notify need cover and title

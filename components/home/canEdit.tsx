@@ -9,6 +9,7 @@ import IconDelete from '../../icons/delete';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { firestore } from '../../firebase/firebaseConfig';
 import IconCancel from '../../icons/cancel';
+import { getUserDoc } from '../../firebase/CLientFunctions';
 type theProps = {
     id:string;
     blogId:string;
@@ -23,15 +24,12 @@ const CanEdit = ({id,blogId}:theProps) => {
         return !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 }
     const desktop = getDevice()
-    const handleEdit = ()=>{
-       getBlogById(blogId)
+    const handleEdit =async ()=>{
        
        setFilterByAuth((prev)=>false)
-       if (pathname!=="/write"){
-         router.push(`/write?blogId${blogId}`)
-       }else if (pathname==="/write"){
-        router.push(`/write?blogId${blogId}`)
-       }
+       
+         router.push(`/write?blogId=${blogId}`)
+     
       
       // window.location.assign("/write")
     }

@@ -209,9 +209,11 @@
     width: 100%;
     height: min-content;
 }
-
+#write__header__div__bottom>*{
+height: 30px;
+}
 .save__button {
-  
+    @apply py-1
 }
 .save__button:disabled{
     color: var(--t-4);

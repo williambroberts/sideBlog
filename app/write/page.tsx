@@ -33,6 +33,11 @@ paneCollection.forEach((element:any)=>{
   
     useEffect(()=>{
       function updateWindowSizeState(){
+        //🧧scroll to top 
+        window.scrollTo({
+          top:0,
+          behavior:'smooth'
+        })
         setWindowSize({width:window.innerWidth,height:window.innerHeight})
         if (window.innerWidth<mediaBreakPoint){
           direction.current="horizontal"
@@ -80,7 +85,9 @@ paneCollection.forEach((element:any)=>{
         <Pane style={style('var(--bg-2)')} 
         minSize={50}
         maxSize='80%'>
-          <div className={`overflow-scroll h-full w-full px-2 
+          <div 
+          id='right__pane'
+          className={`overflow-scroll h-full w-full px-2 
            box-border
            ${direction.current==="vertical"? "pt-16":"pt-4"}
            `}>
