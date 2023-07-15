@@ -18,7 +18,7 @@ const {openNotification,setOpenNotification,setNotification}=useNotifications()
   const pathname=usePathname()
   const router = useRouter()
   const handleClick = ()=>{
-    console.log(user.uid)
+    console.log(user.uid,hasChanged)
     setProfileUserUid((prev)=>user.uid)
     if (!hasChanged){
       router.push(`/profile?id=${user?.uid}`)

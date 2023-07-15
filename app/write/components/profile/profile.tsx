@@ -9,6 +9,8 @@ import { updateProfile } from 'firebase/auth';
 import IconCrossCircled from '../../../../icons/cross';
 import IconTickCircle from '../../../../icons/tick';
 import NotificationPortal from '../../../signUp/components/notificationPortal';
+import { useSearchParams } from 'next/navigation';
+import { getUserDoc } from '../../../../firebase/CLientFunctions';
 interface theProps {
   user:string;
 }
@@ -18,7 +20,15 @@ const ProfileComponent = ({user}:theProps) => {
     newProfilePhotoSetter,setNewCoverPhotoSetter}= useAuth()
   const {setNotification,setOpenNotification,openNotification}=useNotifications()
   const [loadedProfilePhoto,setLoadedProfilePhoto]=useState<boolean>(false)
-  
+  const searchParams = useSearchParams()
+
+  useEffect(()=>{
+    const profileID = searchParams.get("id")
+    getUserDoc(profileID).then((data)=>{
+      setRemoteUserData({...data})
+    }).catch((err)=>console.log(err))
+  },[])
+
   const handleRunTransaction =async ()=>{
     const docRef = doc(firestore,"users",profileUserUid)
   try {

@@ -69,11 +69,11 @@ const DesktopLink = ({data}:theProps) => {
           transform:`translate(${position.left}px,${position.top}px)`
       }}
         className='hidden group-hover:inline-block w-80 h-40 bg-[var(--t-4)]
-        absolute rounded-md z-10 overflow-hidden left-0  
+        absolute rounded-md z-20 overflow-hidden left-0  
         bg-center bg-cover
         '>
           
-          <div className='w-full h-hull overflow-hidden'>
+          <div className='w-full h-hull overflow-hidden z-10'>
             <img loading='lazy'
             className='w-full h-full'
             src={data?.coverImage} alt="/"

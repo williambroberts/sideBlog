@@ -113,9 +113,7 @@ const CRUD = ({blogId}:theProps) => {
       setTemp("")
       setFilterByAuth(false)
       //console.log("new blog")
-      if (!hasChanged){
-        setHasChanged(true)
-      }
+      setHasChanged(false) //🟩cannot save unchanched doc
       
       let userData = await getUserDoc(authorId)
       let newImgFile = {value:"",file:null}

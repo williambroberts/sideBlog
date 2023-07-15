@@ -372,7 +372,11 @@ svg {
   color: var(--t-1);
 }
 
+ 
 ::selection{
-  background-color: #7d1f7c;
+  --selection3:#1a1aa1;
+  --selection1:#8f4a18;
+  --selection2:#7d1f7c;
+  background-color: var(--selection2);
   color: white;
 }

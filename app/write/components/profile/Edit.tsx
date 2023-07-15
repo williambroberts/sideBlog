@@ -266,7 +266,7 @@ const Edit = ({}:theProps) => {
         >Update your photos</span>
         <div className='flex flex-row w-full'>
         <label htmlFor='ipt-pp'
-        className='cursor-pointer px-1 py-0 rounded-md 
+        className='cursor-pointer px-1 py-1 rounded-md 
         flex items-center 
         '
         ><IconBxPhotoAlbum/>
@@ -282,29 +282,9 @@ const Edit = ({}:theProps) => {
            Profile 
         </div>
         </label>
-        {/* <AddItem name='Profile' 
-        type='file'
-        icon={<IconBxPhotoAlbum/>}
-        openType='profile'
-        value={profilePhotoFile.value}
-        className='add__item'
-        placeholder='Profile photo'
-        id='profilePhoto-input'
-        handleChange={(e)=>updateProfilePhoto(e)}
-        /> */}
        
-        {/* <AddItem name='Cover' 
-        type='file'
-        icon={<IconImages/>}
-        openType='cover'
-        value={coverPhotoFile.value}
-        className='add__item'
-        placeholder='Cover photo'
-        id='coverPhoto-input'
-        handleChange={(e)=>updateCoverPhoto(e)}
-        /> */}
         <label htmlFor='ipt-cp'
-        className='cursor-pointer px-1 py-0 rounded-md 
+        className='cursor-pointer px-1 py-1 rounded-md 
         flex items-center 
         '
         ><IconImages/>
@@ -336,7 +316,7 @@ const Edit = ({}:theProps) => {
           value={localUserData?.about===undefined? 
             "":localUserData.about}
           placeholder='About...'
-          className='font-light'
+          className='font-light bg-[var(--bg-3)]'
           handleChange={(e)=>setLocalUserData((prev)=>({...prev,about:e.target.value}))}
           />
           <Button

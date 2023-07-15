@@ -76,7 +76,9 @@ const ProfileManager = () => {
         <ProfileComponent
         user={profileUserUid}
         />
-        <header className='w-full text-[var(--t-2)] my-2'>
+        <header className='w-full 
+        relative
+        text-[var(--t-2)] my-2 z-0'>
             <nav className='w-full flex flex-row gap-2'> 
             <span className='font-medium'>
                 {isAdmin && user.uid!==profileUserUid? "Viewing as an Admin":""}
