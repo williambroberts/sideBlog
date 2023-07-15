@@ -23,7 +23,7 @@ const UserDetails = ({userPhoto,author,dateCreation,userUid}) => {
     <div className="display__user__details">
         <Link href={`/profile`}>
        
-        <Image src={userPhoto} alt='/' onClick={()=>handleClick()}
+        <Image src={userPhoto===undefined? "https://picsum.photos/200":userPhoto} alt='/' onClick={()=>handleClick()}
         width={50}
         
         height={50}

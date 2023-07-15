@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,memo } from 'react'
 import {v4} from "uuid"
 import UploadedImage from './uploadedImage';
 import IconLeft from '../../../../icons/chevL';
@@ -8,6 +8,7 @@ type theProps = {
     images:string[];
 }
 const UploadedImages = ({images}:theProps) => {
+    //console.log("images📷",images)
     const [index,setIndex]=useState(0)
     const [maxIndex,setMaxIndex]=useState(0)
     const [windowSizes,setWindowSizes]=useState([0,0])
@@ -84,4 +85,4 @@ const UploadedImages = ({images}:theProps) => {
   )
 }
 
-export default UploadedImages
+export default memo(UploadedImages)

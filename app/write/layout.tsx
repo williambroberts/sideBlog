@@ -15,10 +15,10 @@ const WriteLayout = ({children}:ChildrenProps) => {
     className='layout__div'
     >
       
-      <HeaderHorizontal/>
+      
        
        {children}
-      
+      <HeaderHorizontal/>
         <FooterHorizontal/>
     </div>
   )

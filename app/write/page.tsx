@@ -9,6 +9,8 @@ import { useBlogs } from '../../contexts/BlogContext'
 import BlogsComponent from './components/profile/blogs'
 import SplitPane, { Pane } from 'split-pane-react';
 import 'split-pane-react/esm/themes/default.css';
+import TagManager from './components/addTags/manageTags'
+import AddTag from './components/addTags/addTag'
 const WritePage = () => {
   const {localBlog}=useWrite()
   const {filterByAuth}=useBlogs()
@@ -65,7 +67,7 @@ paneCollection.forEach((element:any)=>{
   }
   return (
     <main
-    className='mt-16 px-2'
+    className='mt-16 px-0'
     >
 
 <PushNoUser/>
@@ -77,7 +79,7 @@ paneCollection.forEach((element:any)=>{
         onChange={setSizes}
       >
         <Pane minSize={50} maxSize='80%'>
-          <div className='overflow-scroll h-full'>
+          <div className='overflow-scroll '>
           <Editor/>
           </div>
         
@@ -92,7 +94,14 @@ paneCollection.forEach((element:any)=>{
            ${direction.current==="vertical"? "pt-16":"pt-4"}
            `}>
           {filterByAuth? <BlogsComponent/>:
-         <Display source={localBlog}/>}
+         
+         <div className='flex flex-col gap-1 w-full min-h-full'>
+<Display source={localBlog}/>
+<TagManager tags={localBlog?.tags}/>
+        <AddTag/>
+         </div>
+
+         }
           </div>
        
         </Pane>

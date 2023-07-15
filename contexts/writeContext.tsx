@@ -45,7 +45,7 @@ const WriteProvider = ({children}:ChildProps) => {
     authorId:"",
     tags:[],
     readTime:"",
-    category:"",
+    category:"Category",
     dateCreation:"",
     creationTimeStamp:0,
     id:"",
@@ -75,6 +75,7 @@ const WriteProvider = ({children}:ChildProps) => {
     const [imgFile,setImgFile]=useState<any>({value:"",file:null})
 
 const generateKeywords = ()=> {
+  console.log(localBlog,"🧧")
     let newKeyWords = [""," "]
     //💭 toLowerCase()
     newKeyWords.push(localBlog.category.toLowerCase())

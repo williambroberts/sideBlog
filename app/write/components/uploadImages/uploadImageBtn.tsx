@@ -18,8 +18,8 @@ const UploadImageButton = ({hoverText,icon,
     <button 
     onClick={handleClick}
     className='UI__btn'>
-        {state? icon2? icon2:icon :icon}
-        {text}
+        {state==true? icon2? icon2:icon :icon}
+        {/* {text} */}
     </button>
   )
 }

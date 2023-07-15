@@ -87,7 +87,7 @@ const Editor = () => {
     <div className='editor'>
       <CRUD blogId={fireBLog?.blogId}/>
      
-      <UploadedImages images={localBlog?.uploadedImages}/>
+      {/* <UploadedImages images={localBlog?.uploadedImages}/> */}
       <div className='w-full flex flex-row items-center gap-1'>
       
       
@@ -96,25 +96,26 @@ const Editor = () => {
       </div>
       
 
-
+{/* 
         <span className='text-sm inline-flex items-center gap-1
         uppercase font-light leading-tight'>
            <IconWrite/> Write your blog 
-        </span>
+        </span> */}
         <textarea id='write__textarea'
         // autoFocus
-        placeholder={"Blog content"}
+
+        placeholder={"✎ write your blog"}
         onInput={(e)=>handleResize(e)}
-        className='
-        
+        className='box-border resize-none
+        h-full w-full border-none
         '
         value={temp}
         onChange={(e)=>handleWriting(e)}
         >
           
         </textarea>
-        <TagManager tags={localBlog?.tags}/>
-        <AddTag/>
+        {/* <TagManager tags={localBlog?.tags}/>
+        <AddTag/> */}
         {/* save to firebase */}
     </div>
   )

@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image'
-import React,{useEffect, useState} from 'react'
+import React,{useEffect, useState,memo} from 'react'
 import { useWrite } from '../../../../contexts/writeContext';
 import UploadImageButton from './uploadImageBtn';
 import IconBxArrowBack from '../../../../icons/back';
@@ -8,6 +8,8 @@ import IconCopy from '../../../../icons/copy';
 import IconTickCircle from '../../../../icons/tick';
 import IconImages from '../../../../icons/cover';
 import IconDelete from '../../../../icons/delete';
+import IconBxPhotoAlbum from '../../../../icons/photo';
+import IconUpdate from '../../../../icons/update';
 type theProps = {
     src:string;
 }
@@ -46,9 +48,17 @@ const UploadedImage = ({src}:theProps) => {
         setDeleted((prev)=>false)
         let newLocalBlog = {...localBlog}
         let img = newLocalBlog.uploadedImages?.filter((item)=>item===src)
-        newLocalBlog.deletedImages.push(img[0])
-        newLocalBlog.uploadedImages.filter((item)=>item!==src)
-        setLocalBlog({...newLocalBlog})
+        if (!localBlog.deletedImages.includes(img)){
+          newLocalBlog.deletedImages.push(img[0])
+        }
+        let setOfDeletedImages = new Set(newLocalBlog.deletedImages)
+        let newDeletedImages = Array.from(setOfDeletedImages)
+
+        
+        let newUploadImages = newLocalBlog.uploadedImages.filter((item)=>item!==src)
+        setLocalBlog((prev)=>({...prev,
+          uploadedImages:newUploadImages,
+        deletedImages:newDeletedImages}))
         setIsClicked((prev)=>false)
         setHasChanged((prev)=>true)
         console.log(img)
@@ -91,6 +101,10 @@ const UploadedImage = ({src}:theProps) => {
         className={isClicked? "blur-2xl":""}
         fill
         src={src} alt='/' sizes='200px'/>
+        <span 
+        className='UI__image__coverTag'
+        style={{display:localBlog.coverImage===src &&!isClicked? "":"none"}}
+        >Cover <IconUpdate/> </span>
         <div className='UI__image__grid' 
         style={{display:isClicked?"":"none"}}
         >
@@ -125,5 +139,5 @@ const UploadedImage = ({src}:theProps) => {
   )
 }
 
-export default UploadedImage
+export default memo(UploadedImage)
 

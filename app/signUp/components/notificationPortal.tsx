@@ -16,7 +16,7 @@ const NotificationPortal = ({}) => {
     <div 
     data-theme="dark"
     className={`rounded-md text-[var(--t-1)] text-base
-    px-2 py-2  h-min  
+    px-2 py-2  h-min absolute 
     bg-[var(--bg-3)] flex 
     notification`}>
        {notification?.message}

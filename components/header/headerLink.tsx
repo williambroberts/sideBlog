@@ -3,6 +3,9 @@ import Link from 'next/link'
 import React from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import { useAuth } from '../../contexts/AuthContext'
+import { useWrite } from '../../contexts/writeContext'
+import { useNotifications } from '../../contexts/NotificationContext'
+import NotificationPortal from '../../app/signUp/components/notificationPortal'
 type theProps = {
     href:string;
     text:string;
@@ -12,12 +15,29 @@ const HeaderLink = ({icon,href,text}:theProps) => {
     const pathname=usePathname()
     const router = useRouter()
     const {user}=useAuth()
+    const {openNotification,setOpenNotification,setNotification}=useNotifications()
+    const {hasChanged}=useWrite()
   const handleSearchParams = ()=>{
     console.log(href,"href")
     if (href!=="/write"){return};
     const newRoute=`/write?&blogId=${user.uid}
     `
-    router.push(newRoute)
+    if (!hasChanged){
+      router.push(newRoute)
+    }else {
+      setOpenNotification(true)
+      setNotification({type:"alert",message:"Please save your changes"})
+    }
+    
+  }
+
+  const handleClick = ()=>{
+    if (!hasChanged){
+      router.push(href)
+    }else {
+      setOpenNotification(true)
+      setNotification({type:"alert",message:"Please save your changes"})
+    }
   }
     const myStyles = {
         backgroundColor:pathname===href? "var(--bg-3)":"",
@@ -30,14 +50,17 @@ const HeaderLink = ({icon,href,text}:theProps) => {
     style={{...myStyles}}
     onClick={handleSearchParams}>
       {text}
+     
     </div>:
-    <Link href={href} style={{...myStyles}}
+    <div style={{...myStyles}}
     className='header__link'
-    
+    onClick={handleClick}
     
     >
       {icon}
-      {text}</Link>
+      {text}
+      
+      </div>
   )
 }
 

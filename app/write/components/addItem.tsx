@@ -41,7 +41,7 @@ const AddItem = ({icon,openType,
     style={{width:(openAddItem["yes"]===true&&openAddItem[openType]===false)?"0px":""}}
 
     >
-        <span
+        <button
         onClick={type==="file"?handleChange :()=>handleOpen()}
         className={`text-sm uppercase font-light 
         text-[var(--t-2)] h-full gap-1
@@ -52,7 +52,7 @@ const AddItem = ({icon,openType,
         >
           {icon}
           {name}
-        </span>
+        </button>
         
         <input 
         className={`duration-200 transition-all

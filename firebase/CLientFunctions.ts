@@ -1,11 +1,12 @@
 import { doc, getDoc } from "firebase/firestore"
 import { firestore } from "./firebaseConfig"
+import { useCallback, useState } from "react"
 
-export function getBlogReadTime (content){
+export async function getBlogReadTime (content){
  //return time in mins to read the blog
  const rate = 200
  let numOfWords = content.split(" ").length
-return Math.round(numOfWords/rate)
+return Math.round(numOfWords/rate)+1
 }
 
 
@@ -44,4 +45,11 @@ export async function getABlogFromFirebase(blogId){
         //console.log(docSnapshot.data())
         return {...docSnapshot.data()}   
     }
+}
+export function useBoolean(initial=false){
+    const [value,setValue]=useState<boolean>(initial)
+    const handleChange= useCallback(()=>{
+        setValue((prev)=>!prev)
+    },[])
+    return [value,handleChange,initial]
 }

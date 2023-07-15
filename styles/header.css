@@ -62,7 +62,7 @@
     font-weight: 300px;
     color: var(--t-1);
     @apply flex flex-col 
-    px-6 box-border py-8
+    px-6 box-border py-8 z-20
     items-start gap-1
     justify-start ;
 }

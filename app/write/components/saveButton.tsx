@@ -1,5 +1,5 @@
 "use client"
-import React, { MouseEventHandler } from 'react'
+import React, { MouseEventHandler, useEffect, useState } from 'react'
 import { useWrite } from '../../../contexts/writeContext'
 import { doc,runTransaction,setDoc
 } from 'firebase/firestore'
@@ -8,24 +8,38 @@ import { useAuth } from '../../../contexts/AuthContext'
 import IconSave from '../../../icons/save'
 import { getBlogReadTime } from '../../../firebase/CLientFunctions'
 import { useRouter } from 'next/navigation'
+import { useNotifications } from '../../../contexts/NotificationContext'
+import NotificationPortal from '../../signUp/components/notificationPortal'
+import IconContentSaveCheckOutline from '../../../icons/saveYes'
 type theProps = {
     
 }
 const SaveButton = ({}:theProps) => {
   const {user}=useAuth()
+  const {setNotification,setOpenNotification
+  ,openNotification}=useNotifications()
+  const [success,setSuccess]=useState<boolean>(false)
   const {hasChanged,setHasChanged,
   localBlog,setLocalBlog,blogId
   }=useWrite()
 const router = useRouter()
-
+  useEffect(()=>{
+    if (success){
+      setTimeout(()=>{
+        setSuccess(false)
+      },2000)
+    }
+  },[success])
   const handleUpdateToFirebase =async ()=>{
     //❤️use callback
     //if SAVE criteria met
-    if (localBlog.title!=="" && localBlog.coverImage!==""){
+    if (localBlog.title!=="Untitled document"){
       if (blogId){
         //🧧improve length function
-        localBlog.readTime=getBlogReadTime(localBlog.content)
-        
+        let newReadTime= await getBlogReadTime(localBlog.content)
+        console.log(newReadTime,"newREADtime")
+        setLocalBlog((prev)=>({...prev,readTime:newReadTime}))
+        let newLocalBLog = {...localBlog,readTime:newReadTime}
         try {
           let blogRef = doc(firestore,"Blogs",localBlog.id)
           await runTransaction(firestore, async (t)=>{
@@ -35,8 +49,10 @@ const router = useRouter()
               console.log("error,no snapshot")
               return
             }
-            t.update(blogRef,{...localBlog})
+            t.update(blogRef,newLocalBLog)
           })
+          setSuccess(true)
+          setHasChanged((prev)=>false)
         }catch (err){
           console.log(err,"update failed")
         }
@@ -64,10 +80,13 @@ const router = useRouter()
     }else{
       //💭notify need cover and title
       console.log("not saving")
+      setNotification((prev)=>
+      ({type:"alert",message:"Please rename your document"}))
+      setOpenNotification(true)
     }
   }
   const handleClick = ()=>{
-    setHasChanged(true)
+    //setHasChanged(false)
     console.log("saving")
     handleUpdateToFirebase()
   }
@@ -76,7 +95,8 @@ const router = useRouter()
     onClick={handleClick}
     disabled={!hasChanged}
     >
-      <IconSave/> SAVE
+      {success? <IconContentSaveCheckOutline/> :<IconSave/>}
+      {openNotification && <NotificationPortal/>}
     </button>
   )
 }

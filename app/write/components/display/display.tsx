@@ -33,14 +33,20 @@ const Display = ({source}:theProps) => {
   }
   return (
     <div className={`display mt-20 mx-0 mb-10`}>
-    <Animator index={1}>
+    <Animator index={1}
+    alignItems='flex-start'
+    >
     <DisplayCategory category={source?.category}/>
     </Animator>
-     <Animator index={2}>
+     <Animator index={2}
+     alignItems='flex-start'
+     >
      <DisplayTitle title={source?.title}/>
      </Animator>
      
-     <Animator index={3}>
+     <Animator index={3}
+     alignItems='flex-start'
+     >
      <UserDetails userPhoto={source?.userPhoto}
       author={source?.author} userUid={source?.authorId}
       dateCreation={source?.dateCreation}
@@ -48,7 +54,7 @@ const Display = ({source}:theProps) => {
      </Animator>
      
       <DisplayTags tags={source?.tags}/>
-      <DisplayCoverImage src={source?.coverImage}/>
+      {/* <DisplayCoverImage src={source?.coverImage}/> */}
 <ReactMarkdown
           children={source?.content}
           components={{

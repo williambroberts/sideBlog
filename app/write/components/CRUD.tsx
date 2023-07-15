@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from './addTags/button'
 import { useWrite } from '../../../contexts/writeContext';
 import { useAuth } from '../../../contexts/AuthContext';
@@ -19,8 +19,9 @@ import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import IconFormatTitle from '../../../icons/title';
 import IconBxCategory from '../../../icons/category';
 import IconCardImage from '../../../icons/image';
-import { getABlogFromFirebase, getUserDoc, handleBlur } from '../../../firebase/CLientFunctions';
+import { getABlogFromFirebase, getUserDoc, handleBlur, useBoolean } from '../../../firebase/CLientFunctions';
 import { useRouter, useSearchParams } from 'next/navigation';
+import UploadedImages from './uploadImages/uploadedImages';
 interface theProps {
 blogId:string;
 }
@@ -30,13 +31,15 @@ const CRUD = ({blogId}:theProps) => {
     setLocalBlog,localBlog,initialBlogData,fireBLog,isDelete,setIsDelete
   ,setProgress,setFireBlog,setTemp,
   }=useWrite()
+  const [isCategory,setIsCategory]=useState<any>(false)
+  const [catWidth,setCatWidth]=React.useState<number>(80)
   const [titleWidth,setTitleWidth]=React.useState<number>(130)
     const {setFilterByAuth,filterByAuth}= useBlogs()
     const searchParams=useSearchParams()
     const router = useRouter()
 
   useEffect(()=>{
-    fireBLog.content && setTemp((prev)=>fireBLog.content)
+    fireBLog?.content && setTemp((prev)=>fireBLog?.content)
   },[fireBLog?.content])
 
     const handleNewImage = (e)=>{
@@ -77,6 +80,7 @@ const CRUD = ({blogId}:theProps) => {
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
         console.log('File available at', downloadURL);
           let newLocalBlog = {...localBlog}
+          console.log(newLocalBlog)
           newLocalBlog.uploadedImages.push(downloadURL)
           setLocalBlog((prev)=>newLocalBlog)
          
@@ -103,6 +107,7 @@ const CRUD = ({blogId}:theProps) => {
   },[imgFile])
 
     const createBlog =async ()=>{
+      console.log("creatingBLog")
       const blogIdParam = searchParams.get("blogId")
       let authorId = blogIdParam.split("blog")[0]
       setTemp("")
@@ -142,7 +147,8 @@ const CRUD = ({blogId}:theProps) => {
     let blogIdQP = searchParams.get("blogId")
     let timestamp = blogIdQP.split("blog")[1]
      console.log("🟩🧧❤️👍🏻🍔🌮",timestamp)
-      if (timestamp===""){
+      if (timestamp===""||timestamp==="newBlog"
+      ||timestamp===undefined){
         console.log("making new blog❤️🧧🟩")
         createBlog()  
       }else if (timestamp!=="newBlog"){
@@ -185,7 +191,9 @@ const CRUD = ({blogId}:theProps) => {
       
       
     }else if (key==="category"){
-      
+      let inputTag = document.getElementById("ip-cat")
+        let newWidth=inputTag.scrollWidth
+        setCatWidth(newWidth)
        
      
         newLocalBlog.category = e.target.value
@@ -214,38 +222,63 @@ const CRUD = ({blogId}:theProps) => {
       setLocalBlog((prev)=>({...prev,title:"Untitled document"}))
     }
   }
+  useEffect(()=>{
+    function closeCategory(e){
+      let elem = e.target
+      let x = e.clientX
+      let y = e.clientY
+      let label = document.getElementById("label-category")
+      let labelRect = label.getBoundingClientRect()
+      if (x >labelRect.right || x<labelRect.left ||
+        y<labelRect.top || y>labelRect.bottom){
+          setIsCategory(false)
+        }
+      //console.log(labelRect,e.clientX)
+      
+    }
+    document.addEventListener("mousedown",closeCategory)
+    return ()=>{
+      document.removeEventListener("mousedown",closeCategory)
+    }
+  },[])
+  const handleBlurCategory = (e)=>{
+    e.preventDefault()
+    if (e.target.value===""){
+      setLocalBlog((prev)=>({...prev,category:"Category"}))
+    }
+  }
+  const handleCategory = (e)=>{
+    e.preventDefault()
+    setIsCategory((prev)=>!prev)
+  }
   return (
-    <header className='editor__header'>
+    <header className='editor__header'
+    data-theme="dark"
+    > <div className='flex flex-col'>
       <div className={`flex flex-row items-center
-      gap-1 w-full 
+      gap-1 w-full py-0 text-base
       
       `}>
+        <IconFormatTitle/>
       <input
       onBlur={handleBlurTitle}
       style={{width:`${titleWidth}px`}}
       id="title-input"
       className='editor__title__input'
-      value={localBlog?.title}
+      value={localBlog?.title===undefined?"":localBlog?.title}
       onChange={(e)=>handleAddItem("title",e)}
       type="text"
       />
+      
       </div>
       <div 
       id="write__header__div__bottom"
       className='flex flex-row 
       gap-1 
-      items-center h-9'>
+      items-center h-[30px]'>
 
       
-        {/* <AddItem 
-        name='Title'
-        type='text'
-        
-        icon={<IconFormatTitle/>}
-        className='add__item'
-        placeholder='Blog title'
-        value={localBlog?.title}
-        handleChange={(e)=>handleAddItem("title",e)}/> */}
+   
 
 
         <Button
@@ -255,7 +288,7 @@ const CRUD = ({blogId}:theProps) => {
             <IconCreateSharp/> NEW 
         </Button>
         <button className={`delete__btn ${isDelete?
-      "px-0":"px-3 py-1"  
+      "px-0":"px-3 py-0"  
       }`}
         style={{width:isDelete?"0px":""}}
         onClick={()=>setIsDelete(true)}
@@ -280,7 +313,7 @@ const CRUD = ({blogId}:theProps) => {
          <IconTickCircle/> Delete
         </button>
         <Button
-        className='py-1'
+        className='py-0'
         handleClick={handleEdit}
         >
             {filterByAuth?
@@ -295,8 +328,8 @@ const CRUD = ({blogId}:theProps) => {
         
 
         <label htmlFor='imgFile-input'
-        className='cursor-pointer p-1 rounded-md 
-        flex items-center
+        className='cursor-pointer px-1 py-0 rounded-md 
+        flex items-center 
         '
         ><IconCardImage/>
         <input 
@@ -311,28 +344,54 @@ const CRUD = ({blogId}:theProps) => {
             Upload Image
         </div>
         </label>
-        {/* <AddItem name="Image" 
-        type='file'
-        dataTheme="light"
-        icon={<IconUpload/>}
-        value={imgFile?.value}
-        className='add__item'
-        placeholder='Image'
-        id='imgFile-input'
         
-        handleChange={(e)=>handleNewImage(e)}
-        /> */}
+        <label id="label-category"
+        htmlFor='ip-cat'
+        
+        className='flex items-center
+        rounded-md
+        px-0 py-0 cursor-pointer
+        '>
+          <button className='
+          px-1 py-0 box-border flex items-center
+          h-full '
+          
+          onClick={handleCategory}>
+             <IconBxCategory/>
+          </button>
+         
+            <input type='text' 
+           
+            onBlur={handleBlurCategory}
+            className='px-0 py-0 border-none 
+            rounded-md'
+            style={{width:isCategory?`${catWidth}px`:"0px"}}
+            value={localBlog?.category===undefined?
+              "":localBlog?.category}
+              id="ip-cat"
+              placeholder='category'
+              onInput={(e)=>handleAddItem("category",e)}
+              />
+              <div className='label__hover'
+        data-theme="dark"
+        >
+            Category
+        </div>
+        </label>
 
-<AddItem name='Category' 
+{/* <AddItem name='Category' 
         type='text'
         icon={<IconBxCategory/>}
         className='add__item'
         placeholder='Category'
         
-        value={localBlog?.category}
+        
         handleChange={(e)=>handleAddItem("category",e)}
-        />
+        /> */}
+        
         </div>
+        </div>
+        <UploadedImages images={localBlog?.uploadedImages}/>
     </header>
   )
 }
