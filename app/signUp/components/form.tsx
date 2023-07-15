@@ -58,8 +58,8 @@ const SignUpForm = () => {
                         uid:result.user.uid,
                         email:result.user.email,
                         username:data.username,
-                        profilePhoto:"",
-                        coverPhoto:"",
+                        profilePhoto:"https://picsum.photos/200/200",
+                        coverPhoto:"https://picsum.photos/800/400",
                         // blogs:[],
                         comments:[], //❤️think
                         github:"",

@@ -228,11 +228,14 @@ const CRUD = ({blogId}:theProps) => {
       let x = e.clientX
       let y = e.clientY
       let label = document.getElementById("label-category")
-      let labelRect = label.getBoundingClientRect()
-      if (x >labelRect.right || x<labelRect.left ||
-        y<labelRect.top || y>labelRect.bottom){
-          setIsCategory(false)
-        }
+      if (label!==undefined){
+        let labelRect = label.getBoundingClientRect()
+        if (x >labelRect.right || x<labelRect.left ||
+          y<labelRect.top || y>labelRect.bottom){
+            setIsCategory(false)
+          }
+      }
+      
       //console.log(labelRect,e.clientX)
       
     }

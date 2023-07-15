@@ -265,8 +265,24 @@ const Edit = ({}:theProps) => {
         '
         >Update your photos</span>
         <div className='flex flex-row w-full'>
-          
-        <AddItem name='Profile' 
+        <label htmlFor='ipt-pp'
+        className='cursor-pointer px-1 py-0 rounded-md 
+        flex items-center 
+        '
+        ><IconBxPhotoAlbum/>
+        <input 
+        className='hidden'
+         id="ipt-pp"
+        type="file" value={profilePhotoFile?.value}
+        onChange={(e)=>updateProfilePhoto(e)}
+        />
+        <div className='label__hover'
+        data-theme="dark"
+        >
+           Profile 
+        </div>
+        </label>
+        {/* <AddItem name='Profile' 
         type='file'
         icon={<IconBxPhotoAlbum/>}
         openType='profile'
@@ -275,9 +291,9 @@ const Edit = ({}:theProps) => {
         placeholder='Profile photo'
         id='profilePhoto-input'
         handleChange={(e)=>updateProfilePhoto(e)}
-        />
+        /> */}
        
-        <AddItem name='Cover' 
+        {/* <AddItem name='Cover' 
         type='file'
         icon={<IconImages/>}
         openType='cover'
@@ -286,7 +302,24 @@ const Edit = ({}:theProps) => {
         placeholder='Cover photo'
         id='coverPhoto-input'
         handleChange={(e)=>updateCoverPhoto(e)}
+        /> */}
+        <label htmlFor='ipt-cp'
+        className='cursor-pointer px-1 py-0 rounded-md 
+        flex items-center 
+        '
+        ><IconImages/>
+        <input 
+        className='hidden'
+         id="ipt-cp"
+        type="file" value={coverPhotoFile?.value}
+        onChange={(e)=>updateCoverPhoto(e)}
         />
+        <div className='label__hover'
+        data-theme="dark"
+        >
+           Cover 
+        </div>
+        </label>
         </div>
 
         <div className='w-full flex flex-col gap-1 text-[var(--t-1)] text-base'>
