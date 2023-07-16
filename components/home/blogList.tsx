@@ -5,15 +5,21 @@ import BlogLink from './blogLink'
 
 import {v4} from "uuid"
 import Animator from '../animator/animator'
+import IconTags from '../../icons/tags'
 const BlogList = () => {
-    const {blogs}=useBlogs()
+    const {blogs,mode,stateTag}=useBlogs()
    if (blogs===null){
     return <div>Loading</div>
    } 
     
   return (
     <div className={`blog__list w-full`}>
-      
+      {mode==="tag"? 
+      <div
+      className='flex flex-row items-center gap-1
+      '
+      ><IconTags/>{stateTag} </div>
+      :""}
        {blogs?.map((item,index)=><div key={v4()} 
        className='w-full'
        >
