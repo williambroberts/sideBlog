@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../contexts/AuthContext';
 import CanEdit from './canEdit';
+//misc css
 interface theProps {
     data?:any;
     
@@ -23,7 +24,9 @@ const MobileLink = ({data}:theProps) => {
     router.push(pathname)
   }
   return (
-    <div className='flex flex-row items-center text-sm w-full px-2'>
+    <div className='
+    mobile__link
+    flex flex-row items-center text-sm px-2'>
         <div className='flex flex-col gap-1 items-start justify-start'>
             <span className='text-[var(--t-3)]'>{data?.dateCreation}</span>
             <Link 
@@ -39,21 +42,28 @@ const MobileLink = ({data}:theProps) => {
             href={`/blog?blogId=${data.id}`}>{data?.title}</Link>
             <CanEdit id={data?.authorId} blogId={data.id}/>
         </div>
+        <div className='rounded-md overflow-hidden
+        flex items-center w-24 h-24 relative ml-auto
+        '>
+
+        
         <Image src={data?.coverImage} alt="Blog"
-        width={96} height={96}
+        fill
         onClick={handleClick} 
-        style={{width:"96px",height:"96px",overflow:"hidden"}}
+        style={{objectFit:"cover",objectPosition:"center"}}
+
         sizes='(max-size:1280px): 200px'
         className={
           `duration-100 bg-clip-content
           rounded-sm overflow-hidden cursor-pointer
-          ease-in-out ml-auto box-content px-4
+          ease-in-out ml-auto box-content 
           ${loaded?"scale-100 blur-0 grayscale-0":
         
         "scale-110 blur-xl grayscale"}`
         }
         onLoadingComplete={()=>setLoaded(true)}
         />
+        </div>
         
     </div>
   )

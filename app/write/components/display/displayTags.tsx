@@ -6,8 +6,10 @@ import IconClock from "../../../../icons/clock";
 import IconTags from "../../../../icons/tags";
 interface theProps {
     tags:string[];
+    readTime:number;
+    views:number;
 }
-const DisplayTags = ({tags}:theProps) => {
+const DisplayTags = ({views,tags,readTime}:theProps) => {
     const {getBlogsByTag,setMode,setStateTag}=useBlogs()
     //console.log(tags)
     const handleClick = async (tag)=>{
@@ -23,17 +25,22 @@ const DisplayTags = ({tags}:theProps) => {
         <span className="flex flex-row 
         text-[var(--t-3)] pr-2 items-center gap-1
         flex-wrap">
-
-            <IconClock/> ~ {}min
+           <ul className="pr-1">
+            <li><b>
+           {views} {views===1? "view ":"views "}
+            </b>
+            </li>
+            </ul> 
+            <IconClock/> ~ {readTime}min
         </span>
         <span className=" ml-2 text-[var(--t-2)]
         
         "><IconTags/></span>
-        {tags?.map((item)=>
+        {tags?.slice(0,5).map((item)=>
             <button key={v4()}
             onClick={()=>handleClick(item)}
             className='flex flex-row items-center gap-1 px-1
-            hover:underline
+            hover:underline flex-wrap
             '>
                 #{item}
             </button>

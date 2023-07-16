@@ -1,11 +1,11 @@
 "use client"
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useWrite } from '../../../../contexts/writeContext'
 import ReactMarkdown from 'react-markdown'
 import Markdown from 'markdown-to-jsx'
-import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
-import {dark,materialDark} from 'react-syntax-highlighter/dist/esm/styles/prism'
-import {solarizedDark,solarizedLight} from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { dark, docco, gruvboxDark, gruvboxLight, lightfair, monokaiSublime, vs, vs2015 } from 'react-syntax-highlighter/dist/esm/styles/hljs'
+import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/default-highlight'
+
 import IconMoon from '../../../../components/theme/moon'
 import IconSun from '../../../../components/theme/sun'
 import IconTickCircle from '../../../../icons/tick'
@@ -17,20 +17,38 @@ import DisplayTags from './displayTags'
 import DisplayCategory from './displayCategory'
 import DisplayTitle from './displayTitle'
 import Animator from '../../../../components/animator/animator'
+import { usePathname } from 'next/navigation'
+import { updateBlogViews } from '../../../../firebase/CLientFunctions'
 type theProps = {
   source?:any;
 }
 const Display = ({source}:theProps) => {
  // console.log(source)
-  const [isDark,setIsDark]=React.useState<boolean>(false)
+
+  const [darkMode,setDarkMode]=React.useState<boolean>(true)
   const [isCopied,setIsCopied]=React.useState<boolean>(false)
-  const handleCopy = (text)=>{
-    //❤️ GET TEXT
-    navigator.clipboard.writeText(text).then((res)=>{
-      setIsCopied((prev)=>true)
-      setTimeout(()=>setIsCopied(false),1000)
-    }).catch((rej)=>console.log(rej,"error"))
+  const pathname = usePathname()
+  useEffect(()=>{
+    if (pathname==="/blog"){
+      updateBlogViews(source)
+
+    }
+  },[])
+
+  const copy = (e)=>{
+    setIsCopied((prev)=>!prev)
+    e.preventDefault()
+    let tag = e.target
+    let parent = tag.parentNode
+    let section = parent.nextSibling
+    let code = section.firstChild
+    //let children = code.children
+    navigator.clipboard.writeText(code.textContent)
+    setTimeout(()=>{
+      setIsCopied((prev)=>!prev)
+    },2000)
   }
+
   return (
     <div className={`display mt-20 mx-0 mb-10`}>
     <Animator index={1}
@@ -53,42 +71,58 @@ const Display = ({source}:theProps) => {
       />
      </Animator>
      
-      <DisplayTags tags={source?.tags}/>
+      <DisplayTags 
+      views={source?.views}
+      readTime={source?.readTime}
+      tags={source?.tags}/>
       {/* <DisplayCoverImage src={source?.coverImage}/> */}
-<ReactMarkdown
-          children={source?.content}
-          components={{
-            code({node, inline, className, children, ...props}) {
-              const match = /language-(\w+)/.exec(className || '')
-              return !inline && match ? (
-                <div className="display__codeblock">
-                  <div className='code__icons '
-                  style={{color:isDark?"var(--code-l)":"var(--code-d)"}}
-                  >
-                  <button onClick={()=>setIsDark((prev)=>!prev)}>
-                    {isDark? <IconMoon/>:<IconSun/>}
-                  </button>
-                <button onClick={handleCopy}>
-                  {isCopied? <IconTickCircle/>:<IconCopy/>}
+      <ReactMarkdown
+        children={source?.content}
+        components={{
+          code({node, inline, className, children, ...props}) {
+            const match = /language-(\w+)/.exec(className || '')
+            return !inline && match ? (
+              <div className={`${darkMode?"codeBlock__dark":"codeBlock__light"}`}
+              data-theme="light"
+              >
+                <div className='code__icons'
+                style={{color:darkMode?"":""}}
+               
+                >
+                <button 
+                
+                className='ml-auto text-base'
+                onClick={()=>setDarkMode((prev)=>!prev)}>
+                  {darkMode? <IconMoon/>:<IconSun/>}
                 </button>
-                  </div>
-
-                <SyntaxHighlighter
-                  {...props}
-                  children={String(children).replace(/\n$/, '')}
-                  style={isDark? dark:dark}
-                  language={match[1]}
-                  PreTag="div"
-                />
+              <button 
+              className='flex flex-row items-center
+              '
+              onClick={copy}>
+                {!isCopied? "🗐":"⎘"}
+                
+              </button>
                 </div>
-              ) : (
-                <code {...props} className={className}>
-                  {children}
-                </code>
-              )
-            }
-          }}
-        />
+
+              <SyntaxHighlighter
+                {...props}
+                // showLineNumbers={true}
+                showInlineLineNumbers={true}
+                children={String(children).replace(/\n$/, '')}
+                style={darkMode? gruvboxDark:gruvboxLight}
+                language={match[1]}
+                PreTag="section"
+                
+              />
+              </div>
+            ) : (
+              <code {...props} className={className}>
+                {children}
+              </code>
+            )
+          }
+        }}
+      />
       
     </div>
   )

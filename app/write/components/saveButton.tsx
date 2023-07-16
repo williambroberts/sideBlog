@@ -92,6 +92,7 @@ const router = useRouter()
   }
   return (
     <button className='save__button'
+    style={{opacity:hasChanged?"1":"0.5"}}
     onClick={handleClick}
     disabled={!hasChanged}
     >

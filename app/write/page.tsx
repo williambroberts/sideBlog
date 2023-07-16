@@ -67,7 +67,7 @@ paneCollection.forEach((element:any)=>{
   }
   return (
     <main
-    className='mt-16 px-0'
+    className='mt-16 px-0  bg-[var(--bg-1)] '
     >
 
 <PushNoUser/>
@@ -79,7 +79,7 @@ paneCollection.forEach((element:any)=>{
         onChange={setSizes}
       >
         <Pane minSize={50} maxSize='80%'>
-          <div className='overflow-scroll '>
+          <div className='overflow-scroll px-0 py-0'>
           <Editor/>
           </div>
         
@@ -89,13 +89,16 @@ paneCollection.forEach((element:any)=>{
         maxSize='80%'>
           <div 
           id='right__pane'
-          className={`overflow-scroll h-full w-full px-2 
-           box-border
+          className={`overflow-scroll h-full w-full
+           box-border flex flex-col overflow-x-hidden
+           px-3 py-2
            ${direction.current==="vertical"? "pt-16":"pt-4"}
            `}>
           {filterByAuth? <BlogsComponent/>:
          
-         <div className='flex flex-col gap-1 w-full min-h-full'>
+         <div className='flex flex-col 
+         box-border 
+         gap-1 w-full min-h-full'>
 <Display source={localBlog}/>
 <TagManager tags={localBlog?.tags}/>
         <AddTag/>

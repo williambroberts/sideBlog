@@ -1,4 +1,4 @@
-import { doc, getDoc } from "firebase/firestore"
+import { doc, getDoc, runTransaction } from "firebase/firestore"
 import { firestore } from "./firebaseConfig"
 import { useCallback, useState } from "react"
 
@@ -52,4 +52,23 @@ export function useBoolean(initial=false){
         setValue((prev)=>!prev)
     },[])
     return [value,handleChange,initial]
+}
+
+export async function updateBlogViews(blog){
+    console.log(blog.views,blog.id,"👍🏻")
+    const docRef = doc(firestore,"Blogs",blog.id)
+    try {
+        await runTransaction(firestore, async (transaction) => {
+          const sfDoc = await transaction.get(docRef);
+          if (!sfDoc.exists()) {
+            throw "Document does not exist!";
+          }
+          let docData = sfDoc.data()
+          let newViews = docData.views+1  
+          transaction.update(docRef,{views:newViews} );
+        });
+        //console.log("Transaction successfully committed!");
+      } catch (e) {
+        console.log("Transaction failed: ", e);
+      }
 }

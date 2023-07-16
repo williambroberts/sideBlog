@@ -1,9 +1,10 @@
 import React,{memo} from 'react'
 import DesktopLink from './desktopLink';
 import MobileLink from './mobileLink';
+import { usePathname } from 'next/navigation';
 
 const BlogLink = ({data}) => {
-    //if mobile or touch screen, if desktop
+    const pathname = usePathname()
     function getDevice(){
         return !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 }
@@ -11,7 +12,7 @@ const BlogLink = ({data}) => {
   return (
     <div className='w-full'>
       
-        {desktop?
+        {desktop && pathname==="/"?
         <DesktopLink data={data}/>:
         <MobileLink data={data}/>
     }

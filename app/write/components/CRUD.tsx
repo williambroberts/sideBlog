@@ -144,8 +144,8 @@ const CRUD = ({blogId}:theProps) => {
 
     let blogIdQP = searchParams.get("blogId")
     let timestamp = blogIdQP.split("blog")[1]
-     console.log("🟩🧧❤️👍🏻🍔🌮",timestamp)
-      if (timestamp===""||timestamp==="newBlog"
+     console.log("🟩🧧❤️👍🏻🍔🌮",timestamp,"timestamp")
+      if (timestamp===""
       ||timestamp===undefined){
         console.log("making new blog❤️🧧🟩")
         createBlog()  

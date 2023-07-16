@@ -57,7 +57,7 @@ const Editor = () => {
     let delay  = Math.max(0,(last+wait-NOW))
     let timeout = setTimeout(()=>{
         setLast(NOW)
-        console.log(localBlog,"🧧",last)
+        //console.log(localBlog,"🧧",last)
         if (last!==0){
           setLocalBlog((prev)=>({
           ...prev,content:temp
@@ -88,7 +88,9 @@ const Editor = () => {
       <CRUD blogId={fireBLog?.blogId}/>
      
       {/* <UploadedImages images={localBlog?.uploadedImages}/> */}
-      <div className='w-full flex flex-row items-center gap-1'>
+      <div className='w-full flex 
+      
+      flex-row items-center gap-1'>
       
       
        
@@ -107,7 +109,7 @@ const Editor = () => {
         placeholder={"✎ write your blog"}
         onInput={(e)=>handleResize(e)}
         className='box-border resize-none
-        h-full w-full border-none
+        h-full w-full border-none px-2 py-1
         '
         value={temp}
         onChange={(e)=>handleWriting(e)}

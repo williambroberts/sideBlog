@@ -47,6 +47,8 @@
   *  {
     padding:0px;
     margin:0px;
+
+
     --themecolor:#f7aa35;
     --themecolor2:#802c6e;
     --white:#ffffff;
@@ -312,9 +314,9 @@ main.page {
     color: inherit;
   }
   code {
-    color: inherit;
+    color: inherit; 
     padding: 3px;
-    background-color: var(--bg-3);
+    background-color: inherit;
     @apply inline-block 
     rounded-sm 
   }
@@ -379,4 +381,60 @@ svg {
   --selection2:#7d1f7c;
   background-color: var(--selection2);
   color: white;
+}
+
+.react-split__pane,.react-split {
+  background-color: var(--bg-1);
+}
+
+pre {
+  @apply py-2
+}
+.codeBlock__dark, .codeBlock__light {
+  @apply flex flex-col 
+  rounded-md overflow-hidden
+  w-full box-border
+  relative;
+}
+.codeBlock__dark,.codeBlock__dark *{
+  color: white;
+}
+.codeBlock__light,.codeBlock__light * {
+  color: black;
+}
+.codeBlock__light section, .codeBlock__dark section {
+  @apply w-full box-border
+  px-3 py-2 hidden
+  ;
+}
+.code__icons {
+  /* color: var(--t-1); */
+  position: absolute;
+  @apply flex flex-row items-center
+   left-auto right-0 gap-1
+  top-0 px-3 py-2 
+  ;
+}
+
+.code__icons>button {
+ width: 20px;
+ height: 20px;
+  @apply px-1
+  ;
+
+}
+
+ul {
+  /* overflow: auto; */
+  padding-left: 1rem;
+  list-style-type: circle;
+}
+
+ol {
+  /* overflow: auto; */
+  padding-left: 1rem;
+  list-style-type: decimal;
+}
+a {
+  text-decoration: underline;
 }

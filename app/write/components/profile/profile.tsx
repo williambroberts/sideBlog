@@ -159,7 +159,7 @@ console.log(RemoteUserData,"remoteusrdata")
         <span></span>
       </div>
 
-      {openNotification && <NotificationPortal/>}
+      {/* {openNotification && <NotificationPortal/>} */}
     </div>
   )
 }

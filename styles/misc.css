@@ -226,3 +226,9 @@ div#portal {
     z-index: 9999;
     transform:translate(-50%,-50%);
 }
+
+.mobile__link {
+    width: min(100%,450px);
+}
+
+
