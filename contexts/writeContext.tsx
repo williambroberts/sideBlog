@@ -88,13 +88,13 @@ const generateKeywords = ()=> {
     
     newLocalBLog.keywords = Array.from(new Set(newKeyWords))
     setLocalBlog(newLocalBLog)
-  console.log(newLocalBLog.keywords)
+  // /console.log(newLocalBLog.keywords)
 }
 
   useEffect(()=>{
     //generate new keywords
     
-    console.log(localBlog)
+   // console.log(localBlog)
     if (localBlog!==undefined){
       generateKeywords()
     }

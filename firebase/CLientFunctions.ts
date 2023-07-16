@@ -54,9 +54,9 @@ export function useBoolean(initial=false){
     return [value,handleChange,initial]
 }
 
-export async function updateBlogViews(blog){
-    console.log(blog.views,blog.id,"👍🏻")
-    const docRef = doc(firestore,"Blogs",blog.id)
+export async function updateBlogViews(id){
+    console.log(id,"👍🏻","blog")
+    const docRef = doc(firestore,"Blogs",id)
     try {
         await runTransaction(firestore, async (transaction) => {
           const sfDoc = await transaction.get(docRef);

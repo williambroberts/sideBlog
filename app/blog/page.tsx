@@ -5,6 +5,8 @@ import Display from '../write/components/display/display'
 import { firestore } from '../../firebase/firebaseConfig'
 import { doc, getDoc, runTransaction } from 'firebase/firestore'
 import { useWrite } from '../../contexts/writeContext'
+import { updateBlogViews } from '../../firebase/CLientFunctions'
+import ClickToSeeAllBlogs from './components/seeAll'
 
 const BlogPage = () => {
     const searchParams = useSearchParams()
@@ -72,12 +74,16 @@ useEffect(()=>{
       }
     }
     useEffect(()=>{
-      getFireBlogById(newBlogId)
+      updateBlogViews(newBlogId).then(async()=>{
+        await getFireBlogById(newBlogId)
+      }).catch((error)=>console.log(error))
+      
     },[])
   
   return (
     <main className='page'>
         <Display source={fireBLog}/>
+        <ClickToSeeAllBlogs/>
     </main>
   )
 }

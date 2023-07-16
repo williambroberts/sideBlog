@@ -17,7 +17,7 @@ import DisplayTags from './displayTags'
 import DisplayCategory from './displayCategory'
 import DisplayTitle from './displayTitle'
 import Animator from '../../../../components/animator/animator'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { updateBlogViews } from '../../../../firebase/CLientFunctions'
 type theProps = {
   source?:any;
@@ -28,12 +28,8 @@ const Display = ({source}:theProps) => {
   const [darkMode,setDarkMode]=React.useState<boolean>(true)
   const [isCopied,setIsCopied]=React.useState<boolean>(false)
   const pathname = usePathname()
-  useEffect(()=>{
-    if (pathname==="/blog"){
-      updateBlogViews(source)
-
-    }
-  },[])
+  const searchParams = useSearchParams()
+  
 
   const copy = (e)=>{
     setIsCopied((prev)=>!prev)
