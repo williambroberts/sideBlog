@@ -82,9 +82,11 @@ dragBGcolor,
     //🌽key is with every render not ,[]?
     let parent = document.querySelector(".parent__sp")
     parent.addEventListener("mouseup",end)
+    parent.addEventListener("touchend",end)
     return ()=>{
       //console.log(width,"width")
       parent.removeEventListener("mouseup",end)
+      parent.removeEventListener("touchend",end)
     }
   })
   
@@ -94,6 +96,7 @@ dragBGcolor,
            flexDirection:direction,
            position:position,
             }}
+            onTouchMove={handleMouseMove}
      onMouseMove={handleMouseMove}>
       <div className="item__sp" id="item1"
        style={{
@@ -111,6 +114,7 @@ dragBGcolor,
       cursor:direction==="row"?"col-resize":"row-resize",
       backgroundColor:dragBGcolor
                  }}
+                 onTouchStart={down}
           onMouseDown={down}
           >
             
