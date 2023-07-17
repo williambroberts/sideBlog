@@ -8,13 +8,13 @@ import { doc, getDoc, runTransaction } from 'firebase/firestore';
 import { firestore,auth, storage } from '../../../../firebase/firebaseConfig';
 import {  getAuth, updateProfile } from 'firebase/auth';
 import { useNotifications } from '../../../../contexts/NotificationContext';
-import AddItem from '../addItem';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import TextAreaReusable from './textarea';
 import IconImages from '../../../../icons/cover';
 import Icon036Profile from '../../../../icons/profile';
 import IconBxPhotoAlbum from '../../../../icons/photo';
 import IconPersonLinesFill from '../../../../icons/bio';
+import IconUpdate from '../../../../icons/update';
 
 interface theProps{
    
@@ -261,9 +261,11 @@ const Edit = ({}:theProps) => {
             </Button>
         </div>
         <span
-        className='flex flex-row text-inherit text-base
+        className='flex flex-row
+        items-center gap-1
+        text-inherit text-base
         '
-        >Update your photos</span>
+        >Update your photos <IconUpdate/></span>
         <div className='flex flex-row w-full'>
         <label htmlFor='ipt-pp'
         className='cursor-pointer px-1 py-1 rounded-md 

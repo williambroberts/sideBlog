@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useWrite } from '../../../contexts/writeContext'
 
 import { doc, getDoc, runTransaction, setDoc } from 'firebase/firestore'
@@ -9,16 +9,10 @@ import { getStorage, ref,
   getDownloadURL,
   uploadBytesResumable 
 } from "firebase/storage";
-import AddTitle from './addItem'
-import AddItem from './addItem'
-import UploadedImages from './uploadImages/uploadedImages'
-import AddTag from './addTags/addTag'
-import TagManager from './addTags/manageTags'
+
+
 import CRUD from './CRUD'
-import IconUpload from '../../../icons/upload'
-import IconBxCategory from '../../../icons/category'
-import IconFormatTitle from '../../../icons/title'
-import IconWrite from '../../../icons/write'
+
 
 const Editor = () => {
   

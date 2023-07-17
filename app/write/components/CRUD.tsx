@@ -14,7 +14,7 @@ import IconTickCircle from '../../../icons/tick';
 import IconCancel from '../../../icons/cancel';
 import IconBxArrowBack from '../../../icons/back';
 import IconUpload from '../../../icons/upload';
-import AddItem from './addItem';
+
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import IconFormatTitle from '../../../icons/title';
 import IconBxCategory from '../../../icons/category';

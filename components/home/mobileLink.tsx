@@ -25,7 +25,7 @@ const MobileLink = ({data}:theProps) => {
   }
   return (
     <div className='
-    mobile__link
+    mobile__link hover:bg-[var(--bg-3)] rounded-md
     flex flex-row items-center text-sm px-2'>
         <div className='flex flex-col gap-1 items-start justify-start'>
             <span className='text-[var(--t-3)]'>{data?.dateCreation}</span>
@@ -33,10 +33,10 @@ const MobileLink = ({data}:theProps) => {
             onClick={handleProfile}
             href={`/profile?id=${data?.authorId}`}
             className='text-[var(--t-2)]
-            hover:underline
+            hover:underline no-underline
             '>{data?.author}</Link>
             <Link 
-            className='text-[var(--t-1)]
+            className='text-[var(--t-1)] no-underline
             hover:underline
             '
             href={`/blog?blogId=${data.id}`}>{data?.title}</Link>

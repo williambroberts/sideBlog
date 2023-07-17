@@ -228,6 +228,7 @@ div#portal {
 }
 
 .mobile__link {
+    transition: var(--transition-1);
     width: min(100%,450px);
 }
 
