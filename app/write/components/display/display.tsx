@@ -73,7 +73,7 @@ const Display = ({source}:theProps) => {
       tags={source?.tags}/>
       {/* <DisplayCoverImage src={source?.coverImage}/> */}
       <ReactMarkdown
-        children={source?.content}
+        
         components={{
           code({node, inline, className, children, ...props}) {
             const match = /language-(\w+)/.exec(className || '')
@@ -104,12 +104,11 @@ const Display = ({source}:theProps) => {
                 {...props}
                 // showLineNumbers={true}
                 showInlineLineNumbers={true}
-                children={String(children).replace(/\n$/, '')}
                 style={darkMode? gruvboxDark:gruvboxLight}
                 language={match[1]}
                 PreTag="section"
                 
-              />
+              >{String(children).replace(/\n$/, '')}</SyntaxHighlighter>
               </div>
             ) : (
               <code {...props} className={className}>
@@ -118,7 +117,7 @@ const Display = ({source}:theProps) => {
             )
           }
         }}
-      />
+      >{source?.content}</ReactMarkdown>
       
     </div>
   )

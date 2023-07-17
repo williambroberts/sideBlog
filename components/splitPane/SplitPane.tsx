@@ -21,7 +21,7 @@ width="",height="",
 position="relative",
 dragBGcolor,
 }:theProps) {
-   console.log(children,typeof(children),children.length)
+  // console.log(children,typeof(children),children.length)
    
    const [mouseDown,setMouseDown]=useState(false)
    

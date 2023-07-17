@@ -24,6 +24,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import UploadedImages from './uploadImages/uploadedImages';
 import AddTag from './addTags/addTag';
 import IconDocumentAdd from '../../../icons/newdocument';
+import UndoManager from './undo/undoManager';
+import IconBasic_elaboration_document_check from '../../../icons/newDocTick';
 interface theProps {
 blogId:string;
 }
@@ -33,6 +35,7 @@ const CRUD = ({blogId}:theProps) => {
     setLocalBlog,localBlog,initialBlogData,fireBLog,isDelete,setIsDelete
   ,setProgress,setFireBlog,setTemp,
   }=useWrite()
+  const [isCreateBlogClicked,handleCreateBlogClicked]=useState(false)
   const [isCategory,setIsCategory]=useState<any>(false)
   const [catWidth,setCatWidth]=React.useState<number>(80)
   const [titleWidth,setTitleWidth]=React.useState<number>(130)
@@ -167,7 +170,8 @@ const CRUD = ({blogId}:theProps) => {
     
   }
   const handleDelete = async(id)=>{
-    if (blogId===null){
+    console.log(id,"handleDelete")
+    if (id===null || id===undefined){
         //❤️create BLog
         createBlog()
         return
@@ -221,6 +225,11 @@ const CRUD = ({blogId}:theProps) => {
       setTitleWidth(130)
       setLocalBlog((prev)=>({...prev,title:"Untitled document"}))
     }
+  }
+  const handleCreateBlog = ()=>{
+    createBlog()
+    handleCreateBlogClicked((prev)=>!prev)
+    setTimeout(()=>{handleCreateBlogClicked((prev)=>!prev)},2000)
   }
   useEffect(()=>{
     function closeCategory(e){
@@ -287,9 +296,10 @@ const CRUD = ({blogId}:theProps) => {
         <Button
         hoverText='New'
         className={`py-1 px-1 static CRUD__btn `}
-        handleClick={()=>createBlog()}
+        handleClick={()=>handleCreateBlog()}
         >
-            <IconDocumentAdd/> 
+           {isCreateBlogClicked?<IconBasic_elaboration_document_check/>
+            :<IconDocumentAdd/> }
         </Button>
         <button className={`delete__btn CRUD__btn ${isDelete?
       "px-0":"px-1 py-0"  
@@ -350,6 +360,7 @@ const CRUD = ({blogId}:theProps) => {
           </div>
               </div>}
         </Button>
+        <UndoManager/>
         <SaveButton/>
         
 

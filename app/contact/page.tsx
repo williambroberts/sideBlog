@@ -76,9 +76,10 @@ const ContactPage = () => {
             value={email}/>
             <textarea name="message" id="frm-message" rows={6} 
             placeholder='Your message...'
+            className='bg-[var(--bg-3)]'
             onChange={(e)=>setMessage(e.target.value)}></textarea>
             <button type="submit" className='w-full border 
-            border-[var(--bg-4)] rounded-md
+            border-[var(--bg-4)] rounded-md 
             '> 
             {clicked?  <IconTickCircle className=""/>:
              <IconMail className=""/> }{clicked?"Sent":"Send now"}</button>

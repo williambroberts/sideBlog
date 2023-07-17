@@ -48,7 +48,7 @@ export async function getABlogFromFirebase(blogId){
 }
 export function useBoolean(initial=false){
     const [value,setValue]=useState<boolean>(initial)
-    const handleChange= useCallback(()=>{
+    const handleChange:Function= useCallback(()=>{
         setValue((prev)=>!prev)
     },[])
     return [value,handleChange,initial]

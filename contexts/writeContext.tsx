@@ -27,6 +27,10 @@ setTemp:Function;
 wait:number;
 last:number;
 setLast:Function;
+history:any;
+setHistory:Function;
+redo:any;
+setRedo:Function;
 }
 type ChildProps = {
     children:React.ReactNode;
@@ -73,6 +77,9 @@ const WriteProvider = ({children}:ChildProps) => {
     const [localBlog,setLocalBlog]=useState(initialBlogData)
     const [progress,setProgress]=useState<number>(0)
     const [imgFile,setImgFile]=useState<any>({value:"",file:null})
+  const [history,setHistory]=useState<any>([])
+  const [redo,setRedo]=useState<any>([])
+
 
 const generateKeywords = ()=> {
   console.log(localBlog,"🧧")
@@ -119,6 +126,7 @@ const generateKeywords = ()=> {
       setLocalBlog((prev)=>fireBLog)
     },[fireBLog])
     const WriteValue = {
+      history:history,setHistory:setHistory,redo:redo,setRedo:setRedo,
       wait:wait,last:last,setLast:setLast,temp:temp,setTemp:setTemp,
       openState:openState,
       openAddItem:openAddItem,setOpenAddItem:setOpenAddItem,

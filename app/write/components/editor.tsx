@@ -25,11 +25,11 @@ const Editor = () => {
   
   
   const {user,setUserDocData,userDocData}=useAuth()
-  const [history,setHistory]=React.useState<[]>([])
   
-  const {localBlog,setBlogId,blogId,setLocalBlog,
-    setFireBlog,fireBLog,imgFile,setImgFile,wait,temp,setTemp,last,setLast,
-    initialBlogData,setProgress,hasChanged,setHasChanged
+  
+  const {localBlog,setLocalBlog,setRedo,setHistory,history,
+    setFireBlog,fireBLog,wait,temp,setTemp,last,setLast,
+    initialBlogData,hasChanged,setHasChanged
   }=useWrite()
   
 
@@ -49,9 +49,11 @@ const Editor = () => {
   const handleWriting = (e) =>{
     setTemp(e.target.value)
     //.🍏clear REDO 
-    
+    setRedo("")
+    let historyCopy = history.slice()
+    historyCopy.push(e.target.value)
     //❤️DEBOUNCE THE change
-   
+    setHistory(historyCopy)
     if( !hasChanged){
       setHasChanged((prev)=>true)
     }

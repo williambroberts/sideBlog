@@ -11,7 +11,7 @@
     height: min-content;
     @apply flex flex-col
     relative box-border
-    gap-0 px-0;
+    gap-0 px-3;
 
 }
 .editor {
@@ -333,4 +333,8 @@ background-color: var(--bg-4);
 .write__mobile__grid__top {
     border:none ;
     border-bottom:10px solid var(--t-4);
+}
+
+.UNDO__btn:disabled {
+    opacity: 0.5;
 }

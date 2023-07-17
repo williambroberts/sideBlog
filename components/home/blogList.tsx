@@ -11,12 +11,15 @@ const BlogList = () => {
     const {blogs,mode,stateTag,
     getBlogsByLatest
     }=useBlogs()
-   if (blogs===null){
-    return <div>Loading</div> 
-   } 
+   
+   
     const handleClear = useCallback(()=>{
         getBlogsByLatest(false,false)
     },[])
+
+    if (blogs===null){
+      return <div>Loading</div> 
+     } 
   return (
     <div className={`blog__list w-full`}>
       {mode==="tag"? 
