@@ -14,7 +14,7 @@ const DesktopLink = ({data}:theProps) => {
   const [position,setPosition]=useState({left:0,top:0,display:""})
   const handleImage = (e)=>{
     let parent = e.target.parentElement
-    console.log(parent.tagName,e.target.tagName)
+    //console.log(parent.tagName,e.target.tagName)
     if (parent.className==="canEdit__desktop"){
       setPosition((prev)=>({...prev,display:"none"}))
       return;}
@@ -52,13 +52,17 @@ const DesktopLink = ({data}:theProps) => {
     sm:block group'>
        <Link href={`/profile?id=${data?.authorId}`}
        onClick={handleClick}
-        className='text-[var(--t-1)] pr-4 hover:underline'
+        className='text-[var(--t-1)] pr-4
+        no-underline
+        hover:underline'
         >{data?.author}</Link>
         <span
         className='pr-8 text-[var(--t-3)]'
         >{data?.dateCreation}</span>
         <Link href={`/blog?blogId=${data?.id}`}
-        className='text-[var(--t-1)] hover:underline'
+        className='text-[var(--t-1)] no-underline
+        
+        hover:underline'
         >{data?.title}</Link>
         <CanEdit id={data.authorId} blogId={data?.id}/>
 

@@ -119,30 +119,34 @@ const CRUD = ({blogId}:theProps) => {
       setFilterByAuth(false)
       //console.log("new blog")
       setHasChanged(false) //🟩cannot save unchanched doc
+      try {
+        let userData = await getUserDoc(authorId)
+        let newImgFile = {value:"",file:null}
+        setImgFile(newImgFile)
+        setBlogId(null)
+        let newBlogData = {...initialBlogData}
+        //author, authorId, ❤️all fields filled in
+         newBlogData.authorId =authorId
+        newBlogData.author = userData?.username 
+        
+        newBlogData.userPhoto = userData?.profilePhoto
+         
+        
+        
+        let date = new Date()
+            let fullDate = date.getDate().toString()+"/"
+            +(1+date.getMonth()).toString()+"/"
+             + date.getFullYear().toString()
+        newBlogData.dateCreation = fullDate
+        //console.log(newBlogData,"newBlogData🟩")
+        setLocalBlog(newBlogData)
+        let newRoute = `/write?blogId=${authorId}blognewBlog`
+        router.push(newRoute)
+        //clear localBlog, dont make Fb until SAVE
+      }catch(err){
+        console.log(err)
+      }
       
-      let userData = await getUserDoc(authorId)
-      let newImgFile = {value:"",file:null}
-      setImgFile(newImgFile)
-      setBlogId(null)
-      let newBlogData = {...initialBlogData}
-      //author, authorId, ❤️all fields filled in
-       newBlogData.authorId =authorId
-      newBlogData.author = userData?.username 
-      
-      newBlogData.userPhoto = userData?.profilePhoto
-       
-      
-      
-      let date = new Date()
-          let fullDate = date.getDate().toString()+"/"
-          +(1+date.getMonth()).toString()+"/"
-           + date.getFullYear().toString()
-      newBlogData.dateCreation = fullDate
-      //console.log(newBlogData,"newBlogData🟩")
-      setLocalBlog(newBlogData)
-      let newRoute = `/write?blogId=${authorId}blognewBlog`
-      router.push(newRoute)
-      //clear localBlog, dont make Fb until SAVE
     }
    
    useEffect(()=>{
