@@ -28,7 +28,7 @@ const HeaderHorizontal = () => {
       {/* <HeaderLink href={"/profile"} text='Profile'/> */}
       <ProfileLink className={"header__link"}/>
     </HeaderAuthLinkWrapper>
-    <AuthLinks/>
+    <AuthLinks fontSize='inherit'/>
           </div>
           <div className='header__h__right'>
             <ThemeButton/>

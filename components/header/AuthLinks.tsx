@@ -18,7 +18,9 @@ const AuthLinks = ({fontSize,open}:theProps) => {
     return (
     <div 
     style={{fontSize:`${fontSize}px`}}
-    className='text-inherit'>
+    className='text-inherit flex flex-row items-center
+    
+    '>
       
         {user? 
         
@@ -32,7 +34,7 @@ const AuthLinks = ({fontSize,open}:theProps) => {
 
 }
 {!user&&<HeaderLink href='signUp'
-icon={<IconFormatListGroupPlus/>}
+icon={open? <IconFormatListGroupPlus/>:null}
         text='Sign Up'/>}
     </div>
   )
