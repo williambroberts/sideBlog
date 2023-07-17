@@ -9,6 +9,7 @@ interface  theProps {
     width?:string;
     height?:string;
     position?:any;
+    dragBGcolor?:string;
     children?:React.ReactNode | any;
     
 }
@@ -17,9 +18,10 @@ export default function SplitPaneV1({direction="row"
 ,child2,children,
 minSize=5,maxSize=95,
 width="",height="",
-position="relative"
+position="relative",
+dragBGcolor,
 }:theProps) {
-   //console.log(children)
+   console.log(children,typeof(children),children.length)
    
    const [mouseDown,setMouseDown]=useState(false)
    
@@ -45,7 +47,7 @@ position="relative"
  const moveCol = (e)=>{
    e.preventDefault()
    if (!mouseDown){return}
-   let  parent = document.querySelector(".parent")
+   let  parent = document.querySelector(".parent__sp")
    let parentRect = parent.getBoundingClientRect()
    
    let parentHeight = parentRect.bottom-parentRect.top
@@ -100,12 +102,14 @@ position="relative"
           height:direction==="column"?`${dim}%`:"100%"
         }}
         > {child1}
-            {children?.slice(0,children?.length/2)}
+            {children?.length===undefined?children:
+             children?.slice(0,children?.length/2)}
         <div id="drag"
           style={{height:direction==="column"?"10px":"",
   width:direction==="column"?"100%":"",
     bottom:direction==="column"?"0px":"",
-      cursor:direction==="row"?"col-resize":"row-resize"
+      cursor:direction==="row"?"col-resize":"row-resize",
+      backgroundColor:dragBGcolor
                  }}
           onMouseDown={down}
           >
@@ -120,7 +124,7 @@ position="relative"
                }}
         className="item" id="item2">
             {child2}
-            {children?.slice(children?.length/2)}
+            {children.length===undefined?null:children?.slice(children?.length/2)}
         </div>
     </div>
   )

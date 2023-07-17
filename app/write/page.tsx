@@ -1,21 +1,23 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import PushNoUser from './components/PushNoUser'
-import SplitPaneParent from '../../components/splitPane/horizontal/Parent'
 import Editor from './components/editor'
 import Display from './components/display/display'
 import { useWrite } from '../../contexts/writeContext'
 import { useBlogs } from '../../contexts/BlogContext'
 import BlogsComponent from './components/profile/blogs'
-import SplitPane, { Pane } from 'split-pane-react';
 import 'split-pane-react/esm/themes/default.css';
 import TagManager from './components/addTags/manageTags'
 import AddTag from './components/addTags/addTag'
 import SplitPaneV1 from '../../components/splitPane/SplitPane'
 const WritePage = () => {
+  function getDevice(){
+    return !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+}
+const desktop = getDevice()
   const {localBlog}=useWrite()
   const {filterByAuth}=useBlogs()
-  const direction = React.useRef<"vertical"|"horizontal">("vertical")
+  const direction = React.useRef<"column"|"row">(desktop?"row":"column")
   const mediaBreakPoint = 768
   const [sizes, setSizes] = useState([100, '30%', 'auto']);
   const [windowSize,setWindowSize]=useState({width:0,height:0})
@@ -43,9 +45,9 @@ paneCollection.forEach((element:any)=>{
         })
         setWindowSize({width:window.innerWidth,height:window.innerHeight})
         if (window.innerWidth<mediaBreakPoint){
-          direction.current="horizontal"
-        }else if (direction.current!=="vertical"){
-          direction.current="vertical"
+          direction.current="column"
+        }else if (direction.current!=="row"){
+          direction.current="row"
         }
       }
       if (window!==undefined){
@@ -113,12 +115,27 @@ className='p-0'
         
       </SplitPane> */}
     <SplitPaneV1
-    direction='row'
+    dragBGcolor='var(--t-4)'
+    direction={direction?.current}
     height='100dvh'
     width='100%'
+    minSize={0}
+    maxSize={100}
     >
       <Editor/>
-      <span>c2</span>
+     
+      {/* {filterByAuth? <BlogsComponent/>:
+         
+         <div className='flex flex-col 
+         box-border bg-[var(--bg-1)]
+         gap-1 w-full min-h-full'>
+<Display source={localBlog}/>
+<TagManager tags={localBlog?.tags}/>
+        <AddTag/>
+         </div>
+
+         } */}
+
     </SplitPaneV1>
 {/* <SplitPaneV1>
 <Editor/>

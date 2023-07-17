@@ -35,7 +35,7 @@ const WriteContext = createContext<WriteContextValues|undefined>(undefined)
 const WriteProvider = ({children}:ChildProps) => {
   const initialBlogData = {
     content:"✎ write your blog",
-    uploadedImages:[],
+    uploadedImages:["https://picsum.photos/800/400"],
     deletedImages:[],
     keywords:[],
     title:"Untitled document",

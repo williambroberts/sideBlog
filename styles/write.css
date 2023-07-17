@@ -182,7 +182,10 @@
 .add__tag__btn:hover {
     opacity: 1;
 }
-
+.add__tag__input {
+    max-width: 650px;
+    @apply flex flex-col 
+}
 .write__textarea {
     box-sizing: border-box;
     padding-top: 60px;
