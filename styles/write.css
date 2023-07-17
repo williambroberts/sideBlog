@@ -15,8 +15,8 @@
 
 }
 .editor {
-
-    @apply mt-16 w-full h-full
+    overflow: hidden;
+    @apply mt-0 w-full h-full
     flex flex-col box-border
     relative
     ;
@@ -184,8 +184,12 @@
 }
 
 .write__textarea {
-    overflow: hidden;
-    min-height:40px;
+    box-sizing: border-box;
+    padding-top: 60px;
+    resize: none;
+    max-height: 100%;
+    overflow: auto;
+    flex:1 1 auto;
 
 }
 .display__tags{

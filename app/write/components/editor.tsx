@@ -25,6 +25,7 @@ const Editor = () => {
   
   
   const {user,setUserDocData,userDocData}=useAuth()
+  const [history,setHistory]=React.useState<[]>([])
   
   const {localBlog,setBlogId,blogId,setLocalBlog,
     setFireBlog,fireBLog,imgFile,setImgFile,wait,temp,setTemp,last,setLast,
@@ -35,12 +36,20 @@ const Editor = () => {
   
 
   const handleResize = (e)=>{
+    return
+    const editor = document.getElementById("editor")
+    let editorHeight = editor.offsetHeight
     const textarea = document.getElementById("write__textarea")
     textarea.style.height="auto"
-    textarea.style.height=`${textarea.scrollHeight}px`
+    let newHeight=editorHeight
+    
+    console.log(newHeight)
+    textarea.style.height=`${newHeight}px`
   }
   const handleWriting = (e) =>{
     setTemp(e.target.value)
+    //.🍏clear REDO 
+    
     //❤️DEBOUNCE THE change
    
     if( !hasChanged){
@@ -59,6 +68,8 @@ const Editor = () => {
         setLast(NOW)
         //console.log(localBlog,"🧧",last)
         if (last!==0){
+          //🍏undo update
+
           setLocalBlog((prev)=>({
           ...prev,content:temp
         }))
@@ -84,33 +95,17 @@ const Editor = () => {
 
 
   return (
-    <div className='editor'>
+    <div className='editor' id="editor">
       <CRUD blogId={fireBLog?.blogId}/>
      
-      {/* <UploadedImages images={localBlog?.uploadedImages}/> */}
-      <div className='w-full flex 
       
-      flex-row items-center gap-1'>
-      
-      
-       
-       
-      </div>
-      
-
-{/* 
-        <span className='text-sm inline-flex items-center gap-1
-        uppercase font-light leading-tight'>
-           <IconWrite/> Write your blog 
-        </span> */}
         <textarea id='write__textarea'
         // autoFocus
-
+        //resize none ,scrollHeight, auto
         placeholder={"✎ write your blog"}
         onInput={(e)=>handleResize(e)}
-        className='box-border resize-none
-        h-full w-full border-none px-2 py-1
-        '
+        className='write__textarea'
+        
         value={temp}
         onChange={(e)=>handleWriting(e)}
         >

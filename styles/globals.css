@@ -47,7 +47,7 @@
   *  {
     padding:0px;
     margin:0px;
-
+    
 
     --themecolor:#f7aa35;
     --themecolor2:#802c6e;
@@ -169,6 +169,7 @@
     color:var(--text-primary);
     border: none;
     align-items: center;
+    overflow-x: hidden;
   }
   
   
@@ -213,7 +214,7 @@
    
     box-sizing: border-box;
     padding: 0rem 0.0rem;
-     
+     overflow-x: hidden;
     
     
     
@@ -226,6 +227,7 @@ img {
 }
   .layout__div {
     width: 100%;
+    overflow-x: hidden;
     @apply flex flex-col 
     items-center
     flex-auto;
@@ -385,6 +387,7 @@ svg {
 
 .react-split__pane,.react-split {
   background-color: var(--bg-1);
+  padding: 0px;
 }
 
 pre {

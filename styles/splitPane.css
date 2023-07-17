@@ -1,4 +1,38 @@
-.sashCustom {
-    background-color: black;
+.parent__sp {
+    flex: 1 1 auto;
+    display:flex;
+    flex-direction:row;
+    align-items:flex-start;
+    /* width:50%; */
+    height:100%;
+  }
+  
+  .item__sp {
+   /* flex:1 1 auto; */
+    height:auto;
+    width:auto;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    position:relative;
+    top:0px;
+    bottom:0px;
+  }
+  
+  #item1 {
     
-}
+    background-color:#ddca7e;
+  }
+  #item2{
+    flex:1 1 auto;
+    background-color:#809bbd;
+  }
+  
+  #drag {
+    right:0px;
+    cursor:col-resize;
+    position:absolute;
+    height:100%;
+    width:10px;
+    background-color:#96b38a;
+  }
