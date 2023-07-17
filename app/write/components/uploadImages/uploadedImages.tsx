@@ -71,13 +71,13 @@ const UploadedImages = ({images}:theProps) => {
         </div>
         <button 
         onClick={()=>handleClick("left")}
-        className='UI__button' 
+        className='UI__button' id="UI__btn__left"
         style={{left:"17px",display:index===0?"none":""}}>
                 <IconLeft/>
             </button>
             <button 
              onClick={()=>handleClick("right")}
-            className='UI__button' 
+            className='UI__button' id="UI__btn__right"
             style={{right:"17px",display:index===maxIndex?"none":""}}>
                 <IconRight/>
             </button>
@@ -85,4 +85,4 @@ const UploadedImages = ({images}:theProps) => {
   )
 }
 
-export default memo(UploadedImages)
+export default UploadedImages

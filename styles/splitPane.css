@@ -21,11 +21,11 @@
   
   #item1 {
     
-    background-color:#ddca7e;
+    background-color:transparent;
   }
   #item2{
     flex:1 1 auto;
-    background-color:#809bbd;
+    background-color:transparent;
   }
   
   #drag {

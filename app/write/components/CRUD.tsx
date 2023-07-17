@@ -22,6 +22,8 @@ import IconCardImage from '../../../icons/image';
 import { getABlogFromFirebase, getUserDoc, handleBlur, useBoolean } from '../../../firebase/CLientFunctions';
 import { useRouter, useSearchParams } from 'next/navigation';
 import UploadedImages from './uploadImages/uploadedImages';
+import AddTag from './addTags/addTag';
+import IconDocumentAdd from '../../../icons/newdocument';
 interface theProps {
 blogId:string;
 }
@@ -145,7 +147,7 @@ const CRUD = ({blogId}:theProps) => {
     let blogIdQP = searchParams.get("blogId")
     let timestamp = blogIdQP.split("blog")[1]
      console.log("🟩🧧❤️👍🏻🍔🌮",timestamp,"timestamp")
-      if (timestamp===""
+      if (timestamp===""||timestamp==="newBlog"
       ||timestamp===undefined){
         console.log("making new blog❤️🧧🟩")
         createBlog()  
@@ -157,7 +159,7 @@ const CRUD = ({blogId}:theProps) => {
           console.log(theBlog)
         }).catch((error)=>console.log(error))
       }
-   },[hasChanged,blogId,searchParams])
+   },[searchParams])
   const handleEdit = ()=>{
     console.log("get view of all blogs")
     //get all user blogs from firebase and display them in the display
@@ -283,18 +285,18 @@ const CRUD = ({blogId}:theProps) => {
 
 
         <Button
-        className='py-1'
+        className='py-1 px-1'
         handleClick={()=>createBlog()}
         >
-            <IconCreateSharp/> NEW 
+            <IconDocumentAdd/> 
         </Button>
         <button className={`delete__btn ${isDelete?
-      "px-0":"px-3 py-0"  
+      "px-0":"px-1 py-0"  
       }`}
         style={{width:isDelete?"0px":""}}
         onClick={()=>setIsDelete(true)}
         >
-          <IconDelete/> Delete
+          <IconDelete/> 
 
         </button>
         <button className={`delete__btn ${isDelete?
@@ -393,8 +395,9 @@ const CRUD = ({blogId}:theProps) => {
         </div>
         </div>
         <UploadedImages images={localBlog?.uploadedImages}/>
+        <AddTag/>
     </header>
   )
 }
 
-export default CRUD
+export default React.memo(CRUD)

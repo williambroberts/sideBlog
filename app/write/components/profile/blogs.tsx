@@ -30,7 +30,7 @@ const BlogsComponent = () => {
        
     },[profileUserUid,filterByAuth])
   return (
-    <div className='w-full overflow-scroll'>
+    <div className='w-full overflow-scroll bg-[var(--bg-1)] pt-[60px]'>
         <Animator index={2}
     alignItems="flex-start"
     >

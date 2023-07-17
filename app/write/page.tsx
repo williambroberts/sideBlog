@@ -124,17 +124,17 @@ className='p-0'
     >
       <Editor/>
      
-      {/* {filterByAuth? <BlogsComponent/>:
+      {filterByAuth? <BlogsComponent/>:
          
          <div className='flex flex-col 
          box-border bg-[var(--bg-1)]
          gap-1 w-full min-h-full'>
 <Display source={localBlog}/>
 <TagManager tags={localBlog?.tags}/>
-        <AddTag/>
+        {/* <AddTag/> */}
          </div>
 
-         } */}
+         }
 
     </SplitPaneV1>
 {/* <SplitPaneV1>

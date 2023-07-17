@@ -76,6 +76,7 @@ const WriteProvider = ({children}:ChildProps) => {
 
 const generateKeywords = ()=> {
   console.log(localBlog,"🧧")
+  if (localBlog===undefined){return}
     let newKeyWords = [""," "]
     //💭 toLowerCase()
     newKeyWords.push(localBlog.category.toLowerCase())

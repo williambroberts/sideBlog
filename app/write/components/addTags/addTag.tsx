@@ -4,6 +4,7 @@ import InputReusable from '../../../signUp/components/inputReusable'
 import IconSave from '../../../../icons/save'
 import { useWrite } from '../../../../contexts/writeContext'
 import { TagFilter } from '../../../../firebase/CLientFunctions'
+import IconTags from '../../../../icons/tags'
 
 const AddTag = () => {
   const {localBlog,setLocalBlog,setHasChanged,hasChanged}=useWrite()
@@ -48,7 +49,7 @@ const AddTag = () => {
       disabled={save}
       type='submit'
       className='add__tag__btn'>
-        <IconSave/> SAVE TAG
+        <IconSave/> <IconTags/>
       </button>
 
     </form>
