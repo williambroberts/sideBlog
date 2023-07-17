@@ -76,44 +76,7 @@ paneCollection.forEach((element:any)=>{
 <PushNoUser/>
 
 
-{/* <SplitPane
-className='p-0'
-        split={direction.current? direction.current: "vertical"}
-        sizes={sizes}
-        onChange={setSizes}
-      >
-        <Pane minSize={50} maxSize='80%'>
-          <div className='overflow-scroll px-0 py-0 bg-transparent'>
-          <Editor/>
-          </div>
-        
-        </Pane>
-        <Pane style={style('var(--bg-2)')} 
-        minSize={50}
-        maxSize='80%'>
-          <div 
-          id='right__pane'
-          className={`overflow-scroll h-full w-full
-           box-border flex flex-col overflow-x-hidden
-           px-3 py-2
-           ${direction.current==="vertical"? "pt-16":"pt-4"}
-           `}>
-          {filterByAuth? <BlogsComponent/>:
-         
-         <div className='flex flex-col 
-         box-border 
-         gap-1 w-full min-h-full'>
-<Display source={localBlog}/>
-<TagManager tags={localBlog?.tags}/>
-        <AddTag/>
-         </div>
-
-         }
-          </div>
-       
-        </Pane>
-        
-      </SplitPane> */}
+    {desktop&&direction.current==="row"?
     <SplitPaneV1
     dragBGcolor='var(--t-4)'
     direction={direction?.current}
@@ -131,26 +94,33 @@ className='p-0'
          gap-1 w-full min-h-full'>
 <Display source={localBlog}/>
 <TagManager tags={localBlog?.tags}/>
-        {/* <AddTag/> */}
+        
          </div>
 
          }
 
-    </SplitPaneV1>
-{/* <SplitPaneV1>
-<Editor/>
-{filterByAuth? <BlogsComponent/>:
+    </SplitPaneV1>:
+  <div className='write__mobile__grid'>
+    <div className='write__mobile__grid__top'
+    data-theme=""
+    >
+    <Editor/>
+    </div>
+  
+      
+ {filterByAuth? <BlogsComponent/>:
          
          <div className='flex flex-col 
-         box-border 
+         box-border bg-[var(--bg-1)]
          gap-1 w-full min-h-full'>
 <Display source={localBlog}/>
 <TagManager tags={localBlog?.tags}/>
-        <AddTag/>
+        
          </div>
 
          }
-</SplitPaneV1> */}
+
+  </div>}
 
     </main>
   )

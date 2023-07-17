@@ -303,29 +303,42 @@ const CRUD = ({blogId}:theProps) => {
             Delete
           </div>
         </button>
-        <button className={`delete__btn ${isDelete?
+        <button className={`delete__btn 
+        CRUD__btn
+        ${isDelete?
       "px-1":"px-0"  
       }`}
         onClick={()=>setIsDelete((prev)=>false)}
         style={{width:isDelete?"":"0px"}}
         >
-        <IconCancel/>  Cancel
+        <IconCancel/>  
+        <div className='button__hover'>
+          Cancel
+        </div>
         </button>
-        <button className={`delete__btn ${isDelete?
+        <button className={`delete__btn CRUD__btn ${isDelete?
       "px-1":"px-0"  
       }`}
         onClick={()=>handleDelete(blogId)}
          style={{width:isDelete?"":"0px"}}
         >
-         <IconTickCircle/> Delete
+         <IconTickCircle/> 
+         <div className='button__hover'>
+          Delete
+         </div>
         </button>
         <Button
         className='py-0'
         handleClick={handleEdit}
         >
             {filterByAuth?
-            <div className='flex flex-row items-center'>
-              <IconBxArrowBack/> Back
+            <div className={`flex flex-col items-center
+            CRUD__btn
+            `}>
+              <IconBxArrowBack/>
+              <div className='button__hover'>
+                Back
+              </div>
             </div> 
             :
             <div className={`flex flex-col items-center

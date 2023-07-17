@@ -322,3 +322,15 @@ background-color: var(--bg-4);
     display: flex;
     
 }
+.write__mobile__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    width: 100%;
+    box-sizing: border-box;
+    height: auto;
+}
+.write__mobile__grid__top {
+    border:none ;
+    border-bottom:10px solid var(--t-4);
+}
