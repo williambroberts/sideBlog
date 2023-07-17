@@ -30,7 +30,7 @@
 
 .UI__frame {
     width: min-content;
-    min-width:200px;
+    min-width:clamp(11.25rem, 8.125rem + 10vw, 13.75rem);
     height:60px;    
     background-color:var(--bg-4);
     position: relative;
@@ -176,7 +176,7 @@
     @apply flex flex-col 
     px-1
     flex-wrap
-    items-start justify-start
+    items-center justify-start
     gap-0;
 }
 .add__tag__btn {
@@ -194,7 +194,7 @@
     opacity: 1;
 }
 .add__tag__input {
-    width:min-content;
+    width:80px;
     opacity: 0.8;
     border: 1px solid var(--t-1);
     @apply rounded-md ring-inset ring-1 

@@ -5,6 +5,7 @@ import IconSave from '../../../../icons/save'
 import { useWrite } from '../../../../contexts/writeContext'
 import { TagFilter } from '../../../../firebase/CLientFunctions'
 import IconTags from '../../../../icons/tags'
+import IconTagPlusOutline from '../../../../icons/tagAdd'
 
 const AddTag = () => {
   const {localBlog,setLocalBlog,setHasChanged,hasChanged}=useWrite()
@@ -49,7 +50,7 @@ const AddTag = () => {
       disabled={save}
       type='submit'
       className='add__tag__btn'>
-        <IconSave/> <IconTags/>
+        <IconTagPlusOutline/>
       </button>
 
     </form>
