@@ -91,13 +91,17 @@ const router = useRouter()
     handleUpdateToFirebase()
   }
   return (
-    <button className='save__button'
+    <button className='save__button CRUD__btn'
     style={{opacity:hasChanged?"1":"0.5"}}
     onClick={handleClick}
     disabled={!hasChanged}
     >
       {success? <IconContentSaveCheckOutline/> :<IconSave/>}
       {openNotification && <NotificationPortal/>}
+
+      <div className='button__hover'>
+          SAVE
+      </div>
     </button>
   )
 }

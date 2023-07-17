@@ -8,8 +8,9 @@ type theProps = {
     disabled?:boolean;
     handleClick?:React.MouseEventHandler<HTMLButtonElement>
     dataTheme?:string;
+    hoverText?:string;
 }
-const Button = ({dataTheme,handleClick,disabled,
+const Button = ({hoverText,dataTheme,handleClick,disabled,
   children,type,className,text,icon}:theProps) => {
   return (
     <button 
@@ -17,12 +18,18 @@ const Button = ({dataTheme,handleClick,disabled,
     disabled={disabled}
     onClick={handleClick}
     className={className?
-    className:
+    className :
     ""}
 type={type}>
     {children}
         {icon}
         {text}
+
+        <div className='button__hover'
+        data-theme="dark"
+        >
+          {hoverText}
+        </div>
     </button>
   )
 }

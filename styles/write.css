@@ -303,3 +303,22 @@ background-color: var(--bg-4);
     ;
 }
 
+.button__hover {
+    bottom: 0px;
+    z-index: 1;
+    /* left:0; */
+    transform: translate(0%,110%);
+    color: var(--t-1);
+    font-size: 11px;
+    background-color: var(--bg-3);
+    font-weight: 400;
+    @apply absolute 
+    flex-row hidden
+    rounded-sm px-1
+    duration-300 transition-all
+    ease-in-out delay-0
+}
+.CRUD__btn:hover>.button__hover{
+    display: flex;
+    
+}

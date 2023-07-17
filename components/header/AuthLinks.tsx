@@ -31,7 +31,7 @@ const AuthLinks = ({fontSize,open}:theProps) => {
 
 
 }
-{open&&<HeaderLink href='signUp'
+{!user&&<HeaderLink href='signUp'
 icon={<IconFormatListGroupPlus/>}
         text='Sign Up'/>}
     </div>

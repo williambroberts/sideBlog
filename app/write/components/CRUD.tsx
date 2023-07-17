@@ -285,12 +285,13 @@ const CRUD = ({blogId}:theProps) => {
 
 
         <Button
-        className='py-1 px-1'
+        hoverText='New'
+        className={`py-1 px-1 static CRUD__btn `}
         handleClick={()=>createBlog()}
         >
             <IconDocumentAdd/> 
         </Button>
-        <button className={`delete__btn ${isDelete?
+        <button className={`delete__btn CRUD__btn ${isDelete?
       "px-0":"px-1 py-0"  
       }`}
         style={{width:isDelete?"0px":""}}
@@ -298,6 +299,9 @@ const CRUD = ({blogId}:theProps) => {
         >
           <IconDelete/> 
 
+          <div className='button__hover'>
+            Delete
+          </div>
         </button>
         <button className={`delete__btn ${isDelete?
       "px-1":"px-0"  
@@ -324,8 +328,14 @@ const CRUD = ({blogId}:theProps) => {
               <IconBxArrowBack/> Back
             </div> 
             :
-            <div className='flex flex-row items-center'>
-              <IconListTask/> Blogs</div>}
+            <div className={`flex flex-col items-center
+            CRUD__btn
+            `}>
+              <IconListTask/>
+              <div className='button__hover'>
+            View blogs
+          </div>
+              </div>}
         </Button>
         <SaveButton/>
         

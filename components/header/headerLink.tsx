@@ -49,6 +49,7 @@ const HeaderLink = ({icon,href,text}:theProps) => {
     <div className='header__link'
     style={{...myStyles}}
     onClick={handleSearchParams}>
+      {icon}
       {text}
      
     </div>:
