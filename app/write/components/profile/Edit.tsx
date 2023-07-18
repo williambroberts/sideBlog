@@ -6,7 +6,7 @@ import Button from '../addTags/button';
 import IconSave from '../../../../icons/save';
 import { doc, getDoc, runTransaction } from 'firebase/firestore';
 import { firestore,auth, storage } from '../../../../firebase/firebaseConfig';
-import {  getAuth, updateEmail, updateProfile } from 'firebase/auth';
+import {  EmailAuthProvider, getAuth, updateEmail, updatePassword, updateProfile } from 'firebase/auth';
 import { useNotifications } from '../../../../contexts/NotificationContext';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import TextAreaReusable from './textarea';
@@ -15,6 +15,7 @@ import Icon036Profile from '../../../../icons/profile';
 import IconBxPhotoAlbum from '../../../../icons/photo';
 import IconPersonLinesFill from '../../../../icons/bio';
 import IconUpdate from '../../../../icons/update';
+import IconPadlock from '../../../../icons/auth/padlock';
 
 interface theProps{
    
@@ -31,7 +32,7 @@ const Edit = ({}:theProps) => {
   const desktop = getDevice()
     const {setNotification,setOpenNotification}=useNotifications()
     const [coverPhotoFile,setCoverPhotoFile]=useState<any|null>({value:"",file:null})
-
+    const [newPassword,setNewPassword]=useState({first:"",second:""})
     const [profilePhotoFile,setProfilePhotoFile]=useState<any|null>({value:"",file:null})
     
     const [progress,setProgress]=useState<number>(0)
@@ -49,7 +50,10 @@ const Edit = ({}:theProps) => {
           console.log(err)
         }
       }
-      
+    function notificationHandler(type,message){
+      setNotification((prev)=>({type:type,message:message}))
+      setOpenNotification((prev)=>true)
+    }
      
    
     //🧧only admin or user=user.uid can see this page
@@ -94,7 +98,14 @@ const Edit = ({}:theProps) => {
         
 
     }
-    const handleEmail = async()=>{
+    const handleEmail =async ()=>{
+        runUpdateEmail()
+    }
+    const runUpdateEmail = async()=>{
+      //popup for password
+      
+
+
       await updateEmail(auth.currentUser,
         localUserData.email).then(async() => {
         try {
@@ -117,19 +128,38 @@ const Edit = ({}:theProps) => {
 
 
       }).then(async()=>{
-        setNotification((prev)=>({type:"alert",message:"Updated successfully"})),
+        setNotification((prev)=>({type:"alert",message:"Updated successfully!"})),
         setOpenNotification((prev)=>true)
                 //🧧reget userDocData
         await getUserDoc(profileUserUid)
       }).catch((error) => {
+        setLocalUserData((prev)=>({...prev,email:RemoteUserData.email}))
+        //if (error.code="")
         setOpenNotification(true)
         setNotification((prev)=>({type:"error",message:error.code}))
       });
     }
     const handlePassword = ()=>{
+      console.log("password change func")
+      if (newPassword.first!==newPassword.second){
+        notificationHandler("alert","Passwords do not match ✗")
+        return;
+      }
+      const user = auth.currentUser;
 
+      updatePassword(user, newPassword.first).then(() => {
+        notificationHandler("alert","Password updated ✔")
+      }).catch((error) => {
+        if (error.code==="auth/requires-recent-login"){
+            //🧧reauthenticate user
+        }
+            //notificationHandler("error",error.code)
+      });
+       
+       
     }
     const uploadFileCoverPhoto = ()=>{
+      console.log("running uploadCoverPhoto")
       const storageRef = ref(storage,coverPhotoFile.file.name)
       const uploadTask = uploadBytesResumable(storageRef, coverPhotoFile.file);
       uploadTask.on('state_changed',
@@ -141,14 +171,12 @@ const Edit = ({}:theProps) => {
       //❤️progressBAR🧧
       switch (snapshot.state) {
         case 'paused':
-          console.log('Upload is paused');
-          setNotification((prev)=>"Upload is paused")
-          setOpenNotification((prev)=>true)
+          //console.log('Upload is paused');
+          notificationHandler("alert","Upload is paused.")
+         
           break;
         case 'running':
-          console.log('Upload is running');
-          setNotification((prev)=>"Upload is running")
-          setOpenNotification((prev)=>true)
+         notificationHandler("alert","Upload is running.")
           break;
       }
     }, (error) => {
@@ -163,6 +191,9 @@ const Edit = ({}:theProps) => {
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
         console.log('File available at', downloadURL);
           //🧧set new cover photo
+            setProfilePhotoFile({value:"",file:null})
+
+          notificationHandler("alert","Upload complete!")
           setNewCoverPhotoSetter({seeBtn:true,oldUrl:RemoteUserData.coverPhoto})
         setRemoteUserData((prev)=>({...prev,coverPhoto:downloadURL}))
         
@@ -176,6 +207,7 @@ const Edit = ({}:theProps) => {
     }
     
     const uploadFileProfilePhoto = ()=>{
+      console.log("uploading profile photo")
       const storageRef = ref(storage,profilePhotoFile.file.name)
       const uploadTask = uploadBytesResumable(storageRef, profilePhotoFile.file);
       uploadTask.on('state_changed',
@@ -187,14 +219,11 @@ const Edit = ({}:theProps) => {
       //❤️progressBAR🧧
       switch (snapshot.state) {
         case 'paused':
-          console.log('Upload is paused');
-          setNotification((prev)=>"Upload is paused")
-          setOpenNotification((prev)=>true)
+          notificationHandler("alert","Upload is paused.")
           break;
         case 'running':
-          console.log('Upload is running');
-          setNotification((prev)=>"Upload is running")
-          setOpenNotification((prev)=>true)
+         notificationHandler("alert","Upload is running.")
+         
           break;
       }
     }, (error) => {
@@ -209,8 +238,8 @@ const Edit = ({}:theProps) => {
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
         console.log('File available at', downloadURL);
           //🧧set new url to remoteuserPhooto
-
-          
+        setProfilePhotoFile({value:"",file:null})
+          notificationHandler("alert","Upload complete!")
          setNewProfilePhotoSetter((prev)=>
          ({seeBtn:true,oldUrl:RemoteUserData.profilePhoto}))
          setRemoteUserData((prev)=>
@@ -229,7 +258,7 @@ const Edit = ({}:theProps) => {
       
     }
     useEffect(()=>{
-      
+      //console.log(profilePhotoFile)
       profilePhotoFile.file && uploadFileProfilePhoto()
     },[profilePhotoFile])
     const updateCoverPhoto = (e)=>{
@@ -261,13 +290,13 @@ const Edit = ({}:theProps) => {
       
       
     }
-    console.log(localUserData)
+    //console.log(localUserData)
     //🧧update social media accound
   return (
     <div className='w-full text-[var(--t-1)]'>
         
         <div className='flex flex-row w-full
-         items-center gap-1'>
+         items-center gap-1 px-1'>
             <span
             className='font-light uppercase text-sm'
             >Username</span>
@@ -294,7 +323,7 @@ const Edit = ({}:theProps) => {
         </div>
         {/* 🌽 */}
         <div className='flex flex-row w-full
-         items-center gap-1'>
+         items-center gap-1 px-1'>
             <span
             className='font-light uppercase text-sm'
             >Email</span>
@@ -319,6 +348,58 @@ const Edit = ({}:theProps) => {
             <IconSave/> Save
             </Button>
         </div>
+        {/* 🍔 */} <span
+        className='flex flex-row
+        items-center gap-1
+        text-inherit text-base
+        '
+        >Update your password <IconPadlock/></span><span></span>
+        <div className='flex flex-row w-full
+         items-center gap-1 px-1'>
+            {/* <span
+            className='font-light uppercase text-sm'
+            >Password</span> */}
+        <InputReusable
+        type='password'
+        className='focus:border-[var(--bg-4)]
+        
+        '
+        value={newPassword.first}
+        handleChange={(e)=>setNewPassword((prev)=>({...prev,first:e.target.value}))}
+        placeholder='New password'
+
+        />
+            
+        </div>
+
+        <div className='flex flex-row w-full
+         items-center gap-1 px-1'>
+            {/* <span
+            className='font-light uppercase text-sm'
+            >Confirm Password</span> */}
+        <InputReusable
+        type='password'
+        className='focus:border-[var(--bg-4)]
+        
+        '
+        value={newPassword.second}
+        handleChange={(e)=>setNewPassword((prev)=>({...prev,second:e.target.value}))}
+        placeholder='Confirm password'
+
+        />
+            
+        </div>
+        <Button
+
+            className='edit__btn'
+            disabled={  
+              newPassword.second.length<6&&
+              newPassword.first.length<6}
+            handleClick={handlePassword}
+            type='submit'>
+
+            <IconSave/> Save
+            </Button>
         <span
         className='flex flex-row
         items-center gap-1

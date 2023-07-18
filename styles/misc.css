@@ -113,6 +113,7 @@ border: 1px solid var(--bg-4);
 transition: var(--transition-2);
 cursor: pointer;
 opacity: 0.6;
+width: min-content;
 }
 
 .edit__btn:disabled {

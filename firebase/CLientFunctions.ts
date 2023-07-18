@@ -1,6 +1,7 @@
 import { doc, getDoc, runTransaction } from "firebase/firestore"
-import { firestore } from "./firebaseConfig"
+import { auth, firestore } from "./firebaseConfig"
 import { useCallback, useState } from "react"
+import { EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth"
 
 export async function getBlogReadTime (content){
  //return time in mins to read the blog
@@ -88,6 +89,22 @@ export async function updateUserDoc(id,data,errorHandler){
         })
       }catch (error){
         console.log(error)
-        errorHandler()
+        errorHandler(error)
       }
+}
+
+
+export async function reAuthenticatetheCurrentUser(userProvidedPasswordFromInputField,next){
+    let result = null, error=null
+    const credential = EmailAuthProvider.credential(
+        auth.currentUser.email,
+        userProvidedPasswordFromInputField
+    )
+    reauthenticateWithCredential(
+        auth.currentUser, 
+        credential
+    ).then(()=>{
+        //run update email function 👍🏻
+        next()
+    }).catch((error)=>console.log(error))
 }

@@ -19,9 +19,9 @@ export default function Home() {
     <Animator index={1}
     alignItems="flex-start"
     >
-      <H1>
+      <h1 className="mt-10">
         Blog
-      </H1>
+      </h1>
     </Animator>
     <Animator index={2}
     alignItems="flex-start"

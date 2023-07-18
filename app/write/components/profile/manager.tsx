@@ -122,7 +122,7 @@ const ProfileManager = () => {
                 duration-300 ease-in-out transition-all
                 hover:ring-1 ring-[var(--bg-4)]
                 cursor-pointer flex flex-row items-center
-                px-2 py-1 rounded-sm gap-1
+                px-2 py-1 rounded-sm gap-1 border border-dashed
              ${!isBlogs? "bg-[var(--bg-3)]":""}
                 `}
                 onClick={()=>setIsBlogs(false)}
