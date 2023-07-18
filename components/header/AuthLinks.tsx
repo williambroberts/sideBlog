@@ -7,7 +7,7 @@ import IconLogout from '../../icons/signOut'
 import IconFormatListGroupPlus from '../../icons/signUp'
 import IconWebauthn from '../../icons/signIn'
 interface theProps {
-  fontSize?:string;
+  fontSize?:string; 
   open?:boolean;
 }
 const AuthLinks = ({fontSize,open}:theProps) => {
@@ -17,8 +17,11 @@ const AuthLinks = ({fontSize,open}:theProps) => {
 
     return (
     <div 
-    style={{fontSize:`${fontSize}px`}}
-    className='text-inherit flex flex-row items-center
+    style={{fontSize:`${fontSize}px`,flexDirection:open?"column":"row",
+  alignItems:open?"flex-start":"center",
+  }}
+    className='text-inherit flex 
+    
     
     '>
       

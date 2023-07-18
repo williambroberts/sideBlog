@@ -72,3 +72,22 @@ export async function updateBlogViews(id){
         console.log("Transaction failed: ", e);
       }
 }
+
+
+export async function updateUserDoc(id,data,errorHandler){
+    try {
+        let docRef = doc(firestore,"users",id)
+        await runTransaction(firestore, async (t)=>{
+          const docSnapShot = await t.get(docRef)
+          if (!docSnapShot.exists()){
+            //❤️check erros
+            console.log("error,no snapshot")
+            return
+          }
+          t.update(docRef,{...data})
+        })
+      }catch (error){
+        console.log(error)
+        errorHandler()
+      }
+}

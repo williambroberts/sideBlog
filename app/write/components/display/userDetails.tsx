@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React, { useState } from 'react'
 import { useAuth } from '../../../../contexts/AuthContext';
 import IconCalendarOutline from '../../../../icons/date';
+import { useRouter } from 'next/navigation';
 type theProps={
     usePhoto:string;
     author:string;
@@ -12,16 +13,18 @@ type theProps={
 }
 const UserDetails = ({userPhoto,author,dateCreation,userUid}) => {
     //console.log(userPhoto,"userphoto")
+    
     const [loading,setLoading]=useState<boolean>(false)
     const {setProfileUserUid} = useAuth()
     const handleClick = ()=> {
         //🌮set profileUseruid to this blogs
         setProfileUserUid((prev)=>userUid)
+      
        // window.location.assign("/profile")
     }
     return (
     <div className="display__user__details">
-        <Link href={`/profile`}>
+        <Link href={`/profile?id=${userUid}`}>
        
         <Image src={userPhoto===undefined? "https://picsum.photos/200":userPhoto} alt='/' onClick={()=>handleClick()}
         width={50}
@@ -46,7 +49,7 @@ const UserDetails = ({userPhoto,author,dateCreation,userUid}) => {
         <Link 
         className='hover:underline'
         onClick={()=>handleClick()}
-        href={`/profile?`}>{author}</Link>
+        href={`/profile?id=${userUid}`}>{author}</Link>
         <span
          className="flex flex-row items-center gap-1"
         >

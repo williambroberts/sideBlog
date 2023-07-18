@@ -68,7 +68,7 @@ const AuthProvider = ({children}:ChildrenProp) => {
 
     useEffect(()=>{
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-          console.log("currentuser",currentUser)
+          //console.log("currentuser",currentUser)
             setUser(currentUser);
           });
           return () => {
@@ -97,8 +97,11 @@ const AuthProvider = ({children}:ChildrenProp) => {
           getUserDocForProfileUserUid(profileUserUid)
           
         }else if (RemoteUserData===null && profileUserUid===undefined){
-          getUserDocForProfileUserUid(user.uid)
-          setProfileUserUid(user.uid)
+          if (user?.uid!==undefined && user?.uid!==null){
+            getUserDocForProfileUserUid(user?.uid)
+            setProfileUserUid(user.uid)
+          }
+          
         }
       
 

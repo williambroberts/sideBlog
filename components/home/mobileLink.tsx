@@ -17,7 +17,7 @@ const MobileLink = ({data}:theProps) => {
   const handleProfile = ()=>{
     console.log(data.authorId,"setting profileUId")
     setProfileUserUid((prev)=>data.authorId)
-    //router.push("/profile")
+    router.push(`/profile?id=${data?.authorId}`)
   }
   const handleClick = ()=>{
     let pathname = `/blog?blogId=${data?.id}`
@@ -25,16 +25,18 @@ const MobileLink = ({data}:theProps) => {
   }
   return (
     <div className='
-    mobile__link hover:bg-[var(--bg-3)] rounded-md
+    mobile__link hover:bg-[var(--bg-3)] 
+    rounded-md py-1 box-border
+
     flex flex-row items-center text-sm px-2'>
         <div className='flex flex-col gap-1 items-start justify-start'>
             <span className='text-[var(--t-3)]'>{data?.dateCreation}</span>
-            <Link 
+            <div 
             onClick={handleProfile}
-            href={`/profile?id=${data?.authorId}`}
             className='text-[var(--t-2)]
             hover:underline no-underline
-            '>{data?.author}</Link>
+            cursor-pointer
+            '>{data?.author}</div>
             <Link 
             className='text-[var(--t-1)] no-underline
             hover:underline

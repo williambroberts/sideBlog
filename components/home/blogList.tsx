@@ -9,12 +9,13 @@ import IconTags from '../../icons/tags'
 import IconClear from '../../icons/clear'
 const BlogList = () => {
     const {blogs,mode,stateTag,
-    getBlogsByLatest
+    getBlogsByLatest,setMode,
     }=useBlogs()
    
    
     const handleClear = useCallback(()=>{
         getBlogsByLatest(false,false)
+        setMode("none")
     },[])
 
     if (blogs===null){

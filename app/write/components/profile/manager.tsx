@@ -9,6 +9,7 @@ import { firestore } from '../../../../firebase/firebaseConfig'
 import { doc, getDoc } from 'firebase/firestore'
 import IconListTask from '../../../../icons/list'
 import IconEdit from '../../../../icons/edit'
+import profile from './profile'
 
 
 const ProfileManager = () => {
@@ -17,7 +18,7 @@ const ProfileManager = () => {
     }=useAuth()
    const searchParams = useSearchParams()
     const [isBlogs,setIsBlogs]=useState<boolean>(true)
-   
+    
     const [canEditProfile,setCanEditProfile]=useState<boolean>(false)
     const getUserDoc =async (userUid)=>{
       //🧧get userDOc FB for whoRef for thier profile
@@ -43,6 +44,17 @@ const ProfileManager = () => {
     
 
     useEffect(()=>{
+      //if no user and someone types url for profile
+       const profileId = searchParams.get("id")
+       console.log(profileId,"profileID",user?.uid)
+       if (profileId===""||profileId===null 
+       || profileId===undefined){
+        console.log("user push to home .🌽🧧")
+        window.location.assign("/")
+       }
+    },[])
+
+    useEffect(()=>{
       console.log(profileUserUid,"profileUserUId")
       profileUserUid && getUserDoc(profileUserUid)
       
@@ -50,14 +62,22 @@ const ProfileManager = () => {
    
     useEffect(()=>{
         
-
-        console.log(profileUserUid,"profileuserUid")
-        if (profileUserUid===user.uid){
-            setCanEditProfile(true)
+        
+        console.log(profileUserUid,"profileuserUid",user?.uid)
+        if (profileUserUid===user?.uid){
+            if (user?.uid!==null && user?.uid!==undefined){
+              console.log("can edit")
+              setCanEditProfile(true)
+            }else if (user?.uid===null || user?.uid===undefined) {
+              console.log("cannot edit")
+              setCanEditProfile(false)
+            }
+             
         }
        //💭ADMIN CAN EDIT TOO
-       console.log(user.displayName,user,isAdmin)
+       //console.log(user?.displayName,user,isAdmin)
        if (isAdmin){
+        console.log(isAdmin)
         setCanEditProfile(true)
        }
        if(isAdmin && profileUserUid!==user.uid){
@@ -68,8 +88,10 @@ const ProfileManager = () => {
         setProfileUserUid(user.uid)
       
       }
+      
        if (profileUserUid===null&& user){setProfileUserUid(user.uid)}
     },[profileUserUid])
+    console.log(canEditProfile)
     return (
     <div className='w-full'>
       
@@ -95,7 +117,7 @@ const ProfileManager = () => {
                 onClick={()=>setIsBlogs(true)}
                 ><IconListTask/> Blogs</button>
                 <button 
-                style={{opacity:isAdmin?"1":user?.uid===profileUserUid? "1":"0"}}
+                style={{visibility:canEditProfile?"visible":"hidden"}}
                 className={` opacity-60 hover:opacity-100
                 duration-300 ease-in-out transition-all
                 hover:ring-1 ring-[var(--bg-4)]

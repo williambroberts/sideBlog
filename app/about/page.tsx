@@ -24,7 +24,7 @@ const AboutPage = () => {
             </p>
         </Animator>
         <Animator index={4}>
-            <p>
+            <p className='about__p'>
                 It was built with <code>Next.Js</code>, <code>TypeScript</code> and uses <code>Firebase</code>
                 for the backend.
             </p>

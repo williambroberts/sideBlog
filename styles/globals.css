@@ -233,7 +233,7 @@ img {
     flex-auto;
   }
 main.page {
-  padding: 0rem 1.5rem;
+  padding: 0rem  clamp(0.25rem, -1.7rem + 4.8vw, 1rem);
   margin-top: 60px;
   max-width: 650px;
 }
@@ -440,4 +440,9 @@ ol {
 }
 a {
   text-decoration: underline;
+}
+
+.about__p code {
+  background-color: var(--bg-3);
+  @apply rounded-md py-0.5 px-0.5 
 }

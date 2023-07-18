@@ -81,7 +81,7 @@ const handleDisgardNewCover = ()=>{
   )
   setRemoteUserData((prev)=>({...prev,coverPhoto:newCoverPhotoSetter.oldUrl}))
 }
-console.log(RemoteUserData,"remoteusrdata")
+//console.log(RemoteUserData,"remoteusrdata")
   return (
     <div className='profile__component'>
       <div className='

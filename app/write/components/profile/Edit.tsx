@@ -6,7 +6,7 @@ import Button from '../addTags/button';
 import IconSave from '../../../../icons/save';
 import { doc, getDoc, runTransaction } from 'firebase/firestore';
 import { firestore,auth, storage } from '../../../../firebase/firebaseConfig';
-import {  getAuth, updateProfile } from 'firebase/auth';
+import {  getAuth, updateEmail, updateProfile } from 'firebase/auth';
 import { useNotifications } from '../../../../contexts/NotificationContext';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import TextAreaReusable from './textarea';
@@ -25,6 +25,10 @@ const Edit = ({}:theProps) => {
       setNewProfilePhotoSetter,setNewCoverPhotoSetter,
     setLocalUserData,localUserData,
     } = useAuth()
+    function getDevice(){
+      return !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+}
+  const desktop = getDevice()
     const {setNotification,setOpenNotification}=useNotifications()
     const [coverPhotoFile,setCoverPhotoFile]=useState<any|null>({value:"",file:null})
 
@@ -47,7 +51,6 @@ const Edit = ({}:theProps) => {
       }
       
      
-    
    
     //🧧only admin or user=user.uid can see this page
     
@@ -71,11 +74,11 @@ const Edit = ({}:theProps) => {
                         })
                       }catch (error){
                         console.log(error,"update failed")
-                        setNotification(error.code)
+                        setNotification((prev)=>({type:"error",message:error.code}))
                         setOpenNotification((prev)=>true)
                       }
               }).then(async ()=> {
-                setNotification((prev)=>"updated successfully"),
+                setNotification((prev)=>({type:"alert",message:"Updated successfully"})),
                 setOpenNotification((prev)=>true)
                 //🧧reget userDocData
                 await getUserDoc(profileUserUid)
@@ -83,18 +86,47 @@ const Edit = ({}:theProps) => {
               }   
                    
               ).catch((error) => {
-                    setNotification(error.code)
-                    setOpenNotification((prev)=>true)
+                setNotification((prev)=>({type:"error",message:error.code}))
+                setOpenNotification((prev)=>true)
               });
         }
        
         
 
     }
-    const updateEmail = ()=>{
+    const handleEmail = async()=>{
+      await updateEmail(auth.currentUser,
+        localUserData.email).then(async() => {
+        try {
+          let docRef = doc(firestore,"users",profileUserUid)
+          await runTransaction(firestore, async (t)=>{
+            const docSnapShot = await t.get(docRef)
+            if (!docSnapShot.exists()){
+              //❤️check erros
+              console.log("error,no snapshot")
+              return
+            }
+            t.update(docRef,{...localUserData})
+          })
+        }catch (error){
+          console.log(error,"update failed")
+          setNotification((prev)=>({type:"error",message:error.code}))
+          setOpenNotification((prev)=>true)
+        }
 
+
+
+      }).then(async()=>{
+        setNotification((prev)=>({type:"alert",message:"Updated successfully"})),
+        setOpenNotification((prev)=>true)
+                //🧧reget userDocData
+        await getUserDoc(profileUserUid)
+      }).catch((error) => {
+        setOpenNotification(true)
+        setNotification((prev)=>({type:"error",message:error.code}))
+      });
     }
-    const updatePassword = ()=>{
+    const handlePassword = ()=>{
 
     }
     const uploadFileCoverPhoto = ()=>{
@@ -229,7 +261,7 @@ const Edit = ({}:theProps) => {
       
       
     }
-    
+    console.log(localUserData)
     //🧧update social media accound
   return (
     <div className='w-full text-[var(--t-1)]'>
@@ -260,6 +292,33 @@ const Edit = ({}:theProps) => {
             <IconSave/> Save
             </Button>
         </div>
+        {/* 🌽 */}
+        <div className='flex flex-row w-full
+         items-center gap-1'>
+            <span
+            className='font-light uppercase text-sm'
+            >Email</span>
+        <InputReusable
+        type='text'
+        className='focus:border-[var(--bg-4)]
+        
+        '
+        value={localUserData?.email===undefined? 
+            "":localUserData.email}
+        handleChange={(e)=>setLocalUserData((prev)=>({...prev,email:e.target.value}))}
+        placeholder='username'
+
+        />
+            <Button
+
+            className='edit__btn'
+            disabled={localUserData?.email===RemoteUserData?.email}
+            handleClick={handleEmail}
+            type='submit'>
+
+            <IconSave/> Save
+            </Button>
+        </div>
         <span
         className='flex flex-row
         items-center gap-1
@@ -269,7 +328,7 @@ const Edit = ({}:theProps) => {
         <div className='flex flex-row w-full'>
         <label htmlFor='ipt-pp'
         className='cursor-pointer px-1 py-1 rounded-md 
-        flex items-center 
+        flex items-center whitespace-pre-wrap
         '
         ><IconBxPhotoAlbum/>
         <input 
@@ -278,29 +337,29 @@ const Edit = ({}:theProps) => {
         type="file" value={profilePhotoFile?.value}
         onChange={(e)=>updateProfilePhoto(e)}
         />
-        <div className='label__hover'
+        {desktop? <div className='label__hover'
         data-theme="dark"
         >
            Profile 
-        </div>
+        </div>: " Profile"}
         </label>
        
         <label htmlFor='ipt-cp'
         className='cursor-pointer px-1 py-1 rounded-md 
-        flex items-center 
+        flex items-center whitespace-pre-wrap 
         '
-        ><IconImages/>
+        ><IconImages/> 
         <input 
         className='hidden'
          id="ipt-cp"
         type="file" value={coverPhotoFile?.value}
         onChange={(e)=>updateCoverPhoto(e)}
         />
-        <div className='label__hover'
+       {desktop? <div className='label__hover'
         data-theme="dark"
         >
            Cover 
-        </div>
+        </div>:" Cover"}
         </label>
         </div>
 

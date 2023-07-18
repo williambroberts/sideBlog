@@ -7,24 +7,28 @@ import BlogList from '../../../../components/home/blogList'
 import FetchMoreBlogs from '../../../../components/home/fetchMore'
 import { useAuth } from '../../../../contexts/AuthContext'
 import { useBlogs } from '../../../../contexts/BlogContext'
-import { useSearchParams } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 
 const BlogsComponent = () => {
     const {userDocData,profileUserUid,user,setProfileUserUid}=useAuth()
     const {blogs,getBlogsByLatest,filterByAuth}=useBlogs()
     const searchParams = useSearchParams()
-    
+    const pathname=usePathname()
     useEffect(()=>{
        console.log(filterByAuth,"filterByAUths",profileUserUid)
         // more=false,filterbyauth,userArgs
-        if ((profileUserUid===undefined && user.uid) ||
-        (profileUserUid===null && user.uid)){
+        if ((profileUserUid===undefined && user?.uid) ||
+        (profileUserUid===null && user?.uid)){
           getBlogsByLatest(false,true,user?.uid)
-          setProfileUserUid(user.uid)
+          setProfileUserUid(user?.uid)
         }else if (user===undefined || user===null){
-          window.location.assign("/")
+          if (pathname!=="/profile"){
+            //🧧profile or write page 
+            window.location.assign("/")
+          }
+        
         }else{
-          console.log("else",profileUserUid,user.uid)
+          console.log("else",profileUserUid,user?.uid)
            getBlogsByLatest(false,true,profileUserUid)
         }
        

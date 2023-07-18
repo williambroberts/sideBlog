@@ -43,7 +43,7 @@ const BlogProvider = ({children}:ChildProps) => {
             let snapshot = await getDoc(docRef)
             
             if (snapshot.exists()){
-                console.log(snapshot.data())
+                //console.log(snapshot.data())
                 return {...snapshot.data()}
             }
         }catch(err){
@@ -55,7 +55,7 @@ const BlogProvider = ({children}:ChildProps) => {
         let updatedMatchingBlogs = []
         await docs.forEach(async (doc,index)=>{
             await getUserDocForABlog(doc.authorId).then((userData)=>{
-                console.log(userData,"userData")
+                //console.log(userData,"userData")
             let docCopy = {...doc}
             docCopy.author = userData?.username
            docCopy.userPhoto = userData?.profilePhoto
@@ -98,7 +98,7 @@ const BlogProvider = ({children}:ChildProps) => {
         let startAfterValue = more===true?LastVisible:null
         let q = null    
         let sendUserArg = userArg===undefined? user?.uid:userArg
-        console.log(user.uid,sendUserArg,"senduserArg")
+        //console.log(user.uid,sendUserArg,"senduserArg")
         if (sendUserArg===undefined){
             let newArg = searchParams.get("id")
             console.log(newArg,"newArg")

@@ -10,6 +10,7 @@ type theProps = {
     data?:any;
 }
 const DesktopLink = ({data}:theProps) => {
+  
   const {setProfileUserUid}=useAuth()
   const [position,setPosition]=useState({left:0,top:0,display:""})
   const handleImage = (e)=>{
@@ -35,7 +36,8 @@ const DesktopLink = ({data}:theProps) => {
     //🧧set profileUserUid to the data.authorId
     console.log(data.authorId,"setting profileUId")
     setProfileUserUid(data.authorId)
-
+    let newHref = `/profile?id=${data.authorId}`
+    window.location.assign(newHref)
   }
   return (
     <div className='w-full'>
@@ -50,12 +52,13 @@ const DesktopLink = ({data}:theProps) => {
     className='text-base tracking-wide py-2 
     hidden
     sm:block group'>
-       <Link href={`/profile?id=${data?.authorId}`}
+       <div
        onClick={handleClick}
         className='text-[var(--t-1)] pr-4
-        no-underline
+        no-underline inline-flex cursor-pointer
+
         hover:underline'
-        >{data?.author}</Link>
+        >{data?.author}</div>
         <span
         className='pr-8 text-[var(--t-3)]'
         >{data?.dateCreation}</span>
