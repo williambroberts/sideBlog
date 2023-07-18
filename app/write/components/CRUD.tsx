@@ -114,6 +114,7 @@ const CRUD = ({blogId}:theProps) => {
     const createBlog =async ()=>{
       console.log("creatingBLog")
       const blogIdParam = searchParams.get("blogId")
+      
       let authorId = blogIdParam.split("blog")[0]
       setTemp("")
       setFilterByAuth(false)
@@ -152,20 +153,23 @@ const CRUD = ({blogId}:theProps) => {
    useEffect(()=>{
 
     let blogIdQP = searchParams.get("blogId")
-    let timestamp = blogIdQP.split("blog")[1]
-     console.log("🟩🧧❤️👍🏻🍔🌮",timestamp,"timestamp")
-      if (timestamp===""||timestamp==="newBlog"
-      ||timestamp===undefined){
-        console.log("making new blog❤️🧧🟩")
-        createBlog()  
-      }else if (timestamp!=="newBlog"){
-        setBlogId(blogIdQP)
-        getABlogFromFirebase(blogIdQP).then((theBlog)=>{
-          setFireBlog({...theBlog})
-          setLocalBlog({...theBlog})
-          console.log(theBlog)
-        }).catch((error)=>console.log(error))
-      }
+    if (blogIdQP!==null){
+      let timestamp = blogIdQP.split("blog")[1]
+      console.log("🟩🧧❤️👍🏻🍔🌮",timestamp,"timestamp")
+       if (timestamp===""||timestamp==="newBlog"
+       ||timestamp===undefined){
+         console.log("making new blog❤️🧧🟩")
+         createBlog()  
+       }else if (timestamp!=="newBlog"){
+         setBlogId(blogIdQP)
+         getABlogFromFirebase(blogIdQP).then((theBlog)=>{
+           setFireBlog({...theBlog})
+           setLocalBlog({...theBlog})
+           console.log(theBlog)
+         }).catch((error)=>console.log(error))
+       }
+    }
+   
    },[searchParams])
   const handleEdit = ()=>{
     console.log("get view of all blogs")

@@ -15,7 +15,8 @@ const ThemeButton = () => {
  
   useEffect(() => {
     setMounted(true)
-    
+    let myHtml = document.querySelector('html')
+    myHtml.style.overflowX="hidden"
   }, [])
 
   if (!mounted) {
