@@ -16,6 +16,7 @@ import IconBxPhotoAlbum from '../../../../icons/photo';
 import IconPersonLinesFill from '../../../../icons/bio';
 import IconUpdate from '../../../../icons/update';
 import IconPadlock from '../../../../icons/auth/padlock';
+import IconIconView from '../../../../icons/view';
 
 interface theProps{
    
@@ -30,6 +31,7 @@ const Edit = ({}:theProps) => {
       return !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 }
   const desktop = getDevice()
+  const [isView,setIsView]=useState<boolean>(false)
     const {setNotification,setOpenNotification,setReAuthState,
     notificationHandler}=useNotifications()
     const [coverPhotoFile,setCoverPhotoFile]=useState<any|null>({value:"",file:null})
@@ -370,7 +372,7 @@ const Edit = ({}:theProps) => {
             className='font-light uppercase text-sm'
             >Password</span> */}
         <InputReusable
-        type='password'
+        type={isView?"text":"password"}
         className='focus:border-[var(--bg-4)]
         
         '
@@ -388,7 +390,7 @@ const Edit = ({}:theProps) => {
             className='font-light uppercase text-sm'
             >Confirm Password</span> */}
         <InputReusable
-        type='password'
+        type={isView?"text":"password"}
         className='focus:border-[var(--bg-4)]
         
         '
@@ -399,17 +401,32 @@ const Edit = ({}:theProps) => {
         />
             
         </div>
+        <div className='flex flex-row items-center 
+        gap-1'>
         <Button
 
-            className='edit__btn'
-            disabled={  
-              newPassword.second.length<6&&
-              newPassword.first.length<6}
-            handleClick={handlePassword}
-            type='submit'>
+className='edit__btn'
+disabled={  
+  newPassword.second.length<6&&
+  newPassword.first.length<6}
+handleClick={handlePassword}
+type='submit'>
 
-            <IconSave/> Save
-            </Button>
+<IconSave/> Save
+</Button>
+<button
+onMouseUp={()=>setIsView(false)}
+onMouseDown={()=>setIsView(true)}
+className='edit__btn CRUD__btn relative'>
+  <IconIconView/>
+  {desktop?<div className='button__hover z-10'>
+    View password
+  </div>:"View"}
+  
+</button>
+        </div>
+        
+
         <span
         className='flex flex-row
         items-center gap-1

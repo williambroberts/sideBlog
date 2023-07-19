@@ -47,7 +47,7 @@
   *  {
     padding:0px;
     margin:0px;
-    
+    scroll-behavior: smooth;
 
     --themecolor:#f7aa35;
     --themecolor2:#802c6e;
@@ -72,7 +72,7 @@
     --darkblue:#bacfff;
     --seagreen:#baeed2;
     --css:#3863d9;
-    scroll-behavior: smooth;
+    
     --scrollbar-size: 8px;
     --darkgrey:#6d7175;
     --darkgreen:#286d1d;
@@ -117,12 +117,14 @@
   }
   
   
-  
+  html:focus-within{
+    scroll-behavior: auto;
+  }
   html {
     filter: invert(var(--invert));
     background-color:var(--bg-1);
     color:var(--t-1); 
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     /* font-family: Arial,sans-serif; */
     width: 100vw;
     min-height: 100dvh;
