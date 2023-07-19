@@ -118,7 +118,13 @@
   
   
   html:focus-within{
-    scroll-behavior: auto;
+    scroll-behavior: smooth;
+  }
+
+  @media(prefers-reduced-motion){
+    html:focus-within{
+      scroll-behavior: auto;
+    }
   }
   html {
     filter: invert(var(--invert));

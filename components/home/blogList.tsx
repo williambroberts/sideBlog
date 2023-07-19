@@ -8,11 +8,12 @@ import Animator from '../animator/animator'
 import IconTags from '../../icons/tags'
 import IconClear from '../../icons/clear'
 import IconWrite from '../../icons/write'
+import { usePathname } from 'next/navigation'
 const BlogList = () => {
     const {blogs,mode,stateTag,
     getBlogsByLatest,setMode,
     }=useBlogs()
-   
+   const pathname= usePathname()
    
     const handleClear = useCallback(()=>{
         getBlogsByLatest(false,false)
@@ -26,7 +27,9 @@ const BlogList = () => {
     if (blogs===undefined){
       return <div className='flex flex-row
       items-center gap-1 px-3 py-1
-      '>No blogs... <IconWrite/> </div>
+      '>{pathname==="/write"?"You have no":pathname==="/profile"?"This User has no"
+    :"No"
+    }  blogs... <IconWrite/> </div>
     }
   return (
     <div className={`blog__list w-full`}>

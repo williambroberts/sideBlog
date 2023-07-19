@@ -16,7 +16,7 @@ type theProps = {
 }
 const SaveButton = ({}:theProps) => {
   const {user}=useAuth()
-  const {setNotification,setOpenNotification
+  const {setNotification,setOpenNotification,notificationHandler
   ,openNotification}=useNotifications()
   const [success,setSuccess]=useState<boolean>(false)
   const {hasChanged,setHasChanged,
@@ -53,6 +53,8 @@ const router = useRouter()
           })
           setSuccess(true)
           setHasChanged((prev)=>false)
+          notificationHandler("alert","Saved ✓")
+          
         }catch (err){
           console.log(err,"update failed")
         }
