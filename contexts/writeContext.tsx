@@ -31,6 +31,8 @@ history:any;
 setHistory:Function;
 redo:any;
 setRedo:Function;
+setIsWrite:Function;
+isWrite:boolean;
 }
 type ChildProps = {
     children:React.ReactNode;
@@ -69,6 +71,7 @@ const WriteProvider = ({children}:ChildProps) => {
   }
   const [temp,setTemp]=useState<string>("")
   const wait = 1000
+  const [isWrite,setIsWrite]=useState<boolean>(true)
   const [last,setLast]=useState<number>(0)
   const [openAddItem,setOpenAddItem]=useState(openState)
   const [hasChanged,setHasChanged]=useState<boolean>(false)
@@ -127,6 +130,7 @@ const generateKeywords = ()=> {
       setLocalBlog((prev)=>fireBLog)
     },[fireBLog])
     const WriteValue = {
+      isWrite:isWrite,setIsWrite:setIsWrite,
       history:history,setHistory:setHistory,redo:redo,setRedo:setRedo,
       wait:wait,last:last,setLast:setLast,temp:temp,setTemp:setTemp,
       openState:openState,

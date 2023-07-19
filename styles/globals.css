@@ -361,7 +361,7 @@ label>.label__hover {
  
   transform: translate(-50%,110%);
   @apply absolute flex-row items-center
-rounded-sm px-1
+rounded-sm px-1 z-10
   whitespace-nowrap
   
   ;
@@ -371,7 +371,11 @@ rounded-sm px-1
 label:hover >.label__hover{
   display: flex;
 }
-
+@media (width<571px){
+  label:hover>.label__hover{
+    bottom:-60px;
+  }
+}
 svg {
   color: var(--t-1);
 }

@@ -378,7 +378,7 @@ const CRUD = ({blogId}:theProps) => {
         >
             {filterByAuth?
             <div className={`flex flex-col items-center
-            CRUD__btn
+            CRUD__btn 
             `}>
               <IconBxArrowBack/>
               <div className='button__hover'>
@@ -387,7 +387,7 @@ const CRUD = ({blogId}:theProps) => {
             </div> 
             :
             <div className={`flex flex-col items-center
-            CRUD__btn
+            CRUD__btn 
             `}>
               <IconListTask/>
               <div className='button__hover'>
@@ -401,7 +401,7 @@ const CRUD = ({blogId}:theProps) => {
 
         <label htmlFor='imgFile-input'
         className='cursor-pointer px-1 py-0 rounded-md 
-        flex items-center 
+        flex items-center relative flex-row CRUD__btn
         '
         ><IconCardImage/>
         <input 

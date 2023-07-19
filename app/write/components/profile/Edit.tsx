@@ -104,7 +104,8 @@ const Edit = ({}:theProps) => {
 
 
       await updateEmail(auth.currentUser,
-        localUserData.email).then(async() => {
+        localUserData.email).then(async(res) => {
+          console.log(res)
         try {
           let docRef = doc(firestore,"users",profileUserUid)
           await runTransaction(firestore, async (t)=>{

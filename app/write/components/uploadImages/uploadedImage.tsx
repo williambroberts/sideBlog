@@ -94,7 +94,10 @@ const UploadedImage = ({src}:theProps) => {
       
     }
   return (
-    <div onClick={()=>setIsClicked((prev)=>true)} 
+    <div 
+    onMouseEnter={()=>setIsClicked((prev)=>true)}
+    onMouseLeave={()=>setIsClicked((prev)=>false)}
+    onClick={()=>setIsClicked((prev)=>true)} 
     className={`UI__image ${localBlog.coverImage===src? "cover":""}`}>
         
         <Image 

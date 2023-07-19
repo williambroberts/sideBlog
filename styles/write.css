@@ -117,6 +117,8 @@
     outline:2px solid var(--t-4)
 }
 .UI__image__grid {
+    mix-blend-mode: normal;
+    background-color: transparent;
     @apply absolute;
     width: 100%;
     height: 100%;
@@ -127,7 +129,7 @@
     /* background-color: transparent; */
 }
 .UI__btn {
-
+    background-color: transparent;
     color: var(--code-l);
     font-size: var(--font-size-14);
     @apply flex p-0
@@ -336,13 +338,15 @@ background-color: var(--bg-4);
     display: flex;
     
 }
+
 .write__mobile__grid {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr;
     width: 100%;
     box-sizing: border-box;
-    height: auto;
+    height: 100%;
+    flex: 1 1 auto;
 }
 .write__mobile__grid__top {
     border:none ;
@@ -351,4 +355,31 @@ background-color: var(--bg-4);
 
 .UNDO__btn:disabled {
     opacity: 0.5;
+}
+
+.write__mobile__mode__btn {
+--topbtn:140px;
+width:min-content;
+height: 32px;
+top:var(--topbtn);
+right:20px;
+color: var(--t-2);
+background-color: var(--bg-4);
+position: fixed;
+@apply: flex flex-nowrap
+items-center justify-center
+rounded-md px-1 py-1
+box-border
+;
+}
+
+@media(width<571px){
+    .write__mobile__mode__btn{
+        top:calc(var(--topbtn) + 60px);
+    }
+}
+@media (pointer:coarse){
+    .write__mobile__grid__top{
+        height:44px;
+    }
 }
