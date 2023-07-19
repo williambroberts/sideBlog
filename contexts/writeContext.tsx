@@ -38,6 +38,7 @@ type ChildProps = {
 const WriteContext = createContext<WriteContextValues|undefined>(undefined)
 const WriteProvider = ({children}:ChildProps) => {
   const initialBlogData = {
+    isBlog:true,
     content:"✎ write your blog",
     uploadedImages:["https://picsum.photos/800/400"],
     deletedImages:[],

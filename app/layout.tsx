@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" style={{overflowX:"hidden"}}>
       <body className={lato.className}>
-        <ProviderForTheme>
+        {/* <ProviderForTheme> */}
         <AuthProvider>
         <BlogProvider>
         
@@ -40,7 +40,7 @@ export default function RootLayout({ children }) {
         
         </BlogProvider>
         </AuthProvider>
-        </ProviderForTheme>
+        {/* </ProviderForTheme> */}
         </body>
         
     </html>

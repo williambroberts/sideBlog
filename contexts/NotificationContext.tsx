@@ -6,6 +6,9 @@ notificationTime:number;
 openNotification:boolean;
 setOpenNotification:Function;
 setNotification:Function;
+reAuthState:any;
+setReAuthState:Function;
+notificationHandler:Function;
 }
 type ChildrenProp = {
 children:React.ReactNode;
@@ -13,10 +16,20 @@ children:React.ReactNode;
 }
 const NotificationContext = createContext<NotificationContextValues| undefined>(undefined)
 const NotificationProvider = ({children}:ChildrenProp) => {
-    const [notification,setNotification]=useState<any>({type:"",message:""})
+   
+  const [reAuthState,setReAuthState]=useState<any>({type:"",message:"",open:false})
+  const [notification,setNotification]=useState<any>({type:"",message:""})
     const [notificationTime,setNotificationTime]=useState<number>(3000)
     const [openNotification,setOpenNotification]=useState<boolean>(false)
+
+    function notificationHandler(type,message){
+      setNotification((prev)=>({type:type,message:message}))
+      setOpenNotification((prev)=>true)
+    }
+
     const NotificationValue = {
+      notificationHandler:notificationHandler,
+      reAuthState:reAuthState,setReAuthState:setReAuthState,
 notification:notification,
 setNotification:setNotification,
 setOpenNotification:setOpenNotification,

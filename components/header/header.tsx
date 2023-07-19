@@ -15,9 +15,11 @@ const HeaderHorizontal = () => {
   return (
     <header className='header__h'>
         <nav className='desktop'>
-          <Link className='header__h__logo'
+          <Link className={`header__h__logo no-underline`}
           href={"/"}
-          ><IconPlantFill/></Link>
+          ><span className='font-medium
+          text-xl
+          '>⚛</span></Link>
           <div className='header__h__middle'>
             <HeaderLink href={"/"} text='Home'/>
             <HeaderLink href={"/about"} text='About'/>

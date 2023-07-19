@@ -84,7 +84,10 @@ const BlogProvider = ({children}:ChildProps) => {
         const matchingBlogs = []
         querySnapshot.forEach((doc)=>
         matchingBlogs.push({id:doc.id,...doc.data()}))
-        console.log(matchingBlogs)
+        console.log(matchingBlogs,"matchingblogs👍🏻")
+        //🥩REVERSING THE BLOG ORDER🥩
+        
+        //let reversedMatchingBlogs = [...matchingBlogs].reverse()
         getCorrespondingUserDocsForWantedBlogs(matchingBlogs)
         //setBlogs((prev)=>matchingBlogs)
     }
@@ -108,13 +111,14 @@ const BlogProvider = ({children}:ChildProps) => {
         if (filterByAuthor){
             q = query(blogsRef,
                 where("authorId","==",sendUserArg),
-                orderBy("creationTimeStamp"),
+                orderBy("creationTimeStamp","desc"),
                 limit(theLimit),
                 startAfter(startAfterValue)
                 
                 )
         }else {
             q = query(blogsRef,
+            where("isBlog","==",true),
             orderBy("creationTimeStamp"),
             limit(theLimit),
             startAfter(startAfterValue)
@@ -123,6 +127,7 @@ const BlogProvider = ({children}:ChildProps) => {
         }
          
         const querySnapshot = await getDocs(q)
+        console.log(querySnapshot.docs,"here")
         //querySnapshot.forEach((doc)=>console.log(doc.id))
         handleUpdate(querySnapshot)
 

@@ -20,27 +20,25 @@ const SignUpForm = () => {
     const [data,setData]=useState<dataProps>({username:"",password:"",
     email:"",confirmPassword:"",confirmEmail:""})
     const {notification,setNotification,setOpenNotification,
-    notificationTime}=useNotifications()
+    notificationTime,notificationHandler}=useNotifications()
     const  {signUp} = useAuth()
     const handleSubmit = async (e)=>{
         e.preventDefault()
         if (data.username===""){
-            setNotification((prev)=>"Username is required")
-            setOpenNotification((prev)=>true)
+            notificationHandler("alert","Username is required ✗")
+           
             return
         }
         if (alphanumericRegex.test(data.username)===false){
-            setNotification((prev)=>"Alphanumeric characters only")
-            setOpenNotification((prev)=>true)
+            notificationHandler("alert","Alphanumeric characters only ✗")
+        
             return
         }
         if (data.email!==data.confirmEmail){
-            setNotification((prev)=>"Emails do not match")
-            setOpenNotification((prev)=>true)
+            notificationHandler("alert","Emails do not match ✗")
             return
         }else if (data.password!==data.confirmPassword){
-            setNotification((prev)=>"Passwords do not match")
-            setOpenNotification((prev)=>true)
+           notificationHandler("alert","Passwords do not match ✗")
             return
         }else {            
          const {result,error}=await signUp(data.email,data.password)

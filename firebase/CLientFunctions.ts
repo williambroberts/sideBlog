@@ -108,3 +108,14 @@ export async function reAuthenticatetheCurrentUser(userProvidedPasswordFromInput
         next()
     }).catch((error)=>console.log(error))
 }
+
+
+export function applyImgDisplayStyles (){
+    // let display = document.querySelector(".display")
+    // let children = display.children
+    // for (let i=0;i<){
+    //     if (child.tagName.toLowerCase()==="img"){
+    //         console.log(child)
+    //     }
+    // }
+}

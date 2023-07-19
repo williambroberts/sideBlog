@@ -29,7 +29,7 @@ const Hamburger = ({open}:theProps) => {
 <nav className='w-full box-border'>
           <Link className='header__h__logo'
           href={"/"}
-          ><IconPlantFill/>
+          >⚛
           SideBlog
           <ThemeButton/>
           </Link>

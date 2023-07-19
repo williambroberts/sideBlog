@@ -2,4 +2,6 @@ footer {
     width: 100vw;
     min-height: 60px;
     background-color: inherit;
+    padding:0rem  clamp(0.25rem, -1.7rem + 4.8vw, 1rem);
+
 }

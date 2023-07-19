@@ -1,3 +1,4 @@
+
 import React from 'react'
 import TagItem from './TagItem';
 import {v4} from "uuid"
@@ -6,7 +7,7 @@ interface theProps {
 }
 const TagManager = ({tags}:theProps) => {
   return (
-    <div className='tag__manager'>
+    <div className={`tag__manager`}>
       {tags?.map((item)=>(
       <TagItem 
       tag={item}

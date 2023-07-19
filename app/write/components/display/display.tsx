@@ -19,6 +19,8 @@ import DisplayTitle from './displayTitle'
 import Animator from '../../../../components/animator/animator'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { updateBlogViews } from '../../../../firebase/CLientFunctions'
+import rehypeRaw from 'rehype-raw'
+import TagManager from '../addTags/manageTags'
 type theProps = {
   source?:any;
 }
@@ -30,6 +32,10 @@ const Display = ({source}:theProps) => {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   
+  useEffect(()=>{
+    //🥩add img class styles to default 
+  },[])
+
 
   const copy = (e)=>{
     setIsCopied((prev)=>!prev)
@@ -46,7 +52,11 @@ const Display = ({source}:theProps) => {
   }
 
   return (
-    <div className={`display mt-20 mx-0 mb-10`}>
+    <div className={`display `}>
+      {pathname==="/write"?
+      <TagManager tags={source?.tags}/>  :""}
+
+
     <Animator index={1}
     alignItems='flex-start'
     >
@@ -72,8 +82,9 @@ const Display = ({source}:theProps) => {
       readTime={source?.readTime}
       tags={source?.tags}/>
       {/* <DisplayCoverImage src={source?.coverImage}/> */}
-      <ReactMarkdown
-        
+      <ReactMarkdown 
+      className='display__markdown'
+        rehypePlugins={[rehypeRaw]}
         components={{
           code({node, inline, className, children, ...props}) {
             const match = /language-(\w+)/.exec(className || '')
@@ -111,7 +122,7 @@ const Display = ({source}:theProps) => {
               >{String(children).replace(/\n$/, '')}</SyntaxHighlighter>
               </div>
             ) : (
-              <code {...props} className={className}>
+              <code {...props} className={"inline__code"}>
                 {children}
               </code>
             )

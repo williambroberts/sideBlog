@@ -111,14 +111,15 @@ font-weight: 600;
 font-size: var(--font-size-14);
 border: 1px solid var(--bg-4);
 transition: var(--transition-2);
+@apply flex gap-1 flex-row;
 cursor: pointer;
 opacity: 0.6;
-width: min-content;
+
 }
 
 .edit__btn:disabled {
     caret-color: var(--t-1);
-    cursor:not-allowed, auto;
+    cursor:not-allowed;
     opacity: 1;
     color: var(--t-3);
     background-color: var(--bg-3);

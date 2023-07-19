@@ -4,6 +4,7 @@ import React from 'react'
 import Button from './button';
 import IconCrossCircled from '../../../../icons/cross';
 import { useWrite } from '../../../../contexts/writeContext';
+import IconTagRemove from '../../../../icons/tagRemove';
 interface theProps {
     tag:string;
 }
@@ -32,7 +33,8 @@ const TagItem = ({tag}:theProps) => {
         transition-all
         cursor-pointer'
         >
-            <IconCrossCircled/>
+            {/* <IconCrossCircled/> */}
+            <IconTagRemove/>
         </Button>
     </div>
   )

@@ -19,7 +19,7 @@ const WriteLayout = ({children}:ChildrenProps) => {
        
        {children}
       <HeaderHorizontal/>
-        <FooterHorizontal/>
+        {/* <FooterHorizontal/> */}
     </div>
   )
 }

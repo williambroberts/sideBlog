@@ -27,7 +27,7 @@ const CanEdit = ({id,blogId}:theProps) => {
     const handleEdit =async ()=>{
        
        setFilterByAuth((prev)=>false)
-       
+        
          router.push(`/write?blogId=${blogId}`)
      
       

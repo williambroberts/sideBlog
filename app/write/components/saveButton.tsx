@@ -37,7 +37,7 @@ const router = useRouter()
       if (blogId){
         //🧧improve length function
         let newReadTime= await getBlogReadTime(localBlog.content)
-        console.log(newReadTime,"newREADtime")
+        //console.log(newReadTime,"newREADtime")
         setLocalBlog((prev)=>({...prev,readTime:newReadTime}))
         let newLocalBLog = {...localBlog,readTime:newReadTime}
         try {

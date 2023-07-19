@@ -39,7 +39,7 @@ const CRUD = ({blogId}:theProps) => {
   const [isCategory,setIsCategory]=useState<any>(false)
   const [catWidth,setCatWidth]=React.useState<number>(80)
   const [titleWidth,setTitleWidth]=React.useState<number>(130)
-    const {setFilterByAuth,filterByAuth}= useBlogs()
+    const {setFilterByAuth,filterByAuth,getBlogsByLatest}= useBlogs()
     const searchParams=useSearchParams()
     const router = useRouter()
 
@@ -149,7 +149,29 @@ const CRUD = ({blogId}:theProps) => {
       }
       
     }
-   
+    function handleSearchParamChange(){
+      let blogIdQP = searchParams.get("blogId")
+      if (blogIdQP!==null){
+        let timestamp = blogIdQP.split("blog")[1]
+        console.log("👍🏻🍔🌮",timestamp,"timestamp")
+        if (timestamp!=="newBlog"){
+          setBlogId(blogIdQP)
+          getABlogFromFirebase(blogIdQP).then((theBlog)=>{
+            setFireBlog({...theBlog})
+            setLocalBlog({...theBlog})
+            console.log(theBlog)
+          }).catch((error)=>console.log(error))
+        }
+    }
+  }
+   useEffect(()=>{
+    if (window!==undefined){
+      window.addEventListener('popstate', handleSearchParamChange)
+    }
+    return ()=>{
+      window.removeEventListener('popstate',handleSearchParamChange)
+    }
+   },[])
    useEffect(()=>{
 
     let blogIdQP = searchParams.get("blogId")
@@ -171,10 +193,14 @@ const CRUD = ({blogId}:theProps) => {
     }
    
    },[searchParams])
-  const handleEdit = ()=>{
-    console.log("get view of all blogs")
+  const handleEdit =async ()=>{
+    let userUid = auth.currentUser.uid
+    console.log("get view of all blogs",userUid)
+    
     //get all user blogs from firebase and display them in the display
+    getBlogsByLatest(false,true,userUid)
     setFilterByAuth((prev)=>!prev)
+
     
   }
   const handleDelete = async(id)=>{
@@ -245,7 +271,7 @@ const CRUD = ({blogId}:theProps) => {
       let x = e.clientX
       let y = e.clientY
       let label = document.getElementById("label-category")
-      if (label!==undefined){
+      if (label!==undefined || label!==null){
         let labelRect = label.getBoundingClientRect()
         if (x >labelRect.right || x<labelRect.left ||
           y<labelRect.top || y>labelRect.bottom){
@@ -279,7 +305,8 @@ const CRUD = ({blogId}:theProps) => {
       gap-1 w-full py-0 text-base
       
       `}>
-        <IconFormatTitle/>
+        {/* 🧧info dropdown /modal popup */}
+        {/* <IconFormatTitle/> */}
       <input
       onBlur={handleBlurTitle}
       style={{width:`${titleWidth}px`}}

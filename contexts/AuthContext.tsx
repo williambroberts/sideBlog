@@ -32,12 +32,16 @@ type AuthContextValues = {
     setNewCoverPhotoSetter:Function;
     localUserData:any;
     setLocalUserData:Function;
+    newPassword:any;
+    setNewPassword:Function;
 }
 type ChildrenProp = {
     children:React.ReactNode
 }
 const AuthContext = createContext<AuthContextValues | undefined>(undefined)
 const AuthProvider = ({children}:ChildrenProp) => {
+  const [newPassword,setNewPassword]=useState({first:"",second:""})
+
   const [profileUserUid,setProfileUserUid]=useState<string|null>(null)
   const [RemoteUserData,setRemoteUserData]=useState(null)
   const [localUserData,setLocalUserData]=useState(null)
@@ -49,6 +53,7 @@ const AuthProvider = ({children}:ChildrenProp) => {
     const [newProfilePhotoSetter,setNewProfilePhotoSetter]=useState<any>({seeBtn:false,oldUrl:""})
     const [userDocData,setUserDocData]=useState<object|null|undefined>(null)
     const AuthValue= {
+      newPassword:newPassword,setNewPassword:setNewPassword,
       setLocalUserData:setLocalUserData,localUserData:localUserData,
       newCoverPhotoSetter:newCoverPhotoSetter,
       setNewCoverPhotoSetter:setNewCoverPhotoSetter,

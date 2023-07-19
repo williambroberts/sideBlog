@@ -12,18 +12,19 @@ import { getStorage, ref,
 
 
 import CRUD from './CRUD'
+import { useBlogs } from '../../../contexts/BlogContext'
 
 
 const Editor = () => {
   
   
   
-  const {user,setUserDocData,userDocData}=useAuth()
-  
+  const {user,setUserDocData,userDocData,}=useAuth()
+  const {filterByAuth,setFilterByAuth}=useBlogs()
   
   const {localBlog,setLocalBlog,setRedo,setHistory,history,
     setFireBlog,fireBLog,wait,temp,setTemp,last,setLast,
-    initialBlogData,hasChanged,setHasChanged
+    initialBlogData,hasChanged,setHasChanged,
   }=useWrite()
   
 
@@ -41,6 +42,10 @@ const Editor = () => {
     textarea.style.height=`${newHeight}px`
   }
   const handleWriting = (e) =>{
+    console.log(filterByAuth,"filterByAuth")
+    if (filterByAuth){
+      setFilterByAuth(false)
+    }
     setTemp(e.target.value)
     //.🍏clear REDO 
     setRedo("")

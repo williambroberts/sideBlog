@@ -15,6 +15,7 @@ const WritePage = () => {
     return !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 }
 const desktop = getDevice()
+//const text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore exercitationem ut eum provident cum in, nesciunt iusto molestias recusandae ex explicabo nihil tempora veritatis facere fugiat eaque similique animi tenetur illo doloribus beatae aliquam consequuntur! Quidem tenetur laboriosam a nam dolor laborum quia, minima laudantium ut repellat omnis temporibus minus molestias dolorum inventore eos, excepturi exercitationem soluta nesciunt! Ratione, eaque. Quisquam nisi quas voluptate alias pariatur corrupti commodi nobis velit, eaque, illo quam repudiandae! Rerum ipsa, voluptatem reiciendis perspiciatis assumenda magni commodi possimus aliquid iure atque tempora impedit error vitae fugiat laboriosam in nihil! Facere quisquam rerum quod sint eum iusto similique perferendis velit deleniti. Blanditiis repellat debitis beatae quidem ipsam dolores provident sint natus minima! Obcaecati, molestias nulla sed aliquam quidem eius quia. Magnam obcaecati adipisci nisi dolorum quas tenetur optio. Explicabo nam cum nobis, odit voluptas atque necessitatibus cumque laboriosam quaerat qui dolorum ipsa sequi recusandae excepturi quidem. Animi sequi velit provident voluptas quos similique veritatis saepe illum facilis fuga culpa inventore delectus commodi, nam dignissimos itaque placeat dolor? Tempore dolor iste unde earum, ipsam sed fugiat mollitia consectetur laborum rem distinctio labore consequuntur quaerat aspernatur! Atque autem cumque voluptatem consequuntur voluptas itaque libero reprehenderit repellendus unde incidunt aperiam fugit magni necessitatibus, harum aliquam labore maiores tenetur repudiandae, ex tempore ea at mollitia rem! Veniam autem minima molestiae aliquid provident harum recusandae illum repellat corrupti consectetur error, reiciendis, voluptate velit fugiat! Delectus ex magnam, earum itaque fugit incidunt sunt accusamus fuga libero nulla nisi. Repellat quo nemo iusto perspiciatis itaque nulla id dolorum incidunt quidem aut? Nulla, repudiandae! Iusto maxime labore error magnam architecto, molestias, incidunt voluptate voluptas deleniti cum ipsa vel. Est libero ducimus officiis labore quis accusamus dolor doloremque, ab asperiores ad culpa aliquam dolores amet voluptatem, laborum tempore consequatur distinctio, dignissimos quam nihil vitae molestiae ipsum illum deserunt? Voluptas tempore corporis sint et itaque. Doloribus suscipit natus perspiciatis eos accusamus repudiandae tenetur corporis dolorum, qui sed similique, vitae nemo laudantium deserunt facere ipsam molestiae voluptatem velit delectus numquam eius eum temporibus? Quidem earum nisi commodi laboriosam sequi esse itaque eaque praesentium consectetur asperiores voluptate debitis officiis delectus enim at rerum temporibus expedita atque culpa magnam, repudiandae rem dolores modi! Deleniti distinctio laudantium sit minus ab voluptatibus aspernatur! Dolores repudiandae accusantium ducimus placeat aliquam? At saepe aliquid dolore ex voluptates non maxime quo perspiciatis soluta facilis exercitationem, harum beatae, quaerat nihil error delectus commodi! Autem, quisquam!"
   const {localBlog}=useWrite()
   const {filterByAuth}=useBlogs()
   const direction = React.useRef<"column"|"row">(desktop?"row":"column")
@@ -78,12 +79,14 @@ paneCollection.forEach((element:any)=>{
 
     {desktop&&direction.current==="row"?
     <SplitPaneV1
+    position={"fixed"}
     dragBGcolor='var(--t-4)'
-    direction={direction?.current}
-    height='100dvh'
+    direction={"row"}
+    height=''
     width='100%'
-    minSize={0}
-    maxSize={100}
+    minSize={10}
+    
+    maxSize={90}
     >
       <Editor/>
      
@@ -92,13 +95,15 @@ paneCollection.forEach((element:any)=>{
          <div className='flex flex-col 
          box-border bg-[var(--bg-1)]
          gap-1 w-full min-h-full'>
+        
 <Display source={localBlog}/>
-<TagManager tags={localBlog?.tags}/>
+
         
          </div>
 
          }
-
+         {/* <div>{"text"}ok</div>
+         <div>{"text"}</div> */}
     </SplitPaneV1>:
   <div className='write__mobile__grid'>
     <div className='write__mobile__grid__top'
@@ -110,15 +115,11 @@ paneCollection.forEach((element:any)=>{
       
  {filterByAuth? <BlogsComponent/>:
          
-         <div className='flex flex-col 
-         box-border bg-[var(--bg-1)]
-         gap-1 w-full min-h-full'>
-<Display source={localBlog}/>
-<TagManager tags={localBlog?.tags}/>
         
-         </div>
+<Display source={localBlog}/>
 
-         }
+
+         }  
 
   </div>}
 

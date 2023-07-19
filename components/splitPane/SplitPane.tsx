@@ -11,6 +11,8 @@ interface  theProps {
     position?:any;
     dragBGcolor?:string;
     children?:React.ReactNode | any;
+    top?:string;
+
     
 }
 export default function SplitPaneV1({direction="row"
@@ -18,14 +20,16 @@ export default function SplitPaneV1({direction="row"
 ,child2,children,
 minSize=5,maxSize=95,
 width="",height="",
-position="relative",
-dragBGcolor,
+position="",
+dragBGcolor,top,
 }:theProps) {
   // console.log(children,typeof(children),children.length)
    
    const [mouseDown,setMouseDown]=useState(false)
    
-   const [dim,setDim]=useState(50)
+   const [dim1,setDim1]=useState(50)
+   const [dim2,setDim2]=useState(50)
+   const [dragBarDim,setDragBarDim]=useState<number|undefined>(undefined)
   const down = (e)=>{
     e.preventDefault()
     //console.log(e.clientX,e.clientY,"down👍🏻")
@@ -55,7 +59,13 @@ dragBGcolor,
    let percentY = y*100/parentHeight
    let newPos = Math.min(percentY,maxSize)
    let finalPos = Math.max(newPos,minSize)
-   setDim(finalPos)
+   setDim1(finalPos)
+   setDim2((prev)=>(100-finalPos))
+    //adjust dragbar height 👍🏻 
+    let item = document.querySelector("#item1")
+    let newHeight=item.scrollHeight
+    console.log(newHeight,"👍🏻")
+    setDragBarDim(newHeight)
  }
  const moveRow = (e)=>{
    e.preventDefault()
@@ -70,13 +80,37 @@ dragBGcolor,
    const item1 = document.getElementById("item1")
    let newWidth = Math.max(percentX,minSize)
    let finalWidth = Math.min(maxSize,newWidth)
-   //console.log(parentWidth,x,percentX,finalWidth)
-    //width.current=newWidth
-   setDim(finalWidth)
+   setDim2((prev)=>(100-finalWidth))
+   setDim1(finalWidth)
+    //adjust dragbar height 👍🏻 
+    let item = document.querySelector("#item1")
+    let newHeight=60
+    let itemChildren = item.children
+    for (let i=0;i<itemChildren.length-1;i++){
+      if (itemChildren[i].id!=="drag"){
+        
+        newHeight+=itemChildren[i].scrollHeight
+        //console.log(newHeight,itemChildren.length)
+      }
+    }
+   // console.log(newHeight,"👍🏻")
+    let finalDragHeight=Math.max(item.clientHeight,newHeight)
+    setDragBarDim(finalDragHeight)
  }
  useEffect(()=>{
-   const items = document.querySelectorAll(".item__sp")
-  
+   let item = document.getElementById("item1")
+   let newHeight=60
+    let itemChildren = item.children
+    for (let i=0;i<itemChildren.length-1;i++){
+      if (itemChildren[i].id!=="drag"){
+        
+        newHeight+=itemChildren[i].scrollHeight
+        console.log(newHeight,itemChildren.length)
+      }
+    }
+    //console.log(newHeight,"👍🏻")
+    let finalDragHeight=Math.max(item.clientHeight,newHeight)
+    setDragBarDim(finalDragHeight)  
  },[])
   useEffect(()=>{
     //🌽key is with every render not ,[]?
@@ -101,19 +135,22 @@ dragBGcolor,
       <div className="item__sp" id="item1"
        style={{
           
-          width:direction==="row"?`${dim}%`:"100%",
-          height:direction==="column"?`${dim}%`:"100%"
+          width:direction==="row"?`${dim1}%`:"100%",
+          height:direction==="column"?`${dim1}%`:"100%"
         }}
         > {child1}
             {children?.length===undefined?children:
              children?.slice(0,children?.length/2)}
-        <div id="drag"
-          style={{height:direction==="column"?"10px":"",
-  width:direction==="column"?"100%":"",
-    bottom:direction==="column"?"0px":"",
-      cursor:direction==="row"?"col-resize":"row-resize",
-      backgroundColor:dragBGcolor
-                 }}
+        <div 
+        
+        id="drag"
+           style={{
+            opacity:mouseDown?"0.6":"1",
+            height:direction==="column"?"10px":`${dragBarDim}px`,
+           width:direction==="column"?"100%":"",
+             bottom:direction==="column"?"0px":"",
+               cursor:direction==="row"?"col-resize":"row-resize"
+                          }}
                  onTouchStart={down}
           onMouseDown={down}
           >
@@ -122,11 +159,11 @@ dragBGcolor,
              </div>
       </div>
       <div 
-        style={{
-          width:direction==="row"?"auto":"100%",
-          height:direction==="row"?"100%":"auto"     
+         style={{
+          width:direction==="row"?`${dim2}%`:"100%",
+          height:direction==="row"?"100%":`${dim2}%`     
                }}
-        className="item" id="item2">
+        className="item__sp" id="item2">
             {child2}
             {children.length===undefined?null:children?.slice(children?.length/2)}
         </div>

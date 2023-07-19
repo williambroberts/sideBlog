@@ -24,15 +24,15 @@ interface theProps{
 const Edit = ({}:theProps) => {
     const {user,profileUserUid,AdminEditing,setRemoteUserData,RemoteUserData,
       setNewProfilePhotoSetter,setNewCoverPhotoSetter,
-    setLocalUserData,localUserData,
+    setLocalUserData,localUserData,newPassword,setNewPassword,
     } = useAuth()
     function getDevice(){
       return !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 }
   const desktop = getDevice()
-    const {setNotification,setOpenNotification}=useNotifications()
+    const {setNotification,setOpenNotification,setReAuthState,
+    notificationHandler}=useNotifications()
     const [coverPhotoFile,setCoverPhotoFile]=useState<any|null>({value:"",file:null})
-    const [newPassword,setNewPassword]=useState({first:"",second:""})
     const [profilePhotoFile,setProfilePhotoFile]=useState<any|null>({value:"",file:null})
     
     const [progress,setProgress]=useState<number>(0)
@@ -50,10 +50,7 @@ const Edit = ({}:theProps) => {
           console.log(err)
         }
       }
-    function notificationHandler(type,message){
-      setNotification((prev)=>({type:type,message:message}))
-      setOpenNotification((prev)=>true)
-    }
+    
      
    
     //🧧only admin or user=user.uid can see this page
@@ -130,15 +127,20 @@ const Edit = ({}:theProps) => {
       }).then(async()=>{
         setNotification((prev)=>({type:"alert",message:"Updated successfully!"})),
         setOpenNotification((prev)=>true)
-                //🧧reget userDocData
+                
         await getUserDoc(profileUserUid)
       }).catch((error) => {
         setLocalUserData((prev)=>({...prev,email:RemoteUserData.email}))
-        //if (error.code="")
-        setOpenNotification(true)
-        setNotification((prev)=>({type:"error",message:error.code}))
+        if (error.code==="auth/requires-recent-login"){
+          //🧧reauthenticate user
+          setReAuthState((prev)=>({open:true,type:"email",message:""}))
+      }else {
+        notificationHandler("error",error.code)
+        console.log(error)
+      }
       });
     }
+    
     const handlePassword = ()=>{
       console.log("password change func")
       if (newPassword.first!==newPassword.second){
@@ -148,10 +150,15 @@ const Edit = ({}:theProps) => {
       const user = auth.currentUser;
 
       updatePassword(user, newPassword.first).then(() => {
+        setNewPassword(({first:"",second:""}))
         notificationHandler("alert","Password updated ✔")
       }).catch((error) => {
         if (error.code==="auth/requires-recent-login"){
-            //🧧reauthenticate user
+            //🧧reauthenticate user, then redo update
+            setReAuthState((prev)=>({type:"password",open:true,message:""}))
+        }else {
+          console.log(error)
+          notificationHandler("error",error.code)
         }
             //notificationHandler("error",error.code)
       });
@@ -318,7 +325,8 @@ const Edit = ({}:theProps) => {
             handleClick={updateUsername}
             type='submit'>
 
-            <IconSave/> Save
+            {/* <IconSave/> */}
+             Save
             </Button>
         </div>
         {/* 🌽 */}
@@ -345,7 +353,8 @@ const Edit = ({}:theProps) => {
             handleClick={handleEmail}
             type='submit'>
 
-            <IconSave/> Save
+            {/* <IconSave/>  */}
+            Save
             </Button>
         </div>
         {/* 🍔 */} <span
