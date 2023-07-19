@@ -158,7 +158,7 @@ const Edit = ({}:theProps) => {
             //🧧reauthenticate user, then redo update
             setReAuthState((prev)=>({type:"password",open:true,message:""}))
         }else {
-          console.log(error)
+          console.log("🥩🍔",error)
           notificationHandler("error",error.code)
         }
             //notificationHandler("error",error.code)
@@ -201,7 +201,7 @@ const Edit = ({}:theProps) => {
           //🧧set new cover photo
             setProfilePhotoFile({value:"",file:null})
 
-          notificationHandler("alert","Upload complete!")
+          notificationHandler("alert","Upload complete ✔")
           setNewCoverPhotoSetter({seeBtn:true,oldUrl:RemoteUserData.coverPhoto})
         setRemoteUserData((prev)=>({...prev,coverPhoto:downloadURL}))
         
@@ -247,7 +247,7 @@ const Edit = ({}:theProps) => {
         console.log('File available at', downloadURL);
           //🧧set new url to remoteuserPhooto
         setProfilePhotoFile({value:"",file:null})
-          notificationHandler("alert","Upload complete!")
+          notificationHandler("alert","Upload complete")
          setNewProfilePhotoSetter((prev)=>
          ({seeBtn:true,oldUrl:RemoteUserData.profilePhoto}))
          setRemoteUserData((prev)=>
@@ -290,10 +290,10 @@ const Edit = ({}:theProps) => {
           t.update(docRef,{...localUserData})
         })
         await getUserDoc(profileUserUid)
+        notificationHandler("alert","Bio updated ✔")
       }catch (error){
         console.log(error,"update failed")
-        setNotification(error.code)
-        setOpenNotification((prev)=>true)
+        notificationHandler("error",error.code)
       } 
       
       
@@ -301,7 +301,7 @@ const Edit = ({}:theProps) => {
     //console.log(localUserData)
     //🧧update social media accound
   return (
-    <div className='w-full text-[var(--t-1)]'>
+    <div className='w-full text-[var(--t-1)] py-2'>
         
         <div className='flex flex-row w-full
          items-center gap-1 px-1'>

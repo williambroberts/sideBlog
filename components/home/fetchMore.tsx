@@ -7,7 +7,8 @@ type theProps= {
 }
 
 const FetchMoreBlogs = ({filterByAuthor,userArg}:theProps) => {
-    const {fetchMore}=useBlogs()
+    const {fetchMore,blogs}=useBlogs()
+    
   return (
     <button 
     className="btn u py-4"

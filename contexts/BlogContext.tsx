@@ -128,6 +128,10 @@ const BlogProvider = ({children}:ChildProps) => {
          
         const querySnapshot = await getDocs(q)
         console.log(querySnapshot.docs,"here")
+        if (querySnapshot.docs.length===0){
+            setBlogs(undefined)
+            return;
+        }
         //querySnapshot.forEach((doc)=>console.log(doc.id))
         handleUpdate(querySnapshot)
 
