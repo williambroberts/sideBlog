@@ -49,6 +49,8 @@
   #drag:hover {
     outline: 1px solid hsl(0, 0%, 46%);
     outline-offset: 1px;
+    opacity: 0.6;
+    
   }
 
   #drag:focus{
