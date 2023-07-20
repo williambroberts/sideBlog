@@ -5,6 +5,7 @@ import { collection,query
 ,where,orderBy,limit,getDocs, startAfter, startAt, QuerySnapshot, doc, getDoc } from 'firebase/firestore';
 import { useAuth } from './AuthContext';
 import { useSearchParams } from 'next/navigation';
+import { getMostViewedBlogs, updateABlog, updateBlogsWithCurrentUserInfo } from '../firebase/CLientFunctions';
 interface BlogContextProps {
     blogs?:any;
     setBlogs?:Function;
@@ -20,7 +21,9 @@ interface BlogContextProps {
     stateTag:string;
     filterByAuth:boolean;
     setFilterByAuth:Function;
-
+    setMostViewedBlogs:Function;
+    mostViewedBlogs:any;
+    handleGetMostViewedBlogs:Function;
 }
 type ChildProps = {
     children:React.ReactNode;
@@ -30,6 +33,7 @@ const BlogProvider = ({children}:ChildProps) => {
     //❤️blog id {blogid:,blog:}
     const {user,setProfileUserUid}=useAuth()
     const theLimit = 4;
+    const [mostViewedBlogs,setMostViewedBlogs]=useState(null)
     const [filterByAuth,setFilterByAuth]=useState<boolean>(false)
     const [blogs,setBlogs]=React.useState(null)
     const [stateTag,setStateTag]=useState<string>(null)
@@ -62,10 +66,15 @@ const BlogProvider = ({children}:ChildProps) => {
             updatedMatchingBlogs.push(docCopy)
             }).then(()=>{
                 if(index===docs.length-1){
-                    console.log(updatedMatchingBlogs,"updatedMatchignBlogs",index)
-                    setBlogs((prev)=>updatedMatchingBlogs)
+                    updatedMatchingBlogs.forEach(async(newDoc)=>{
+                        await updateABlog(newDoc)
+                    })
+                    
                 }
                 
+            }).then(()=>{
+                console.log(updatedMatchingBlogs,"updatedMatchignBlogs",index)
+                setBlogs((prev)=>updatedMatchingBlogs)
             }).catch((error)=>console.log(error))
             
         })
@@ -136,7 +145,15 @@ const BlogProvider = ({children}:ChildProps) => {
         handleUpdate(querySnapshot)
 
     }
-    
+    const handleGetMostViewedBlogs =async ()=>{
+        let querySnapshot:any = await getMostViewedBlogs()
+        if (querySnapshot.docs.length===0){
+            setMostViewedBlogs(undefined)
+            return
+        }
+        let updatedBlogs = await updateBlogsWithCurrentUserInfo(querySnapshot)
+        setMostViewedBlogs(updatedBlogs)
+    }
     const handleSearch =async (query:string,filterArg,userArg) =>{
         if (query!==queryText){
             setQueryText(query)
@@ -273,6 +290,8 @@ const BlogProvider = ({children}:ChildProps) => {
 
     //
     const BlogValue = {
+        handleGetMostViewedBlogs:handleGetMostViewedBlogs,
+        setMostViewedBlogs:setMostViewedBlogs,mostViewedBlogs:mostViewedBlogs,
         setFilterByAuth:setFilterByAuth,filterByAuth:filterByAuth,
         setStateTag:setStateTag,stateTag:stateTag,
         getBlogsByTag:getBlogsByTag,

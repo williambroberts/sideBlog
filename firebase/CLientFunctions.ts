@@ -1,4 +1,4 @@
-import { doc, getDoc, runTransaction } from "firebase/firestore"
+import { collection, doc, getDoc, getDocs, limit, orderBy, query, runTransaction } from "firebase/firestore"
 import { auth, firestore } from "./firebaseConfig"
 import { useCallback, useState } from "react"
 import { EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth"
@@ -121,10 +121,10 @@ export function applyImgDisplayStyles (){
 }
 
 
-export async function updateABlog(newLocalBlog) {
+export async function updateABlog(newBlog) {
    
     try {
-        let blogRef = doc(firestore,"Blogs",newLocalBlog.id)
+        let blogRef = doc(firestore,"Blogs",newBlog.id)
         await runTransaction(firestore, async (t)=>{
           const docSnapShot = await t.get(blogRef)
           if (!docSnapShot.exists()){
@@ -132,7 +132,7 @@ export async function updateABlog(newLocalBlog) {
             console.log("error,no snapshot")
             return
           }
-          t.update(blogRef,newLocalBlog)
+          t.update(blogRef,newBlog)
         })
        
         
@@ -140,3 +140,31 @@ export async function updateABlog(newLocalBlog) {
         console.log(err,"update failed")
       }
 }
+
+export async function getMostViewedBlogs (){
+    const theLimit = 5
+    const blogsRef = collection(firestore,"Blogs")
+    let q = query(blogsRef,
+        orderBy("views","desc"),
+        limit(theLimit),
+        )
+    const querySnapshot = await getDocs(q)
+    
+
+}
+
+export async function updateBlogsWithCurrentUserInfo(docs){
+    //return array of updated blog docs from them & save updates to firebase
+    //👍🏻for the top Views list sync to user doc updates
+    const updatedDocs = []
+    await  docs.forEach(async (doc)=>{
+        let userDoc = await getUserDoc(doc.authorId)
+        let newBlogDoc = {...doc}
+        newBlogDoc.author = userDoc?.username
+        newBlogDoc.userPhoto= userDoc?.profilePhoto
+        await updateABlog(newBlogDoc)
+        updatedDocs.push(newBlogDoc)
+    })
+
+    return [...updatedDocs]
+}   

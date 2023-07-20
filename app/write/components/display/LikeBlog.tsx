@@ -31,7 +31,7 @@ const LikeBlog = ({likes}:likes) => {
     const handleLike =async ()=>{
         //🥩if user in etc.
         if (user===null || user===undefined){
-            notificationHandler("alert","Please sign in to likes a blog")
+            notificationHandler("alert","Please sign in to like this blog")
             return
         }
         let newLocalBlog = {...fireBLog}

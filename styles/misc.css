@@ -217,7 +217,7 @@ form.search__form > input{
 }
 div#portal {
     z-index: 9999;
-    
+    margin:auto;
     
     @apply fixed bottom-5 w-min 
   }
