@@ -111,7 +111,7 @@ const BlogProvider = ({children}:ChildProps) => {
         if (filterByAuthor){
             q = query(blogsRef,
                 where("authorId","==",sendUserArg),
-                orderBy("creationTimeStamp","desc"),
+                orderBy("dateCreation"),
                 limit(theLimit),
                 startAfter(startAfterValue)
                 
