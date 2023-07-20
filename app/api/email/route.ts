@@ -8,6 +8,7 @@ const nodemailer = require("nodemailer");
 const adminEmail = 'william <thew1lego@gmail.com>';
 const senderEmail = 'william <williambrobertsemail@gmail.com>'
 require('dotenv').config()
+
 const mailConfig = {
     host: "smtp.gmail.com",
     port: 465, // or 587

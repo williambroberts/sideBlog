@@ -12,7 +12,9 @@ import NotificationProvider from '../contexts/NotificationContext'
 import ProviderForTheme from '../components/theme/themeProvider'
 import BlogProvider from '../contexts/BlogContext'
 import WriteProvider from '../contexts/writeContext'
-const inter = Inter({ subsets: ['latin'] })
+import ReactThemeProvider from '../contexts/themeContext'
+import ContextConsumer from '../components/ContextComsumer'
+
 const lato = Lato({subsets:["latin"],weight:["100","300","400","700","900"]})
 export const metadata = {
   title: {
@@ -27,20 +29,30 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" style={{overflowX:"hidden"}}>
       <body className={lato.className}>
-        {/* <ProviderForTheme> */}
+        <ProviderForTheme>
+        <ReactThemeProvider>
+
+        
         <AuthProvider>
         <BlogProvider>
         
           <WriteProvider>
           <NotificationProvider>
-          {children}
-          <div id="portal"></div>
+            <ContextConsumer>
+               {children}
+               <div id="portal"></div>
+           
+            </ContextConsumer>
+         
+         
           </NotificationProvider>
           </WriteProvider>
         
         </BlogProvider>
         </AuthProvider>
-        {/* </ProviderForTheme> */}
+       
+        </ReactThemeProvider>
+        </ProviderForTheme>
         </body>
         
     </html>

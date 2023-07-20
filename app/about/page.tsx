@@ -6,7 +6,10 @@ import Link from 'next/link'
 
 const AboutPage = () => {
   return (
-    <main className='page'>
+    <main 
+    
+    
+    className='page'>
         <Animator index={1}>
             <DisplayCategory
             category='greetings'

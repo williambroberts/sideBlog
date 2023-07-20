@@ -245,6 +245,10 @@ main.page {
   margin-top: 60px;
   max-width: 650px;
 }
+
+ *{
+  color: var(--t-1);
+}
   h1 {
     color: var(--t-1);
     font-size: var(--font-size-48);
@@ -258,7 +262,8 @@ main.page {
     font-size: var(--font-size-24);
   }
   p{
-    color: var(--t-2);
+    
+    color: var(--t-1);
     font-size: var(--font-size-16);
   }
 

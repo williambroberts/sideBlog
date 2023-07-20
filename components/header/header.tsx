@@ -10,6 +10,7 @@ import Link from 'next/link'
 import ProfileLink from './profileLink'
 import IconMenuLeft from '../../icons/menu'
 import Hamburger from './hamburger'
+import ReactColorThemeButton from '../ReactColorTheme/ReactColorThemeButton'
 const HeaderHorizontal = () => {
   const [hamburger,setHamburger]=useState<boolean>(false)
   return (
@@ -34,6 +35,7 @@ const HeaderHorizontal = () => {
           </div>
           <div className='header__h__right'>
             <ThemeButton/>
+            {/* <ReactColorThemeButton/> */}
           </div>
           
         </nav>

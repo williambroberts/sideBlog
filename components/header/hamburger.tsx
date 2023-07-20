@@ -11,6 +11,7 @@ import IconHome from '../../icons/home'
 import IconInfoSquare from '../../icons/about'
 import IconMailForward from '../../icons/contact'
 import IconWrite from '../../icons/write'
+import ReactColorThemeButton from '../ReactColorTheme/ReactColorThemeButton'
 type theProps = {
     open:boolean;
 }
@@ -31,6 +32,7 @@ const Hamburger = ({open}:theProps) => {
           href={"/"}
           >⚛
           SideBlog
+          {/* <ReactColorThemeButton/> */}
           <ThemeButton/>
           </Link>
           <div className='flex flex-col w-full mt-8'>

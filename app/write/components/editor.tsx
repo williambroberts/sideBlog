@@ -106,7 +106,7 @@ const Editor = () => {
         placeholder={"✎ write your blog"}
         onInput={(e)=>handleResize(e)}
         className='write__textarea'
-        
+        style={{color:"var(--t-2)"}}
         value={temp}
         onChange={(e)=>handleWriting(e)}
         >
