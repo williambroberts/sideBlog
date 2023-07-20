@@ -6,13 +6,14 @@ import HeaderLink from './headerLink'
 import IconLogout from '../../icons/signOut'
 import IconFormatListGroupPlus from '../../icons/signUp'
 import IconWebauthn from '../../icons/signIn'
+import UserImg from './UserImg'
 interface theProps {
   fontSize?:string; 
   open?:boolean;
 }
 const AuthLinks = ({fontSize,open}:theProps) => {
   const [windowSize,setWindowSize]=React.useState<[]>([])
-    const {user}=useAuth()
+    const {user,userDocData}=useAuth()
 
 
     return (
@@ -39,6 +40,11 @@ const AuthLinks = ({fontSize,open}:theProps) => {
 {!user&&<HeaderLink href='signUp'
 icon={open? <IconFormatListGroupPlus/>:null}
         text='Sign Up'/>}
+
+        {user && <UserImg 
+        open={open}
+        name={userDocData?.username}
+        src={userDocData?.profilePhoto}/>}
     </div>
   )
 }
