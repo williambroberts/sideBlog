@@ -35,14 +35,21 @@ const BlogList = () => {
     <div className={`blog__list w-full`}>
       {mode==="tag"? 
       <div
-      className='flex flex-row items-center gap-1
+      className='inline-flex px-2
+       box-border w-min 
+      bg-[var(--bg-3)] rounded-full
+      flex-row items-center gap-1
       '
       ><IconTags/>{stateTag} 
       <button 
       className='flex flex-row items-center
-      px-1 relative'
+      scale-80 opacity-60  z-10
+      px-1 relative hover:scale-100 hover:opacity-100'
       onClick={handleClear}>
         <IconClear/>
+        <div className='button__hover'>
+          Clear filter
+        </div>
       </button>
       </div>
       :""}

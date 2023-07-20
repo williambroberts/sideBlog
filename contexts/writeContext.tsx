@@ -58,6 +58,7 @@ const WriteProvider = ({children}:ChildProps) => {
     id:"",
     latestUpdateTimeStamp:"",
     userPhoto:"",
+    likes:[],
     userSocials:{},//❤️ do here sync to user DOc
   }
   const openState = {
