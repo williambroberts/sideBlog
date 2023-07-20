@@ -1,5 +1,8 @@
 "use client"
 import React, {useEffect,useState} from "react"
+import IconBxArrowBack from "../../icons/back";
+import IconResizeSharp from "../../icons/resizr";
+import IconArrowsResizeH from "../../icons/resizr";
 interface  theProps {
     child1?:React.ReactNode;
     child2?:React.ReactNode;
@@ -142,7 +145,7 @@ dragBGcolor,top,
             {children?.length===undefined?children:
              children?.slice(0,children?.length/2)}
         <div 
-        
+        data-theme="dark"
         id="drag"
            style={{
             opacity:mouseDown?"0.6":"1",
@@ -155,7 +158,9 @@ dragBGcolor,top,
           onMouseDown={down}
           >
             
-            
+            {/* <div className="drag__arrow">
+              <IconArrowsResizeH/>
+            </div> */}
              </div>
       </div>
       <div 

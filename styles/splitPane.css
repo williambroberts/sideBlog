@@ -42,14 +42,16 @@
     position:absolute;
     height:100%;
     width:10px;
-    background-color:#060606;
+    display: flex;
+    background-color:var(--bg-4);
     transition: var(--transition-1);
+    overflow: visible;
   }
 
   #drag:hover {
     outline: 1px solid hsl(0, 0%, 46%);
     outline-offset: 1px;
-    background-color: hsl(0, 0%, 46%);
+    background-color: var(--bg-4);
     
   }
 
@@ -57,4 +59,21 @@
     outline: 1px solid hsl(0, 0%, 46%);
     outline-offset: 1px;
     opacity: 0.6;
+    background-color: var(--bg-4);
   }
+  .drag__arrow {
+    height:24px;
+    width:24px;
+    display: flex;
+    font-size: 24px;
+    @apply rounded-md;
+    transform:translate(-12px,0px);
+    position:relative;
+    top:50%;
+    background-color: chocolate;
+    color: wheat;
+    animation: pulse 1s ease-in-out delay infinite forwards ;
+  }
+@keyframes pusle {
+
+}
