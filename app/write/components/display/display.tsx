@@ -21,6 +21,7 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import { updateBlogViews } from '../../../../firebase/CLientFunctions'
 import rehypeRaw from 'rehype-raw'
 import TagManager from '../addTags/manageTags'
+import LikeBlog from './LikeBlog'
 type theProps = {
   source?:any;
 }
@@ -129,7 +130,7 @@ const Display = ({source}:theProps) => {
           }
         }}
       >{source?.content}</ReactMarkdown>
-      
+      <LikeBlog likes={source?.likes}/>
     </div>
   )
 }

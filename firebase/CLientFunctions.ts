@@ -119,3 +119,24 @@ export function applyImgDisplayStyles (){
     //     }
     // }
 }
+
+
+export async function updateABlog(newLocalBlog) {
+   
+    try {
+        let blogRef = doc(firestore,"Blogs",newLocalBlog.id)
+        await runTransaction(firestore, async (t)=>{
+          const docSnapShot = await t.get(blogRef)
+          if (!docSnapShot.exists()){
+            //❤️check erros
+            console.log("error,no snapshot")
+            return
+          }
+          t.update(blogRef,newLocalBlog)
+        })
+       
+        
+      }catch (err){
+        console.log(err,"update failed")
+      }
+}

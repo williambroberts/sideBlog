@@ -8,7 +8,7 @@ const ClickToSeeAllBlogs = () => {
     className='flex flex-row 
     py-3 h-11 hover:underline hover:scale-95
     text-base items-center 
-    gap-1 no-underline'
+    gap-1 no-underline mb-3'
     >
        <IconBxArrowBack/> See all
     </Link>

@@ -9,6 +9,7 @@ interface ReactThemeContextValues {
 const ReactThemeContext = createContext<ReactThemeContextValues|undefined>(undefined)
 
 function getInitialTheme(){
+  try {
     const persistedThemePreference =  localStorage.getItem("color-theme")
     const hasPersistedThemePreference = typeof(persistedThemePreference)==="string"
     if (hasPersistedThemePreference){
@@ -19,6 +20,10 @@ function getInitialTheme(){
     if (hasMediaQueryPrefence){
         return mql.matches? 'dark':'light'
     }
+  }catch (err){
+    console.log(err)
+  }
+  
    
 
     return "light"

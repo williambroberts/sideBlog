@@ -7,6 +7,7 @@ import { doc, getDoc, runTransaction } from 'firebase/firestore'
 import { useWrite } from '../../contexts/writeContext'
 import { updateBlogViews } from '../../firebase/CLientFunctions'
 import ClickToSeeAllBlogs from './components/seeAll'
+import LikeBlog from '../write/components/display/LikeBlog'
 
 const BlogPage = () => {
     const searchParams = useSearchParams()
@@ -83,6 +84,7 @@ useEffect(()=>{
   return (
     <main className='page'>
         <Display source={fireBLog}/>
+        
         <ClickToSeeAllBlogs/>
     </main>
   )
