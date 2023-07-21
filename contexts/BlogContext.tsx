@@ -136,7 +136,7 @@ const BlogProvider = ({children}:ChildProps) => {
         }
          
         const querySnapshot = await getDocs(q)
-        console.log(querySnapshot.docs,"here")
+        //console.log(querySnapshot.docs,"here")
         if (querySnapshot.docs.length===0){
             setBlogs(undefined)
             return;
@@ -146,13 +146,35 @@ const BlogProvider = ({children}:ChildProps) => {
 
     }
     const handleGetMostViewedBlogs =async ()=>{
-        let querySnapshot:any = await getMostViewedBlogs()
-        if (querySnapshot.docs.length===0){
+        async function getMostViewedBlogsHere (){
+            const theLimit = 5
+            const blogsRef = collection(firestore,"Blogs")
+            let q = query(blogsRef,
+                where("views",">=",0),
+                orderBy("views","desc"),
+                limit(theLimit),
+                )
+            const querySnapshot = await getDocs(q)
+            return querySnapshot
+        
+        }
+        let querySnapshot:any = await getMostViewedBlogsHere()
+        console.log(querySnapshot)
+        if (querySnapshot?.docs.length===0 
+            || querySnapshot===undefined){
             setMostViewedBlogs(undefined)
             return
+        }else {
+            const docsArray = []
+            querySnapshot.forEach((doc)=>{
+              docsArray.push({...doc.data()})
+            })
+            
+            let updatedBlogs = await updateBlogsWithCurrentUserInfo(docsArray)
+            //console.log(updatedBlogs)
+            setMostViewedBlogs(updatedBlogs)
         }
-        let updatedBlogs = await updateBlogsWithCurrentUserInfo(querySnapshot)
-        setMostViewedBlogs(updatedBlogs)
+        
     }
     const handleSearch =async (query:string,filterArg,userArg) =>{
         if (query!==queryText){

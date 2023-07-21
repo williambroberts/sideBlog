@@ -6,10 +6,13 @@ import MobileLink from './mobileLink';
 import { useAuth } from '../../contexts/AuthContext';
 
 import Image from 'next/image';
+import IconPinned from '../../icons/pin';
 type theProps = {
     data?:any;
+    topViewed?:boolean;
+    rank?:number;
 }
-const DesktopLink = ({data}:theProps) => {
+const DesktopLink = ({rank,data,topViewed}:theProps) => {
   
   const {setProfileUserUid}=useAuth()
   const [position,setPosition]=useState({left:0,top:0,display:""})
@@ -40,18 +43,26 @@ const DesktopLink = ({data}:theProps) => {
     window.location.assign(newHref)
   }
   return (
-    <div className='w-full'>
+    <div className='w-full flex-col'>
       <div className='sm:hidden w-full'>
         <MobileLink data={data}/>
       </div>
 
      
-    
+    <div className='flex gap-1 px-1 
+    text-sm tracking-tight
+    items-center text-[var(--t-3)]
+    '
+    style={{display:topViewed?"":"none"}}
+    >
+     <IconPinned/> Top Viewed #{rank}
+    </div>
     <div
     onMouseMove={handleImage} 
-    className='text-base tracking-wide py-2 
+    className='text-base tracking-wide pb-2 pt-0
     hidden
     sm:block group'>
+
        <div
        onClick={handleClick}
         className='text-[var(--t-1)] pr-4
@@ -71,6 +82,7 @@ const DesktopLink = ({data}:theProps) => {
 
         <div 
         style={{
+          clipPath:"polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
           backgroundImage:`url(${data?.coverImage})`,
           display:position.display,
           transform:`translate(${position.left}px,${position.top}px)`

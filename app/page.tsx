@@ -1,6 +1,7 @@
 import Animator from "../components/animator/animator";
 import FooterHorizontal from "../components/footer/footer";
 import HeaderHorizontal from "../components/header/header";
+import MostViewedBlogs from "../components/home/MostViewedBlogs";
 import BlogList from "../components/home/blogList";
 import FetchMoreBlogs from "../components/home/fetchMore";
 import GetBlogsComponent from "../components/home/getBlogs";
@@ -37,6 +38,9 @@ export default function Home() {
     <Animator index={2}
     alignItems="flex-start"
     >
+      
+      <MostViewedBlogs/>
+
 <SearchBar
 
 />

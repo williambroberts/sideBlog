@@ -145,26 +145,35 @@ export async function getMostViewedBlogs (){
     const theLimit = 5
     const blogsRef = collection(firestore,"Blogs")
     let q = query(blogsRef,
-        orderBy("views","desc"),
+        // orderBy("views","desc"),
         limit(theLimit),
         )
     const querySnapshot = await getDocs(q)
-    
+    return querySnapshot
 
 }
 
-export async function updateBlogsWithCurrentUserInfo(docs){
-    //return array of updated blog docs from them & save updates to firebase
-    //👍🏻for the top Views list sync to user doc updates
-    const updatedDocs = []
-    await  docs.forEach(async (doc)=>{
-        let userDoc = await getUserDoc(doc.authorId)
-        let newBlogDoc = {...doc}
+export async function updateBlogsWithCurrentUserInfo(docArray){
+    console.log(docArray)
+
+    async function DocSync(doc){
+      let userDoc = await getUserDoc(doc.authorId)
+         let newBlogDoc = {...doc}
+        //console.log(newBlogDoc)
         newBlogDoc.author = userDoc?.username
         newBlogDoc.userPhoto= userDoc?.profilePhoto
         await updateABlog(newBlogDoc)
-        updatedDocs.push(newBlogDoc)
-    })
+        return newBlogDoc
+    }
 
-    return [...updatedDocs]
+  const updatedArrayOfBlogs = await Promise.all(docArray.map(async(doc)=>{
+          return await DocSync(doc)
+    }))
+
+  return updatedArrayOfBlogs
+   
+    
+  
+    
+   
 }   

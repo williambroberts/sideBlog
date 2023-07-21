@@ -2,8 +2,12 @@ import React,{memo} from 'react'
 import DesktopLink from './desktopLink';
 import MobileLink from './mobileLink';
 import { usePathname } from 'next/navigation';
-
-const BlogLink = ({data}) => {
+interface theProps {
+  data?:any
+  topViewed?:boolean;
+  rank?:number;
+}
+const BlogLink = ({data,topViewed,rank}) => {
     const pathname = usePathname()
     function getDevice(){
         return !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
@@ -13,7 +17,9 @@ const BlogLink = ({data}) => {
     <div className='w-full'>
       
         {desktop && pathname==="/"?
-        <DesktopLink data={data}/>:
+        <DesktopLink data={data} topViewed={topViewed}
+        rank={rank}
+        />:
         <MobileLink data={data}/>
     }
     </div>
