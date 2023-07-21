@@ -332,7 +332,7 @@ background-color: var(--bg-4);
     background-color: var(--bg-3);
     font-weight: 400;
     @apply absolute 
-    flex-row flex
+    flex-row hidden
     rounded-sm px-1
     duration-300 transition-all
     ease-in-out delay-0
