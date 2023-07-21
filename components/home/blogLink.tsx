@@ -3,7 +3,7 @@ import DesktopLink from './desktopLink';
 import MobileLink from './mobileLink';
 import { usePathname } from 'next/navigation';
 interface theProps {
-  data?:any
+  data?:any;
   topViewed?:boolean;
   rank?:number;
 }
