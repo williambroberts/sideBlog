@@ -45,12 +45,14 @@ const DesktopLink = ({rank,data,topViewed}:theProps) => {
   return (
     <div className='w-full flex-col'>
       <div className='sm:hidden w-full'>
-        <MobileLink data={data}/>
+        <MobileLink data={data} rank={rank}
+        topViewed={topViewed}
+        />
       </div>
 
      
-    <div className='flex gap-1 px-1 
-    text-sm tracking-tight
+    <div className='hidden gap-1 px-1 
+    text-sm tracking-tight sm:flex
     items-center text-[var(--t-3)]
     '
     style={{display:topViewed?"":"none"}}

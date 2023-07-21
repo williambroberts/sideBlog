@@ -5,12 +5,17 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../contexts/AuthContext';
 import CanEdit from './canEdit';
+import IconPinned from '../../icons/pin';
 //misc css
 interface theProps {
     data?:any;
+    rank?:number;
+    topViewed?:boolean;
     
 }
-const MobileLink = ({data}:theProps) => {
+
+const MobileLink = ({data,rank,topViewed}:theProps) => {
+  console.log(data,"data","rank",rank,topViewed,"topViewed")
   const [loaded,setLoaded]=React.useState<boolean>(false)
   const {setProfileUserUid}=useAuth()
   const router = useRouter()
@@ -30,13 +35,25 @@ const MobileLink = ({data}:theProps) => {
 
     flex flex-row items-center text-sm px-2'>
         <div className='flex flex-col gap-1 items-start justify-start'>
-            <span className='text-[var(--t-3)]'>{data?.dateCreation}</span>
+            <span className='text-[var(--t-3)] flex items-center
+            gap-1'>{data?.dateCreation}
+            <div className='gap-1 px-1 
+    text-xs tracking-tight flex
+    items-center text-[var(--t-3)]
+    '
+    style={{display:topViewed?"":"none"}}
+    >
+     <IconPinned/> Top Viewed #{rank}
+    </div>
+            </span>
             <div 
             onClick={handleProfile}
             className='text-[var(--t-2)]
             hover:underline no-underline
             cursor-pointer
-            '>{data?.author}</div>
+            '>{data?.author}
+            
+            </div>
             <Link 
             className='text-[var(--t-1)] no-underline
             hover:underline
