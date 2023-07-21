@@ -7,7 +7,7 @@ interface theProps {
   topViewed?:boolean;
   rank?:number;
 }
-const BlogLink = ({data,topViewed,rank}) => {
+const BlogLink = ({data,topViewed,rank}:theProps) => {
     const pathname = usePathname()
     function getDevice(){
         return !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
