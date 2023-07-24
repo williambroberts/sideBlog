@@ -22,12 +22,14 @@ export const metadata = {
     template:" %s | SB"
   },
   description: 'A blog app',
-  keywords:["blog"],
+
 }
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html 
+    data-id="html"
+    lang="en">
       <body className={lato.className}>
         <ProviderForTheme>
         <ReactThemeProvider>
