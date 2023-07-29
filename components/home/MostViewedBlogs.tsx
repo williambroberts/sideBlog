@@ -9,7 +9,7 @@ interface theProps {
 }
 const MostViewedBlogs = ({}:theProps) => {
     const {mostViewedBlogs,handleGetMostViewedBlogs}=useBlogs()
-    console.log(mostViewedBlogs)
+    //console.log(mostViewedBlogs)
 
     useEffect(()=>{
 handleGetMostViewedBlogs()

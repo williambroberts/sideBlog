@@ -56,7 +56,7 @@ export function useBoolean(initial=false){
 }
 
 export async function updateBlogViews(id){
-    console.log(id,"👍🏻","blog")
+    //console.log(id,"👍🏻","blog")
     const docRef = doc(firestore,"Blogs",id)
     try {
         await runTransaction(firestore, async (transaction) => {
@@ -154,7 +154,7 @@ export async function getMostViewedBlogs (){
 }
 
 export async function updateBlogsWithCurrentUserInfo(docArray){
-    console.log(docArray)
+    //console.log(docArray)
 
     async function DocSync(doc){
       let userDoc = await getUserDoc(doc.authorId)

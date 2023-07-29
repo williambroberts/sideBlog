@@ -40,7 +40,7 @@ main.signUp {
     gap-2
 }
 
-.auth__button{
+.auth__button[type="submit"]{
     color: var(--bg-2);
     font-size: var(--font-size-14);
     font-weight: 400;

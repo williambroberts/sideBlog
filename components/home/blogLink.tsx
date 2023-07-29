@@ -13,7 +13,7 @@ const BlogLink = ({data,topViewed,rank}:theProps) => {
         return !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 }
     const desktop = getDevice()
-    console.log(desktop,"desktop")
+   // console.log(desktop,"desktop")
   return (
     <div className='w-full'>
       

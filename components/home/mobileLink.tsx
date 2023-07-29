@@ -15,12 +15,12 @@ interface theProps {
 }
 
 const MobileLink = ({data,rank,topViewed}:theProps) => {
-  console.log(data,"data","rank",rank,topViewed,"topViewed")
+  //console.log(data,"data","rank",rank,topViewed,"topViewed")
   const [loaded,setLoaded]=React.useState<boolean>(false)
   const {setProfileUserUid}=useAuth()
   const router = useRouter()
   const handleProfile = ()=>{
-    console.log(data.authorId,"setting profileUId")
+    //console.log(data.authorId,"setting profileUId")
     setProfileUserUid((prev)=>data.authorId)
     router.push(`/profile?id=${data?.authorId}`)
   }

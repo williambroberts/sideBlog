@@ -51,7 +51,7 @@ const CRUD = ({blogId}:theProps) => {
       //❤️SAVE button
 
       let newImgFile = {file:e.target.files[0],value:e.target.value}
-      console.log(e.target.value,e.target.files[0])
+      //console.log(e.target.value,e.target.files[0])
       setImgFile((prev)=>newImgFile)
     }
     const uploadFile = ()=>{
@@ -61,7 +61,7 @@ const CRUD = ({blogId}:theProps) => {
     (snapshot) => {
       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
       const snapshotProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log('Upload is ' + snapshotProgress + '% done');
+     // console.log('Upload is ' + snapshotProgress + '% done');
       setProgress((prev)=>snapshotProgress)
       //❤️progressBAR
       switch (snapshot.state) {
@@ -83,9 +83,9 @@ const CRUD = ({blogId}:theProps) => {
     }, () => {
      
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        console.log('File available at', downloadURL);
+        //console.log('File available at', downloadURL);
           let newLocalBlog = {...localBlog}
-          console.log(newLocalBlog)
+          //console.log(newLocalBlog)
           newLocalBlog.uploadedImages.push(downloadURL)
           setLocalBlog((prev)=>newLocalBlog)
          
@@ -112,7 +112,7 @@ const CRUD = ({blogId}:theProps) => {
   },[imgFile])
 
     const createBlog =async ()=>{
-      console.log("creatingBLog")
+      //console.log("creatingBLog")
       const blogIdParam = searchParams.get("blogId")
       
       let authorId = blogIdParam.split("blog")[0]
@@ -153,13 +153,13 @@ const CRUD = ({blogId}:theProps) => {
       let blogIdQP = searchParams.get("blogId")
       if (blogIdQP!==null){
         let timestamp = blogIdQP.split("blog")[1]
-        console.log("👍🏻🍔🌮",timestamp,"timestamp")
+        //console.log("👍🏻🍔🌮",timestamp,"timestamp")
         if (timestamp!=="newBlog"){
           setBlogId(blogIdQP)
           getABlogFromFirebase(blogIdQP).then((theBlog)=>{
             setFireBlog({...theBlog})
             setLocalBlog({...theBlog})
-            console.log(theBlog)
+            //console.log(theBlog)
           }).catch((error)=>console.log(error))
         }
     }
@@ -177,17 +177,17 @@ const CRUD = ({blogId}:theProps) => {
     let blogIdQP = searchParams.get("blogId")
     if (blogIdQP!==null){
       let timestamp = blogIdQP.split("blog")[1]
-      console.log("🟩🧧❤️👍🏻🍔🌮",timestamp,"timestamp")
+      //console.log("🟩🧧❤️👍🏻🍔🌮",timestamp,"timestamp")
        if (timestamp===""||timestamp==="newBlog"
        ||timestamp===undefined){
-         console.log("making new blog❤️🧧🟩")
+         //console.log("making new blog❤️🧧🟩")
          createBlog()  
        }else if (timestamp!=="newBlog"){
          setBlogId(blogIdQP)
          getABlogFromFirebase(blogIdQP).then((theBlog)=>{
            setFireBlog({...theBlog})
            setLocalBlog({...theBlog})
-           console.log(theBlog)
+           //console.log(theBlog)
          }).catch((error)=>console.log(error))
        }
     }
@@ -195,7 +195,7 @@ const CRUD = ({blogId}:theProps) => {
    },[searchParams])
   const handleEdit =async ()=>{
     let userUid = auth.currentUser.uid
-    console.log("get view of all blogs",userUid)
+    //console.log("get view of all blogs",userUid)
     
     //get all user blogs from firebase and display them in the display
     getBlogsByLatest(false,true,userUid)
@@ -204,7 +204,7 @@ const CRUD = ({blogId}:theProps) => {
     
   }
   const handleDelete = async(id)=>{
-    console.log(id,"handleDelete")
+    //console.log(id,"handleDelete")
     if (id===null || id===undefined){
         //❤️create BLog
         createBlog()

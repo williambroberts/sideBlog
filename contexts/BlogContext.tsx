@@ -232,7 +232,7 @@ const BlogProvider = ({children}:ChildProps) => {
     const getBlogsBySearchTerm = async (term:string,filterByAuthor=false,userArg)=>{
         setMode((prev)=>"search")
         //console.log("lastVisible",LastVisible,"term",term,mode,"mode"
-        ,queryText,"queryText",user?.uid)
+       // ,queryText,"queryText",user?.uid)
         const blogsRef = collection(firestore,"Blogs")
         let searchTerm = term.toLowerCase()
         let startAfterValue = term===queryText?LastVisible: null
