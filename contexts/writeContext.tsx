@@ -116,11 +116,11 @@ const generateKeywords = ()=> {
     localBlog?.author,localBlog?.title])
 
     const getBlogById =async (id)=>{
-      console.log(id,"idGETblogBy")
+      //console.log(id,"idGETblogBy")
       const docRef = doc(firestore,"Blogs",id)
        const docSnap = await getDoc(docRef)
        if (docSnap.exists()){
-        console.log(docSnap.data())
+        //console.log(docSnap.data())
         setFireBlog({...docSnap.data()})
         setBlogId((prev)=>docSnap.data().id)
        

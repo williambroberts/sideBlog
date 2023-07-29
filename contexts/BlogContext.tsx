@@ -73,7 +73,7 @@ const BlogProvider = ({children}:ChildProps) => {
                 }
                 
             }).then(()=>{
-                console.log(updatedMatchingBlogs,"updatedMatchignBlogs",index)
+                //console.log(updatedMatchingBlogs,"updatedMatchignBlogs",index)
                 setBlogs((prev)=>updatedMatchingBlogs)
             }).catch((error)=>console.log(error))
             
@@ -93,7 +93,7 @@ const BlogProvider = ({children}:ChildProps) => {
         const matchingBlogs = []
         querySnapshot.forEach((doc)=>
         matchingBlogs.push({id:doc.id,...doc.data()}))
-        console.log(matchingBlogs,"matchingblogs👍🏻")
+        //console.log(matchingBlogs,"matchingblogs👍🏻")
         //🥩REVERSING THE BLOG ORDER🥩
         
         //let reversedMatchingBlogs = [...matchingBlogs].reverse()
@@ -102,7 +102,7 @@ const BlogProvider = ({children}:ChildProps) => {
     }
     const getBlogsByLatest = async (more=false,filterByAuthor=false,userArg)=>{
         //👌 for on page load
-        console.log("get blog by latest",more,filterByAuthor,userArg)
+        //console.log("get blog by latest",more,filterByAuthor,userArg)
         if (mode!=="none"){
             setMode("none")
         }
@@ -113,7 +113,7 @@ const BlogProvider = ({children}:ChildProps) => {
         //console.log(user.uid,sendUserArg,"senduserArg")
         if (sendUserArg===undefined){
             let newArg = searchParams.get("id")
-            console.log(newArg,"newArg")
+            //console.log(newArg,"newArg")
             sendUserArg=newArg
             setProfileUserUid(newArg)
         }
@@ -159,7 +159,7 @@ const BlogProvider = ({children}:ChildProps) => {
         
         }
         let querySnapshot:any = await getMostViewedBlogsHere()
-        console.log(querySnapshot)
+        //console.log(querySnapshot)
         if (querySnapshot?.docs.length===0 
             || querySnapshot===undefined){
             setMostViewedBlogs(undefined)
@@ -179,17 +179,17 @@ const BlogProvider = ({children}:ChildProps) => {
     const handleSearch =async (query:string,filterArg,userArg) =>{
         if (query!==queryText){
             setQueryText(query)
-            console.log("chanded search text")
+            //console.log("chanded search text")
             setLastVisible((prev)=>{return null})
         }
          //if query unchanged, ie on fetch more
         let foundBlogs = []
         let seen = {ids:[],blogs:[]}
         let queryTerms = query.split(" ")
-        console.log(queryTerms)
+        //console.log(queryTerms)
         queryTerms.forEach(async (word)=>{
             await getBlogsBySearchTerm(word,filterArg,userArg).then((res)=>{
-                console.log(res,"matching")
+                //console.log(res,"matching")
                 foundBlogs.push(...res)
                 for (let item of res){
                     if (!seen.ids.includes(item.id)){
@@ -202,7 +202,7 @@ const BlogProvider = ({children}:ChildProps) => {
 
 
             }).then(async ()=>{
-                console.log("then2",seen.blogs)
+                //console.log("then2",seen.blogs)
                 // setBlogs(seen.blogs)
                 if (seen.blogs.length===0){
                     setBlogs((prev)=>[])
@@ -225,13 +225,13 @@ const BlogProvider = ({children}:ChildProps) => {
     useEffect(()=>{
         //to restart startAfter at the beginning if go to search by tags to searchbar 
         setLastVisible(null)
-        console.log(mode,"mode",stateTag,"tag")
+        //console.log(mode,"mode",stateTag,"tag")
         
 
     },[mode])
     const getBlogsBySearchTerm = async (term:string,filterByAuthor=false,userArg)=>{
         setMode((prev)=>"search")
-        console.log("lastVisible",LastVisible,"term",term,mode,"mode"
+        //console.log("lastVisible",LastVisible,"term",term,mode,"mode"
         ,queryText,"queryText",user?.uid)
         const blogsRef = collection(firestore,"Blogs")
         let searchTerm = term.toLowerCase()
@@ -255,7 +255,7 @@ const BlogProvider = ({children}:ChildProps) => {
         }
         
         const querySnapshot = await getDocs(q)
-        console.log(querySnapshot)
+        //console.log(querySnapshot)
         const newLastVisible = querySnapshot.docs[querySnapshot.docs.length-1]
         if (newLastVisible===undefined){
             setLastVisible(null)
@@ -265,7 +265,7 @@ const BlogProvider = ({children}:ChildProps) => {
     //    querySnapshot.forEach((doc)=>
     //    console.log(doc.id)
     //    )
-        console.log(newLastVisible,"new last visible")
+        //console.log(newLastVisible,"new last visible")
         const matchingBlogs = []
         querySnapshot.forEach((doc:any)=>
         
@@ -275,7 +275,7 @@ const BlogProvider = ({children}:ChildProps) => {
     const getBlogsByTag = async (tag:string,filterByAuthor=false,UserArg)=>{
         setStateTag(tag)
         setMode((prev)=>"tag")
-        console.log("tag",tag,mode)
+        //console.log("tag",tag,mode)
         const blogsRef = collection(firestore,"Blogs")
         let searchTerm = tag.toLowerCase()
         let q = null 

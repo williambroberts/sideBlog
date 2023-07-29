@@ -118,7 +118,7 @@ const AuthProvider = ({children}:ChildrenProp) => {
          
         
         
-        console.log("user",user.uid)
+        //console.log("user",user.uid)
         try {
           let docRef = doc(firestore,"users",user.uid)
         const snapShot = await getDoc(docRef)
