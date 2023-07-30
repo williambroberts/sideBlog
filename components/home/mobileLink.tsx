@@ -71,7 +71,7 @@ const MobileLink = ({data,rank,topViewed}:theProps) => {
         onClick={handleClick} 
         style={{objectFit:"cover",objectPosition:"center"}}
 
-        sizes='(max-size:1280px): 200px'
+        sizes='200px'
         className={
           `duration-100 bg-clip-content
           rounded-sm overflow-hidden cursor-pointer

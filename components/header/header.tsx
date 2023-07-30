@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react'
 
-import ThemeButton from '../theme/themeButton'
+
 import IconPlantFill from '../../icons/plant'
 import HeaderLink from './headerLink'
 import HeaderAuthLinkWrapper from './headerAuthLinkWrapper'
@@ -34,8 +34,8 @@ const HeaderHorizontal = () => {
     <AuthLinks fontSize='inherit'/>
           </div>
           <div className='header__h__right'>
-            <ThemeButton/>
-            {/* <ReactColorThemeButton/> */}
+           
+            <ReactColorThemeButton/>
           </div>
           
         </nav>

@@ -39,14 +39,15 @@ type ChildProps = {
 }
 const WriteContext = createContext<WriteContextValues|undefined>(undefined)
 const WriteProvider = ({children}:ChildProps) => {
+  const seed = ()=>{return Math.floor(Math.random()*300)+1}
   const initialBlogData = {
     isBlog:true,
     content:"✎ write your blog",
-    uploadedImages:["https://picsum.photos/800/400"],
+    uploadedImages:[`https://picsum.photos/id/237/800/400`],
     deletedImages:[],
     keywords:[],
     title:"Untitled document",
-    coverImage:"https://picsum.photos/400/300",
+    coverImage:`https://picsum.photos/id/${seed}/200/300`,
     views:0,
     author:"",
     authorId:"",

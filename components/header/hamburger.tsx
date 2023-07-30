@@ -30,10 +30,9 @@ const Hamburger = ({open}:theProps) => {
 <nav className='w-full box-border'>
           <Link className='header__h__logo'
           href={"/"}
-          >⚛
+          ><pre className='px-0.5'>⚛</pre>
           SideBlog
-          {/* <ReactColorThemeButton/> */}
-          <ThemeButton/>
+          <ReactColorThemeButton/>
           </Link>
           <div className='flex flex-col w-full mt-8'>
             <HeaderLink href={"/"} text='Home'

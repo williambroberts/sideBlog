@@ -41,6 +41,24 @@ const UploadedImage = ({src}:theProps) => {
       }
     },[isClicked])
 
+    useEffect(()=>{
+      let left = document.getElementById("UI__btn__left")
+      let right = document.getElementById("UI__btn__right")
+      if (left && isClicked){
+        left.style.display="none"
+      } else if (left && !isClicked){
+        left.style.display="flex"
+      }
+      if (right && isClicked){
+        right.style.display="none"
+      } else if (right && !isClicked){
+        right.style.display="flex"
+      }
+      
+      
+
+      
+    },[isClicked])
     
     const handleDelete =async ()=>{
       setDeleted((prev)=>true)
@@ -101,7 +119,7 @@ const UploadedImage = ({src}:theProps) => {
     className={`UI__image ${localBlog.coverImage===src? "cover":""}`}>
         
         <Image 
-        className={isClicked? "blur-2xl":""}
+        className={isClicked? "blur":""}
         fill
         src={src} alt='/' sizes='200px'/>
         <span 

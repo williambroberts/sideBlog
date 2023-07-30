@@ -31,7 +31,6 @@ export default function RootLayout({ children }) {
     data-id="html"
     lang="en">
       <body className={lato.className}>
-        <ProviderForTheme>
         <ReactThemeProvider>
 
         
@@ -54,7 +53,7 @@ export default function RootLayout({ children }) {
         </AuthProvider>
        
         </ReactThemeProvider>
-        </ProviderForTheme>
+        
         </body>
         
     </html>
