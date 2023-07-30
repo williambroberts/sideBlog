@@ -5,7 +5,7 @@ import '../styles/auth.css'
 import '../styles/header.css'
 import '../styles/footer.css'
 import '../styles/splitPane.css'
-import { Inter } from 'next/font/google'
+
 import { Lato } from 'next/font/google'
 import AuthProvider from '../contexts/AuthContext'
 import NotificationProvider from '../contexts/NotificationContext'
