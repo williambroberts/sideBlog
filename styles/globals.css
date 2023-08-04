@@ -469,3 +469,43 @@ a {
 }
 
 
+.Card {
+ 
+  aspect-ratio: 10/9;
+  
+  
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--bg-3);
+  background-size: cover;
+  @apply w-full flex flex-col
+  rounded-md overflow-hidden
+ 
+  ;
+}
+.Card.one{
+  transform: rotateZ(1deg);
+  background-image: url("../public/images/fancyLetters.jpeg");
+}
+.Card.two{
+  transform: rotateZ(-2deg);
+  background-image: url("../public/images/letters.jpeg");
+}
+.Card.three{
+  transform: rotateZ(2deg);
+  background-image: url("../public/images/coffee.webp");
+}
+.Card__blur {
+  overflow: hidden;
+  position: absolute;
+  inset: 0px;
+  @apply flex flex-col 
+  justify-center rounded-md
+  items-center;
+  backdrop-filter: blur(5px);
+}
+.Card > div > span {
+  
+  color: var(--t-2);
+  @apply font-bold text-lg
+}

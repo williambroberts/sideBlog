@@ -3,6 +3,10 @@ import Animator from '../../components/animator/animator'
 import H1 from '../../components/setup/h1'
 import DisplayCategory from '../write/components/display/displayCategory'
 import Link from 'next/link'
+import { Card } from '../../components/Cards/Card'
+import IconWebauthn from '../../icons/signIn'
+import IconAppwrite from '../../components/Cards/write'
+import IconReadthedocs from '../../components/Cards/read'
 
 const AboutPage = () => {
   return (
@@ -43,6 +47,31 @@ const AboutPage = () => {
                 target="_blank" href="https://github.com/williambroberts/sideBlog">here</a>.
             </p>
         </Animator>
+        <div className='
+        py-10
+        grid grid-cols-3 gap-2 w-full'>
+            <Animator index={6}>
+                <Card 
+                text='Discover'
+                icon={<IconWebauthn/>}
+                index={0}
+                />
+            </Animator>
+            <Animator index={7}>
+                <Card 
+                text='Write'
+                icon={<IconAppwrite/>}
+                index={1}
+                />
+            </Animator>
+            <Animator index={7}>
+                <Card 
+                text='Read'
+                icon={<IconReadthedocs/>}
+                index={2}
+                />
+            </Animator>
+        </div>
     </main>
   )
 }
