@@ -37,7 +37,7 @@ export default function Home() {
     </Animator>
 
     <Animator index={2}>
-    <Hero/>
+    {/* <Hero/> */}
     </Animator>
   
     <Animator index={3}
