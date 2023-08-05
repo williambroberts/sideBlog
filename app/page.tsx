@@ -1,3 +1,4 @@
+import { Hero } from "../components/Cover/Hero";
 import Animator from "../components/animator/animator";
 import FooterHorizontal from "../components/footer/footer";
 import HeaderHorizontal from "../components/header/header";
@@ -35,7 +36,11 @@ export default function Home() {
       </div>
     </Animator>
 
-    <Animator index={2}
+    <Animator index={2}>
+    <Hero/>
+    </Animator>
+  
+    <Animator index={3}
     alignItems="flex-start"
     >
       
@@ -45,16 +50,16 @@ export default function Home() {
 
 />
     </Animator >
-    <Animator index={3}
+    <Animator index={4}
     alignItems="flex-start"
     >
       <GetLatest/>
     </Animator>
-    <Animator index={4}
+    <Animator index={5}
     alignItems="flex-start">
       <BlogList/>
     </Animator>
-    <Animator index={5}
+    <Animator index={6}
     alignItems="flex-start">
       <FetchMoreBlogs/>
     </Animator>

@@ -522,3 +522,42 @@ a {
   font-semibold
   ;
 }
+
+.hero {
+  aspect-ratio: 16/10;
+  width: 100%;
+  @apply flex flex-col items-center justify-center
+  relative rounded-md
+  ;
+}
+
+.hero >img {
+  width: 80%;
+  aspect-ratio: 16/10;
+  object-fit: cover;
+  object-position: center;
+  @apply rounded-md
+}
+.hero > div{
+
+  filter: sepia(0.6);
+  position: absolute;
+  background-color: var(--bg-3);
+  border: 1px dashed var(--bg-4);
+  color: var(--t-2);
+  padding: clamp(0.5rem, -0.3889rem + 4.4444vw, 1.5rem);
+  width:min(160px,20vw);
+  
+  @apply flex flex-col rounded-md shadow
+  items-center justify-center sm:justify-start 
+}
+.hero__left {
+ top: 60%;
+ left: 0px;
+  
+}
+
+.hero__right {
+  top: 30%;
+  right: 0px;
+}
