@@ -1,12 +1,11 @@
 import React from 'react'
 import Animator from '../../components/animator/animator'
-import H1 from '../../components/setup/h1'
 import DisplayCategory from '../write/components/display/displayCategory'
 import Link from 'next/link'
 import { Card } from '../../components/Cards/Card'
 import IconWebauthn from '../../icons/signIn'
-import IconAppwrite from '../../components/Cards/write'
-import IconReadthedocs from '../../components/Cards/read'
+import IconWrite from '../../icons/write'
+import IconBasic_spread from '../../components/Cards/read'
 
 const AboutPage = () => {
   return (
@@ -62,15 +61,15 @@ const AboutPage = () => {
             </Animator>
             <Animator index={7}>
                 <Card 
-                text='Write & edit your own blogs'
-                icon={<IconAppwrite/>}
+                text='Write & edit your blogs'
+                icon={<IconWrite/>}
                 index={1}
                 />
             </Animator>
             <Animator index={7}>
                 <Card 
-                text='Search & read blog posts'
-                icon={<IconReadthedocs/>}
+                text='Search & read blogs'
+                icon={<IconBasic_spread/>}
                 index={2}
                 />
             </Animator>

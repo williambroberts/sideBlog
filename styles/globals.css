@@ -505,7 +505,7 @@ a {
   overflow: hidden;
   position: absolute;
   inset: 0px;
-  @apply flex flex-col gap-4
+  @apply flex flex-col gap-2
   justify-center rounded-md
   items-center;
   backdrop-filter: blur(5px);
