@@ -473,7 +473,7 @@ a {
  
   aspect-ratio: 10/9;
   
-  
+ 
   background-position: center;
   background-repeat: no-repeat;
   background-color: var(--bg-3);
@@ -484,28 +484,41 @@ a {
   ;
 }
 .Card.one{
-  transform: rotateZ(1deg);
-  background-image: url("../public/images/fancyLetters.jpeg");
+  transform: rotateZ(0deg);
+  /* background-image: url("../public/images/sky.jpeg"); */
 }
 .Card.two{
-  transform: rotateZ(-2deg);
-  background-image: url("../public/images/letters.jpeg");
+ 
+  
+ 
+  transform: rotateZ(0deg);
+  /* background-image: url("../public/images/fancyLetters.jpeg"); */
 }
 .Card.three{
-  transform: rotateZ(2deg);
-  background-image: url("../public/images/coffee.webp");
+  
+  transform: rotateZ(0deg);
+  /* background-image: url("../public/images/coffee.webp"); */
 }
 .Card__blur {
+  padding: clamp(0.5rem, -0.3889rem + 4.4444vw, 1.5rem);
+  border: 1px solid var(--bg-4);
   overflow: hidden;
   position: absolute;
   inset: 0px;
-  @apply flex flex-col 
+  @apply flex flex-col gap-4
   justify-center rounded-md
   items-center;
   backdrop-filter: blur(5px);
 }
-.Card > div > span {
-  
-  color: var(--t-2);
-  @apply font-bold text-lg
+
+
+.Card__button {
+  margin-top: auto;
+  min-width:90%;
+  filter: sepia(1);
+  background-color: var(--t-4);
+  white-space: nowrap;
+  @apply px-2 py-2 rounded-md
+  font-semibold
+  ;
 }

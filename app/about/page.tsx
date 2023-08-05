@@ -20,7 +20,7 @@ const AboutPage = () => {
             />
         </Animator>
         <Animator index={2}>
-            <h1>
+            <h1 className='font-bold'>
                 About
             </h1>
         </Animator>
@@ -46,27 +46,30 @@ const AboutPage = () => {
                 className='underline hover:font-bold pl-0.5'
                 target="_blank" href="https://github.com/williambroberts/sideBlog">here</a>.
             </p>
+            <h4
+            className='font-semibold text-xl'
+            >What can you do here?</h4>
         </Animator>
         <div className='
         py-10
         grid grid-cols-3 gap-2 w-full'>
             <Animator index={6}>
                 <Card 
-                text='Discover'
+                text='Create your own account'
                 icon={<IconWebauthn/>}
                 index={0}
                 />
             </Animator>
             <Animator index={7}>
                 <Card 
-                text='Write'
+                text='Write & edit your own blogs'
                 icon={<IconAppwrite/>}
                 index={1}
                 />
             </Animator>
             <Animator index={7}>
                 <Card 
-                text='Read'
+                text='Search & read blog posts'
                 icon={<IconReadthedocs/>}
                 index={2}
                 />
