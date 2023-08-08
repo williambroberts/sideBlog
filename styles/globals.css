@@ -251,7 +251,7 @@ main.page {
   color: var(--t-1);
 }
   h1 {
-    color: var(--t-1);
+    color: var(--t-2);
     font-size: var(--font-size-48);
   }
   h2 {

@@ -36,4 +36,4 @@ handleGetMostViewedBlogs()
   )
 }
 
-export default memo(MostViewedBlogs)
+export default (MostViewedBlogs)

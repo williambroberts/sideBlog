@@ -113,8 +113,7 @@ paneCollection.forEach((element:any)=>{
          </div>
 
          }
-         {/* <div>{"text"}ok</div>
-         <div>{"text"}</div> */}
+         
     </SplitPaneV1>:
   <div className='write__mobile__grid'>
     <div className='write__mobile__grid__top'

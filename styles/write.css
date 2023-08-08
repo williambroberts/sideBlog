@@ -381,8 +381,8 @@ box-border
         top:calc(var(--topbtn) + 60px);
     }
 }
-@media (pointer:coarse){
+/* @media (pointer:coarse){
     .write__mobile__grid__top{
         height:44px;
     }
-}
+} */

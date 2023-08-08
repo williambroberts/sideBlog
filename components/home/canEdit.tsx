@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 import { useAuth } from '../../contexts/AuthContext';
 import { useBlogs } from '../../contexts/BlogContext';
 import { useWrite } from '../../contexts/writeContext';
@@ -19,7 +19,8 @@ const CanEdit = ({id,blogId}:theProps) => {
     const router = useRouter()
     const pathname = usePathname()
     const {setFilterByAuth,getBlogsByLatest}=useBlogs()
-    const {setLocalBlog,getBlogById,setIsDelete,isDelete}=useWrite()
+    const {setLocalBlog,getBlogById}=useWrite()
+    const [isDelete,setIsDelete]=useState<boolean>(false)
     function getDevice(){
         return !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 }

@@ -32,7 +32,7 @@ blogId:string;
 const CRUD = ({blogId}:theProps) => {
     const {user,setUserDocData,userDocData,profileUserUid}=useAuth()
     const {hasChanged,setHasChanged,setBlogId,setImgFile,imgFile,
-    setLocalBlog,localBlog,initialBlogData,fireBLog,isDelete,setIsDelete
+    setLocalBlog,localBlog,initialBlogData,fireBLog
   ,setProgress,setFireBlog,setTemp,
   }=useWrite()
   const [isCreateBlogClicked,handleCreateBlogClicked]=useState(false)
@@ -42,7 +42,7 @@ const CRUD = ({blogId}:theProps) => {
     const {setFilterByAuth,filterByAuth,getBlogsByLatest}= useBlogs()
     const searchParams=useSearchParams()
     const router = useRouter()
-
+  const [isDelete,setIsDelete]=useState<boolean>(false)
   useEffect(()=>{
     fireBLog?.content && setTemp((prev)=>fireBLog?.content)
   },[fireBLog?.content])

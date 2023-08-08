@@ -58,6 +58,7 @@ const DesktopLink = ({rank,data,topViewed}:theProps) => {
     style={{display:topViewed?"":"none"}}
     >
      <IconPinned/> Top Viewed #{rank}
+     {/* <div className='popular__'>popular</div> */}
     </div>
     <div
     onMouseMove={handleImage} 
