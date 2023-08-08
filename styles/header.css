@@ -44,8 +44,8 @@
     color: var(--t-1);
     font-size: var(--font-size-16);
     @apply flex flex-row 
-    justify-between
-    items-center
+    justify-between text-lg
+    items-center no-underline
     gap-1;
 }
 

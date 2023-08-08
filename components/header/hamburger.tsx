@@ -27,12 +27,19 @@ const Hamburger = ({open}:theProps) => {
   return (
     <div className={`hamburger ${open? "open":""}`}>
 <nav className='w-full box-border'>
+        <div className='w-full flex items-center 
+        justify-between'>
+
+       
           <Link className='header__h__logo'
           href={"/"}
-          ><pre className='px-0.5'>⚛</pre>
-          SideBlog
-          <ReactColorThemeButton/>
+          ><pre className='px-0.5 no-underline'>⚛</pre>
+        
+          
           </Link>
+          <span>SideBlog</span>
+          <ReactColorThemeButton/>
+          </div>
           <div className='flex flex-col w-full mt-8'>
             <HeaderLink href={"/"} text='Home'
             icon={<IconHome/>}
