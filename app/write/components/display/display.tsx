@@ -22,12 +22,13 @@ import { updateBlogViews } from '../../../../firebase/CLientFunctions'
 import rehypeRaw from 'rehype-raw'
 import TagManager from '../addTags/manageTags'
 import LikeBlog from './LikeBlog'
+import { useNotifications } from '../../../../contexts/NotificationContext'
 type theProps = {
   source?:any;
 }
 const Display = ({source}:theProps) => {
  // console.log(source)
-
+  const {notification,notificationHandler}=useNotifications()
   const [darkMode,setDarkMode]=React.useState<boolean>(true)
   const [isCopied,setIsCopied]=React.useState<boolean>(false)
   const pathname = usePathname()
@@ -39,6 +40,7 @@ const Display = ({source}:theProps) => {
 
 
   const copy = (e)=>{
+    notificationHandler("alert","Copied code to clipboard ✓")
     setIsCopied((prev)=>!prev)
     e.preventDefault()
     let tag = e.target
