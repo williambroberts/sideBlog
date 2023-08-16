@@ -4,6 +4,7 @@ import { useBlogs } from '../../contexts/BlogContext'
 import Animator from '../animator/animator'
 import BlogLink from './blogLink'
 import {v4} from "uuid"
+import TopBlogLink from './TopBlogLink'
 interface theProps {
 
 }
@@ -23,15 +24,19 @@ handleGetMostViewedBlogs()
       <span
       className='flex px-3 py-4'
       >Most Viewed Blogs</span>
-        {mostViewedBlogs?.map((item,index)=><div key={v4()} 
+      <section className='grid grid-cols-1 sm:grid-cols-2 gap-4 w-full'>
+      {mostViewedBlogs?.map((item,index)=><div key={v4()} 
        className='w-full'
        >
-      <Animator alignItems='flex-start' index={index}>
-         <BlogLink data={item} topViewed={true}
-         rank={index+1}/>
+      <Animator alignItems='center' index={index}>
+         {/* <BlogLink data={item} topViewed={true}
+         rank={index+1}/> */}
+         <TopBlogLink data={item} rank={index+1}/>
       </Animator>
        
        </div>)}
+      </section>
+      
     </div>
   )
 }

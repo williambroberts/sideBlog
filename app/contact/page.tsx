@@ -67,7 +67,7 @@ const ContactPage = () => {
         <Animator index={3}
          alignItems='flex-start'
         >
-        <form className='' onSubmit={(e)=>submitForm(e)}>
+        <form className='' action="https://formsubmit.co/williambrobertsemail@gmail.com" method='POST'>
             <input type="text" required placeholder='Name' autoComplete='your name' id="frm-name" name="name"  
             onChange={(e)=>setName(e.target.value)}  value={name}/>
             <input type="email" 

@@ -244,3 +244,55 @@ div#portal {
     font-bold
     ;
 }
+
+.top__card {
+    width: min(90vw,360px);
+    border: 1px solid var(--bg-4);
+    @apply flex flex-col gap-0
+    relative overflow-hidden sm:w-full
+    rounded-md shadow-sm
+}
+.skeleton {
+    @apply w-full h-44 relative overflow-hidden
+}
+
+.top__card__title {
+    transition: var(--transition-1);
+    padding:0px 16px;
+    text-overflow: ellipsis;
+    color: var(--t-1);
+    white-space: nowrap;
+    @apply w-full no-underline 
+    overflow-hidden cursor-pointer
+    text-base font-semibold mt-4
+
+}
+.top__card__title:hover {
+    @apply underline
+}
+.top__card__author {
+    transition: var(--transition-1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--t-1);
+    @apply text-sm font-medium cursor-pointer
+}
+.top__card__date {
+    transition: var(--transition-1);
+    white-space: nowrap;
+    color: var(--t-3);
+    text-overflow: ellipsis;
+    width: min-content;
+    @apply overflow-hidden text-sm
+}
+.top__card__author:hover {
+    @apply underline
+}
+
+.top__card__rank {
+    color: var(--t-3);
+    @apply text-sm font-medium
+    items-center gap-1 mt-1
+    px-4 flex-nowrap flex
+}
