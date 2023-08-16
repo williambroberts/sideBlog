@@ -16,10 +16,13 @@ const HeaderHorizontal = () => {
   return (
     <header className='header__h'>
         <nav className='desktop'>
-          <Link className={`header__h__logo no-underline`}
+          <Link
+          aria-label='home'
+          className={`header__h__logo no-underline`}
           href={"/"}
           ><span className='font-medium
           text-xl
+          
           '>⚛</span></Link>
           <div className='header__h__middle'>
             <HeaderLink href={"/"} text='Home'/>
@@ -40,7 +43,9 @@ const HeaderHorizontal = () => {
           
         </nav>
     <nav className='mobile'>
-      <button className='cursor-pointer
+      <button 
+      aria-label='nav menu'
+      className='cursor-pointer
       rounded-sm bg-[var(--bg-1)] 
       p-2 text-base font-medium'
       onClick={()=>setHamburger(true)}
