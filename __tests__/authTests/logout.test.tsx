@@ -1,27 +1,65 @@
-import { screen } from "@testing-library/react"
+import { screen,render } from "@testing-library/react"
 import LogoutButton from "../../components/auth/logoutButton"
-import {render} from "../../app/test-utils"
-import mockRouter from 'next-router-mock';
-import { useRouter } from 'next/router';
+import {customRender} from "../../app/test-utils"
+
 import { act } from "react-dom/test-utils";
+import user from "@testing-library/user-event"
+import ReactThemeProvider from "../../contexts/themeContext";
+import AuthProvider from "../../contexts/AuthContext";
+import BlogProvider from "../../contexts/BlogContext";
+import WriteProvider from "../../contexts/writeContext";
+import NotificationProvider from "../../contexts/NotificationContext";
+import ContextConsumer from "../../components/ContextComsumer";
+const {callFunctions} = require('../../components/auth/logoutButton')
 
-//jest.mock('next/router', () => jest.requireActual('next-router-mock'))
-jest.mock('next/router', () => ({
-    useRouter: jest.fn()
-  }))
+export function renderAll(child){
+    let component = null
+    act(()=>{
+        component = render(
+            <ReactThemeProvider>
+                <AuthProvider>
+                <BlogProvider>
+                
+                  <WriteProvider>
+                  <NotificationProvider>
+                    <ContextConsumer>
+                      
+                       {child}
+                       <div id="portal"></div>
+                   
+                    </ContextConsumer>
+                 
+                 
+                  </NotificationProvider>
+                  </WriteProvider>
+                
+                </BlogProvider>
+                </AuthProvider>
+               
+                </ReactThemeProvider>
+          )
+    })
+    return component
+}
 
-  const pushMock = jest.fn()
- 
 describe('logoutButton',()=>{
     describe('rendering',()=>{
         it('should say sign out',async()=>{
-            let component = null
-            await act(()=>{
-                component = render(<LogoutButton/>)
-            })
-          
-             expect(component.findByRole('button')).toBeInTheDocument()
+            const app = renderAll(<LogoutButton/>)
+            const button = screen.getByRole('button')
+            expect(button).toBeInTheDocument()
         })
+
         
+    })
+    describe('behaviour',()=>{
+        it('button should run the handleClick logout function once per click',async()=>{
+            user.setup()
+            const spy = jest.spyOn(callFunctions,'run').mockImplementation(jest.fn())
+            const app = renderAll(<LogoutButton/>)
+            const button = screen.getByRole('button')
+            await user.click(button)
+            expect(spy).toHaveBeenCalled()
+        })
     })
 })

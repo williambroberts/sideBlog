@@ -2,20 +2,25 @@
 import React from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 import IconLogout from '../../icons/signOut'
-import { useRouter } from 'next/navigation'
-import { useNotifications } from '../../contexts/NotificationContext'
 
+import { useNotifications } from '../../contexts/NotificationContext'
+export const callFunctions = {
+  run:()=>{}
+}
 const LogoutButton = () => {
     const {signOut,user}=useAuth()
     const {setNotification,setOpenNotification}=useNotifications()
-    const router = useRouter()
+    
     const handleClick =async ()=>{
+      callFunctions.run()
       setNotification(({type:"alert",message:"Signed Out"}))
       const {result,error}=await signOut()
-      router.push("/")
+      window.location.assign("/")
     }
   return (
-    <button onClick={handleClick}
+    <button 
+    aria-label='logout'
+    onClick={handleClick}
     className='logout__button'
     >
       <IconLogout/>

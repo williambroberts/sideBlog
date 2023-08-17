@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react'
 
-
+import logo from "../../public/images/mstile-150x150.png"
 import IconPlantFill from '../../icons/plant'
 import HeaderLink from './headerLink'
 import HeaderAuthLinkWrapper from './headerAuthLinkWrapper'
@@ -23,7 +23,11 @@ const HeaderHorizontal = () => {
           ><span className='font-medium
           text-xl
           
-          '>⚛</span></Link>
+          '>
+            <img 
+            
+            src="../../public/images/mstile-150x150.png" alt="/" className='logo__img'/>
+            </span></Link>
           <div className='header__h__middle'>
             <HeaderLink href={"/"} text='Home'/>
             <HeaderLink href={"/about"} text='About'/>

@@ -33,7 +33,7 @@ const Hamburger = ({open}:theProps) => {
        
           <Link className='header__h__logo'
           href={"/"}
-          ><pre className='px-0.5 no-underline  '>⚛</pre>
+          ><pre className='px-0.5 no-underline '></pre>
         
           
           </Link>
