@@ -16,40 +16,7 @@ const ContactPage = () => {
     const [message,setMessage]=useState("")
    const nameRef = useRef("")
 
-    const submitForm =async (e)=> {
-        e.preventDefault()
-        setClicked((prev)=>!prev)
-        setIsSubmitting(true)
-        console.log('Sending')
-        let mail = {
-            name,email,message
-        }
-        const JSONdata = JSON.stringify(mail)
-        const endpoint = '/api/email'
-        const options = {
-          method: "POST",
-          headers: {
-            'Content-Type':'application/json'
-          },
-          body:JSONdata
-        }
-        const res = await fetch(endpoint,options)
-
-        if (!res.ok) {
-       
-          throw new Error('Failed to fetch data');
-        }
-        
-        const data = await res.json();
-        console.log("return",data)
-         setTimeout(()=>{
-            return setClicked((prev)=>{return !prev})
-            },1000)
-            setEmail("")
-            setName("")
-            setMessage("")
-
-      }
+ 
   return (
     <main className='page'>
         <Animator index={1}
