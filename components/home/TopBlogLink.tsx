@@ -57,9 +57,9 @@ const TopBlogLink = ({data,topViewed,rank}:theProps) => {
             className='top__card__title
             '
             href={`/blog?blogId=${data?.id}`}>{data?.title}</Link>
-           <div className='top__card__rank'> <IconPinned/> Top Viewed #{rank}{rank}</div>
+           <div className='top__card__rank'> <IconPinned/> Top Viewed #{rank}</div>
      
-       <div><CanEdit id={data?.authorId} blogId={data?.id}/> </div> 
+       <div className='px-4'><CanEdit id={data?.authorId} blogId={data?.id}/> </div> 
        <div className='grid grid-cols-2 w-full py-4 px-4'>
         <span 
         onClick={handleProfile}
