@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react'
 
-import logo from "../../public/images/mstile-150x150.png"
+import logo from "../../public/images/android-chrome-384x384.png"
 import IconPlantFill from '../../icons/plant'
 import HeaderLink from './headerLink'
 import HeaderAuthLinkWrapper from './headerAuthLinkWrapper'
@@ -11,8 +11,11 @@ import ProfileLink from './profileLink'
 import IconMenuLeft from '../../icons/menu'
 import Hamburger from './hamburger'
 import ReactColorThemeButton from '../ReactColorTheme/ReactColorThemeButton'
+import Image from 'next/image'
+import { useReactTheme } from '../../contexts/themeContext'
 const HeaderHorizontal = () => {
   const [hamburger,setHamburger]=useState<boolean>(false)
+  const {theme}=useReactTheme()
   return (
     <header className='header__h'>
         <nav className='desktop'>
@@ -24,9 +27,9 @@ const HeaderHorizontal = () => {
           text-xl
           
           '>
-            <img 
-            
-            src="../../public/images/mstile-150x150.png" alt="/" className='logo__img'/>
+            <Image 
+            width={24} height={24}
+            src={logo} alt="/" className={`logo__img ${theme==="dark"?"dark":""}`}/>
             </span></Link>
           <div className='header__h__middle'>
             <HeaderLink href={"/"} text='Home'/>

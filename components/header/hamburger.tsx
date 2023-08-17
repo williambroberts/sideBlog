@@ -1,6 +1,6 @@
 
 import React, { useEffect } from 'react'
-import IconPlantFill from '../../icons/plant'
+
 import HeaderLink from './headerLink'
 import HeaderAuthLinkWrapper from './headerAuthLinkWrapper'
 import ProfileLink from './profileLink'
@@ -10,12 +10,15 @@ import IconHome from '../../icons/home'
 import IconInfoSquare from '../../icons/about'
 import IconMailForward from '../../icons/contact'
 import IconWrite from '../../icons/write'
+import logo from "../../public/images/android-chrome-384x384.png"
 import ReactColorThemeButton from '../ReactColorTheme/ReactColorThemeButton'
+import Image from 'next/image'
+import { useReactTheme } from '../../contexts/themeContext'
 type theProps = {
     open:boolean;
 }
 const Hamburger = ({open}:theProps) => {
-
+    const {theme}=useReactTheme()
     useEffect(()=>{
         let htmlTag = document.querySelector("html")
         if (open){
@@ -33,7 +36,10 @@ const Hamburger = ({open}:theProps) => {
        
           <Link className='header__h__logo'
           href={"/"}
-          ><pre className='px-0.5 no-underline '></pre>
+          ><pre className='px-0.5 no-underline '>
+            <Image className={`logo__img ${theme==="dark"?"dark":""}`}
+          width={24} height={24} src={logo} alt='/'
+          /></pre>
         
           
           </Link>
