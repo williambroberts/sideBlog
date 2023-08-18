@@ -3,11 +3,14 @@ import React from 'react'
 import { useReactTheme } from '../../contexts/themeContext'
 import IconSun from '../theme/sun'
 import IconMoon from '../theme/moon'
-
+export const testerWrapper = {
+    run:()=>{}
+}
 const ReactColorThemeButton = () => {
     const {updateTheme,theme}=useReactTheme()
 
     const themeChange = ()=>{
+        testerWrapper.run()
         if (theme==="light"){
             updateTheme("dark")
         }else {
