@@ -5,3 +5,9 @@ footer {
     padding:0rem  clamp(0.25rem, -1.7rem + 4.8vw, 1rem);
 
 }
+
+
+.footer__mid{
+    @apply flex items-center justify-center
+    w-9 h-9 
+}
